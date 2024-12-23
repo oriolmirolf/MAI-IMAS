@@ -1,0 +1,7 @@
+crewai[tools]
+ollama
+duckduckgo-search
+transformers
+torch
+poetry
+osmnx
