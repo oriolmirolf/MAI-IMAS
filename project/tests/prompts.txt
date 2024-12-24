@@ -1,0 +1,3 @@
+test1: Please provide a phone conversation of an old lady with the emergency services who is calling because his house is on fire because of a short circuit. Her husband is badly injured but there are no other injured people. Her house is at Laietana street 42
+
+test2: Now generate the call of a hiker to the emergency services who has seen an enormous wild fire in Collserola national park. There are no injured people now but the fire is approaching several houses.

@@ -1,9 +1,26 @@
 from crewai import Agent, Crew, Process, Task
 from crewai.project import CrewBase, agent, crew, task
+from crewai_tools import FileReadTool
+from pydantic import BaseModel, Field
+from typing import List
 
-# If you want to run a snippet of code before or after the crew starts, 
-# you can use the @before_kickoff and @after_kickoff decorators
-# https://docs.crewai.com/concepts/crews#example-crew-class-with-decorators
+
+
+class DistilledEmergencyCallSchema(BaseModel):
+	"""Output for the distill task."""
+	fire_severity: str = Field(..., description='Severity of the fire (light, moderate, severe, extreme).')
+	fire_type: str = Field(..., description='Type of fire (ordinary, electrical, gas, chemical or other types).')
+	fire_location: str = Field(..., description='Location of the emergency.')
+	number_injured_people: int = Field(..., description='How many people are injured.')
+	injury_level: List[str] = Field(..., description="How severe are each person's injuries.")
+
+	@classmethod
+	def get_schema(cls) -> str:
+		schema = '\n'
+		for field_name, field_instance in cls.model_fields.items():
+			schema += f'{field_name}, described as: {field_instance.description}\n'
+		return schema
+	
 
 @CrewBase
 class Emergency():
@@ -12,56 +29,32 @@ class Emergency():
 	agents_config = 'config/agents.yaml'
 	tasks_config = 'config/tasks.yaml'
 
+	def __init__(self, emergency_file):
+		self._emergency_file = emergency_file
+
 	# If you would like to add tools to your agents, you can learn more about it here:
 	# https://docs.crewai.com/concepts/agents#agent-tools
 	@agent
-	def content_planner(self) -> Agent:
+	def distiller_agent(self) -> Agent:
+		file_read_tool = FileReadTool(self._emergency_file)
 		return Agent(
-			config=self.agents_config['content_planner'],
+			config=self.agents_config['distiller_agent'],
 			verbose=True,
 			allow_delegation=False,
-			llm='ollama/llama3.1'
-		)
-
-	@agent
-	def content_writter(self) -> Agent:
-		return Agent(
-			config=self.agents_config['content_writter'],
-			verbose=True,
-			allow_delegation=False,
-			llm='ollama/llama3.1'
-		)
-	
-	@agent
-	def content_editor(self) -> Agent:
-		return Agent(
-			config=self.agents_config['content_editor'],
-			verbose=True,
-			allow_delegation=False,
-			llm='ollama/llama3.1'
+			llm='ollama/llama3.1',
+			tools=[file_read_tool],
 		)
 
 	# To learn more about structured task outputs, 
 	# task dependencies, and task callbacks, check out the documentation:
 	# https://docs.crewai.com/concepts/tasks#overview-of-a-task
 	@task
-	def planning_task(self) -> Task:
+	def distill_task(self) -> Task:
 		return Task(
-			config=self.tasks_config['planning_task'],
+			config=self.tasks_config['distill_task'],
+			output_pydantic=DistilledEmergencyCallSchema
 		)
 	
-	@task
-	def writing_task(self) -> Task:
-		return Task(
-			config=self.tasks_config['writing_task'],
-		)
-
-	@task
-	def editing_task(self) -> Task:
-		return Task(
-			config=self.tasks_config['editing_task'],
-			output_file='report.md'
-		)
 
 	@crew
 	def crew(self) -> Crew:

@@ -11,25 +11,21 @@ warnings.filterwarnings("ignore", category=SyntaxWarning, module="pysbd")
 # Replace with inputs you want to test with, it will automatically
 # interpolate any tasks and agents information
 
-topic = "The great emu war of 1932"
+emergency_file = "./tests/test1.txt"
+inputs = {
+}
 
 def run():
     """
     Run the crew.
     """
-    inputs = {
-        'topic': topic
-    }
-    Emergency().crew().kickoff(inputs=inputs)
+    Emergency(emergency_file).crew().kickoff(inputs=inputs)
 
 
 def train():
     """
     Train the crew for a given number of iterations.
     """
-    inputs = {
-        "topic": topic
-    }
     try:
         Emergency().crew().train(n_iterations=int(sys.argv[1]), filename=sys.argv[2], inputs=inputs)
 
