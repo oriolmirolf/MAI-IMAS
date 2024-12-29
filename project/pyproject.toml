@@ -1,19 +1,16 @@
 [project]
-name = "emergency"
+name = "project"
 version = "0.1.0"
-description = "emergency using crewAI"
+description = "project using crewAI"
 authors = [{ name = "Your Name", email = "you@example.com" }]
 requires-python = ">=3.10,<=3.13"
 dependencies = [
-    "crewai[tools]>=0.86.0,<1.0.0"
+    "crewai[tools]>=0.86.0,<1.0.0",
 ]
 
 [project.scripts]
-emergency = "emergency.main:run"
-run_crew = "emergency.main:run"
-train = "emergency.main:train"
-replay = "emergency.main:replay"
-test = "emergency.main:test"
+kickoff = "project.main:kickoff"
+plot = "project.main:plot"
 
 [build-system]
 requires = ["hatchling"]

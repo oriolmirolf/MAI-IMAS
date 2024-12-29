@@ -38,7 +38,7 @@ class DividedInformationSchema(BaseModel):
 
 
 @CrewBase
-class Emergency():
+class EmergencyCrew():
 	"""Emergency crew"""
 
 	agents_config = 'config/agents.yaml'
