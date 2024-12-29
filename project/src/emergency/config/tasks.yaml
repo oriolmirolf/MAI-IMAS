@@ -10,3 +10,15 @@ distill_task:
     A concise yet accurate list of bullet-points with the requested information 
     following schema: {DistilledEmergencyCallSchema.get_schema()}
   agent: distiller_agent
+
+divide_task:
+  description: >
+    You are going to receive information that describes an emergency situation, and 
+    your task is to divide such information into two, one should contain relevant 
+    information for the fire department and the other relevant information for the 
+    medical department.
+  expected_output: >
+    The input information split in two: on the one hand information for the fire 
+    department and on the other information for the medical department. 
+    Follow the schema {DividedInformationSchema.get_schema()}.
+  agent: divider_agent

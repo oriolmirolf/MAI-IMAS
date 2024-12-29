@@ -10,9 +10,10 @@ class DistilledEmergencyCallSchema(BaseModel):
 	"""Output for the distill task."""
 	fire_severity: str = Field(..., description='Severity of the fire (light, moderate, severe, extreme).')
 	fire_type: str = Field(..., description='Type of fire (ordinary, electrical, gas, chemical or other types).')
-	fire_location: str = Field(..., description='Location of the emergency.')
+	emergency_location: str = Field(..., description='Location of the emergency.')
 	number_injured_people: int = Field(..., description='How many people are injured.')
 	injury_level: List[str] = Field(..., description="How severe are each person's injuries.")
+	extra_information: List[str] = Field(..., description="Extra information not included previously.")
 
 	@classmethod
 	def get_schema(cls) -> str:
@@ -20,7 +21,21 @@ class DistilledEmergencyCallSchema(BaseModel):
 		for field_name, field_instance in cls.model_fields.items():
 			schema += f'{field_name}, described as: {field_instance.description}\n'
 		return schema
-	
+
+
+class DividedInformationSchema(BaseModel):
+	"""Output for the divide task."""
+	emergency_location: str = Field(..., description='Location of the emergency.')
+	information_for_medical: List[str] = Field(..., description="Information that the medical department needs.")
+	information_for_fire: List[str] = Field(..., description="Information that the fire department needs.")
+
+	@classmethod
+	def get_schema(cls) -> str:
+		schema = '\n'
+		for field_name, field_instance in cls.model_fields.items():
+			schema += f'{field_name}, described as: {field_instance.description}\n'
+		return schema
+
 
 @CrewBase
 class Emergency():
@@ -44,6 +59,15 @@ class Emergency():
 			llm='ollama/llama3.1',
 			tools=[file_read_tool],
 		)
+	
+	@agent
+	def divider_agent(self) -> Agent:
+		return Agent(
+			config=self.agents_config['divider_agent'],
+			verbose=True,
+			allow_delegation=False,
+			llm='ollama/llama3.1',
+		)
 
 	# To learn more about structured task outputs, 
 	# task dependencies, and task callbacks, check out the documentation:
@@ -53,6 +77,13 @@ class Emergency():
 		return Task(
 			config=self.tasks_config['distill_task'],
 			output_pydantic=DistilledEmergencyCallSchema
+		)
+	
+	@task
+	def divide_task(self) -> Task:
+		return Task(
+			config=self.tasks_config['divide_task'],
+			output_pydantic=DividedInformationSchema
 		)
 	
 
