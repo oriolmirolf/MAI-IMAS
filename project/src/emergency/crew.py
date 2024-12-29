@@ -58,6 +58,7 @@ class Emergency():
 			allow_delegation=False,
 			llm='ollama/llama3.1',
 			tools=[file_read_tool],
+			max_iter=1,
 		)
 	
 	@agent
@@ -67,6 +68,7 @@ class Emergency():
 			verbose=True,
 			allow_delegation=False,
 			llm='ollama/llama3.1',
+			max_iter=1,
 		)
 
 	# To learn more about structured task outputs, 

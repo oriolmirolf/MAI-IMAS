@@ -20,5 +20,6 @@ divide_task:
   expected_output: >
     The input information split in two: on the one hand information for the fire 
     department and on the other information for the medical department. 
-    Follow the schema {DividedInformationSchema.get_schema()}.
+    Follow the schema {DividedInformationSchema.get_schema()} and make sure to put 
+    the field name and value in a single string.
   agent: divider_agent
