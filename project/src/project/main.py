@@ -31,7 +31,7 @@ class ProjectFlow(Flow[ProjectState]):
     
     @router(emergency_crew)
     def router_medical_needed(self):
-        print(f"Medical services needed: {json.loads(self.state.divided_info)["medical_services_needed"]}")
+        #print(f"Medical services needed: {json.loads(self.state.divided_info)["medical_services_needed"]}")
         if bool(json.loads(self.state.divided_info)["medical_services_needed"]):
             return "medical-needed"
         else:
