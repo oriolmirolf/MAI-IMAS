@@ -3,3 +3,5 @@ test1: Please provide a phone conversation of an old lady with the emergency ser
 test2: Now generate the call of a hiker to the emergency services who has seen an enormous wild fire in Collserola national park. There are no injured people now but the fire is approaching several houses.
 
 test3: Please provide a phone conversation of a man who calls the emergency services because there is a trash container in flames in his street, Raval street. There is no injured people nor property at danger.
+
+test4: Please provide a telephone conversation between a chemist and the emergency services. The reason for the call is a small fire in the laboratory. One person has a hand injury and other has inhaled the toxic fumes. The laboratory is in Progreso street 28.

@@ -1,0 +1,31 @@
+Emergency Services (ES): Emergency services, what is your emergency?
+
+Chemist (C): Hello, this is Dr. Miller from the Chemistry Lab at Progreso Street 28. We have a small fire in our laboratory. One person has a hand injury, and another has inhaled toxic fumes.
+
+ES: Understood, Dr. Miller. Are you and the injured parties in a safe location?
+
+C: Yes, we’ve evacuated the lab, and the injured are outside with me.
+
+ES: Good. Can you tell me the extent of the injuries?
+
+C: The hand injury is from a chemical burn, and the person inhaling fumes is coughing heavily and seems lightheaded.
+
+ES: Noted. Is the fire still active, and are there any flammable or dangerous chemicals nearby?
+
+C: Yes, the fire is still burning, but it's small. There are solvents in the lab that could escalate the fire if it spreads.
+
+ES: Thank you, Dr. Miller. Stay clear of the lab. Firefighters and paramedics are being dispatched to Progreso Street 28 right now.
+
+C: Should I do anything for the injured in the meantime?
+
+ES: For the hand injury, rinse it gently with cool water if it's safe to do so. Keep the injured hand elevated. For the individual exposed to fumes, ensure they are breathing fresh air and try to keep them calm. Avoid giving them food or drink in case their condition worsens.
+
+C: Understood. How soon will help arrive?
+
+ES: Our team is en route and should be there in about five minutes. Stay with the injured and away from any potential hazards. Is there anything else you’d like to add?
+
+C: No, that’s everything. Thank you.
+
+ES: Help is on the way, Dr. Miller. Please stay on the line if the situation changes.
+
+C: Will do. Thank you.
