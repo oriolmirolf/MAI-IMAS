@@ -10,7 +10,7 @@ from .crews.emergency_crew.emergency_crew import EmergencyCrew
 
 
 class ProjectState(BaseModel):
-    emergency_file: str = "./tests/test3.txt"
+    emergency_file: str = "./tests/test1.txt"
     divided_info: str = ""
     medical_planning: str = ""
     firefighter_planning: str = ""
@@ -31,6 +31,7 @@ class ProjectFlow(Flow[ProjectState]):
     
     @router(emergency_crew)
     def router_medical_needed(self):
+        print(f"Medical services needed: {json.loads(self.state.divided_info)["medical_services_needed"]}")
         if bool(json.loads(self.state.divided_info)["medical_services_needed"]):
             return "medical-needed"
         else:
