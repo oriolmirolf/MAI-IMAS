@@ -1,0 +1,25 @@
+Operator: Emergency Services, how may I assist you?
+
+Caller: Hi, uh, yes, I need to report a fire. There’s a trash container on fire in my street.
+
+Operator: Alright, can you tell me your location, please?
+
+Caller: Yes, it’s on Raval Street, near number 34.
+
+Operator: Got it. Is anyone injured or in immediate danger?
+
+Caller: No, no one is hurt. It’s just the container. There’s no property nearby that’s at risk either.
+
+Operator: Understood. Can you describe the fire? Is it large, or is it manageable at this point?
+
+Caller: It’s not huge, but it’s burning pretty steadily. There’s a lot of smoke, and it seems to be spreading through the trash inside the container.
+
+Operator: Alright, thank you for the information. Stay at a safe distance and avoid inhaling the smoke. We’ll dispatch the fire department to handle it.
+
+Caller: Okay, thank you.
+
+Operator: You’re welcome. If anything changes, please call us back.
+
+Caller: Will do. Thanks again.
+
+Operator: Take care.

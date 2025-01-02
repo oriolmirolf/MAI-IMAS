@@ -26,6 +26,7 @@ class DistilledEmergencyCallSchema(BaseModel):
 class DividedInformationSchema(BaseModel):
 	"""Output for the divide task."""
 	emergency_location: str = Field(..., description='Location of the emergency.')
+	medical_services_needed: bool = Field(..., description="Medical emergency services are needed to treat injured people.")
 	information_for_medical: List[str] = Field(..., description="Information that the medical department needs.")
 	information_for_fire: List[str] = Field(..., description="Information that the fire department needs.")
 
