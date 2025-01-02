@@ -1,55 +1,86 @@
-divide_task:
+medical_divide_task:
   description: >
-    asdsaddsa
+    You will receive information describing a medical-related emergency. 
+    Your goal is to split the data into two branches: one for the ambulance-focused 
+    details (e.g., how many victims, needed emergency transport, etc.) and another 
+    for hospital-focused details (e.g., patient capacity, facility availability). 
+    Organize the information so each branch has only what it needs to proceed.
   expected_output: >
-    asdasddsa
+    Two sets of data: 
+      1) The subset of emergency information relevant to the ambulance branch, 
+      2) The subset relevant to the hospital branch. 
+    Make sure to keep each subset self-contained and clearly labeled for its destination.
   agent: medical_divider_agent
 
 ambulance_select_task:
   description: >
-    asdadasdsa
+    Analyze the emergency details and decide how many ambulances are required, 
+    taking into account their availability, proximity, and capacity to handle the 
+    current situation. Provide identifiers or references for the chosen ambulances.
   expected_output: >
-    asdasad
+    A concise list of ambulance identifications along with any supporting details 
+    (e.g., capacity, ETA) that justify why these ambulances have been selected.
   agent: ambulance_selector_agent
 
 ambulance_navigate_task:
   description: >
-    asdadasdsa
+    Determine the optimal routes for each selected ambulance to travel from their 
+    current location(s) to the emergency site. Base your route planning on minimal 
+    travel time, distance, or any other relevant constraints.
   expected_output: >
-    asdasad
+    A mapping of each ambulance identification to a route plan, indicating 
+    the path or key checkpoints. Include any notable travel constraints 
+    (e.g., closed roads, traffic conditions).
   agent: ambulance_navigator_agent
 
 ambulance_plan_task:
   description: >
-    asdadasdsa
+    Combine the outputs from the Ambulance Selector and Ambulance Navigator. 
+    Produce a unified ambulance plan that specifies which ambulances are assigned 
+    and the route each will follow. This plan is then passed along to the next stage.
   expected_output: >
-    asdasad
+    A single, consolidated plan detailing each selected ambulance, its route, 
+    and any additional notes or requirements needed by the ambulance teams.
   agent: ambulance_planner_agent
 
 hospital_select_task:
   description: >
-    asdadasdsa
+    Evaluate hospital options and select the most appropriate facilities for 
+    treating the victims, considering factors such as capacity, specialties, 
+    and distance from the emergency site.
   expected_output: >
-    asdasad
+    A list of chosen hospital(s) and a brief rationale for each selection, 
+    including current capacity or other critical constraints.
   agent: hospital_selector_agent
 
 hospital_navigate_task:
   description: >
-    asdadasdsa
+    Plan the route from the emergency location to the selected hospital(s), 
+    aiming for minimal travel time and safe transport of the injured. If 
+    multiple hospitals are chosen, provide separate route plans for each.
   expected_output: >
-    asdasad
+    A set of route plans—one per hospital assignment—specifying the chosen 
+    path or key checkpoints for each ambulance-hospital pairing.
   agent: hospital_navigator_agent
 
 hospital_plan_task:
   description: >
-    asdadasdsa
+    Synthesize the outputs from the Hospital Selector and Hospital Navigator 
+    into a comprehensive hospital plan. Include which hospitals are chosen, 
+    and how each ambulance will reach them.
   expected_output: >
-    asdasad
+    A consolidated view of hospital usage, highlighting each hospital, 
+    assigned patients/ambulances, and the routes to be followed.
   agent: hospital_planner_agent
 
-plan_task:
+medical_plan_task:
   description: >
-    asdadasdsa
+    Produce the final medical plan by aggregating the outputs from both 
+    the Ambulance branch (Selector, Navigator, Planner) and the Hospital 
+    branch (Selector, Navigator, Planner). Ensure a coherent, end-to-end 
+    proposal from dispatch to final patient handoff. 
   expected_output: >
-    asdasad
+    A single unified plan for the Medical Services Crew that includes ambulance 
+    assignments, hospital assignments, and any relevant route or timing 
+    information. Follow the schema {MedicalPlannerSchema.get_schema()}.
   agent: medical_planner_agent
