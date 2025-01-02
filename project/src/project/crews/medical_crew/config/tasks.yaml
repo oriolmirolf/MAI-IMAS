@@ -1,0 +1,55 @@
+divide_task:
+  description: >
+    asdsaddsa
+  expected_output: >
+    asdasddsa
+  agent: medical_divider_agent
+
+ambulance_select_task:
+  description: >
+    asdadasdsa
+  expected_output: >
+    asdasad
+  agent: ambulance_selector_agent
+
+ambulance_navigate_task:
+  description: >
+    asdadasdsa
+  expected_output: >
+    asdasad
+  agent: ambulance_navigator_agent
+
+ambulance_plan_task:
+  description: >
+    asdadasdsa
+  expected_output: >
+    asdasad
+  agent: ambulance_planner_agent
+
+hospital_select_task:
+  description: >
+    asdadasdsa
+  expected_output: >
+    asdasad
+  agent: hospital_selector_agent
+
+hospital_navigate_task:
+  description: >
+    asdadasdsa
+  expected_output: >
+    asdasad
+  agent: hospital_navigator_agent
+
+hospital_plan_task:
+  description: >
+    asdadasdsa
+  expected_output: >
+    asdasad
+  agent: hospital_planner_agent
+
+plan_task:
+  description: >
+    asdadasdsa
+  expected_output: >
+    asdasad
+  agent: medical_planner_agent

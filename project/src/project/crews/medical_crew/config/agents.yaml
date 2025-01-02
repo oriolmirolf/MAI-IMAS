@@ -1,0 +1,63 @@
+medical_divider_agent:
+  role: >
+    Medical Divider
+  goal: >
+    blabla
+  backstory: >
+    blabla
+
+ambulance_selector_agent:
+  role: >
+    Ambulance Selector
+  goal: >
+    blabla
+  backstory: >
+    blabla
+
+ambulance_navigator_agent:
+  role: >
+    Ambulance Navigator
+  goal: >
+    blabla
+  backstory: >
+    blabla
+
+ambulance_planner_agent:
+  role: >
+    Ambulance Planner
+  goal: >
+    blabla
+  backstory: >
+    blabla
+
+hospital_selector_agent:
+  role: >
+    Hospital Selector
+  goal: >
+    blabla
+  backstory: >
+    blabla
+
+hospital_navigator_agent:
+  role: >
+    Hospital Navigator
+  goal: >
+    blabla
+  backstory: >
+    blabla
+
+hospital_planner_agent:
+  role: >
+    Hospital Planner
+  goal: >
+    blabla
+  backstory: >
+    blabla
+
+medical_planner_agent:
+  role: >
+    Medical Planner
+  goal: >
+    blabla
+  backstory: >
+    blabla
