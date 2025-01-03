@@ -9,9 +9,10 @@ from typing import List
 class FirefighterPlannerSchema(BaseModel):
 	"""Output for the firefighter plan task"""
 	# TODO: Identification or type of vehicle. More than one vehicle of the same type?
-	personnel: List[(str, str)] = Field(..., description='Pairs of personnel identifications with its vehicle identification assigned.')
-	vehicles_emplyed: List[(str, str)] = Field(..., description='Type of vehicles employed, along with its identification')
-	material: List[(str, int)] = Field(..., description='List of materials that must be carried to assess the fire, along with its quanitity.')
+	personnel: List[(str, int)] = Field(..., description='Pairs of personnel types and its number of units')
+	#personnel: List[(str, str)] = Field(..., description='Pairs of personnel identifications with its vehicle identification assigned.')
+	vehciles: List[(str, int)] = Field(..., description='Pairs of vehicle types and its quantity')
+	material: List[(str, int)] = Field(..., description='Pairs of equipment that must be carried to assess the fire, along with its quanitity.')
 	route_to_fire: List[(float, float)] = Field(..., description='List with X and Y coordinates that form the route from the firefighter station to the fire incident location.')
 	response_time: float = Field(..., description='Time taken to go from the firefighter station to the fire incident location.')
 
@@ -46,15 +47,26 @@ class FirefighterCrew():
 			max_iter=1,
 		)
 	
-	# @agent
-	# def fire_expert_agent(self) -> Agent:
-	# 	return Agent(
-	# 		config=self.agents_config['fire_expert_agent'],
-	# 		verbose=True,
-	# 		allow_delegation=False,
-	# 		llm='ollama/llama3.1',
-	# 		max_iter=1,
-	# 	)
+	@agent
+	def fire_expert_agent(self) -> Agent:
+		return Agent(
+			config=self.agents_config['fire_expert_agent'],
+			verbose=True,
+			allow_delegation=False,
+			llm='ollama/llama3.1',
+			max_iter=1,
+		)
+	
+	@agent
+	def firefighter_planner_agent(self) -> Agent:
+		return Agent(
+			config=self.agents_config['firefighter_planner_agent'],
+			verbose=True,
+			allow_delegation=False,
+			llm='ollama/llama3.1',
+			max_iter=1,
+		)
+
 
 	# To learn more about structured task outputs, 
 	# task dependencies, and task callbacks, check out the documentation:
@@ -65,12 +77,18 @@ class FirefighterCrew():
 			config=self.tasks_config['firefighter_divider_task'],
 		)
 	
-	# @task
-	# def divide_task(self) -> Task:
-	# 	return Task(
-	# 		config=self.tasks_config['divide_task'],
-	# 		output_pydantic=DividedInformationSchema
-	# 	)
+	@task
+	def fire_expert_task(self) -> Task:
+		return Task(
+			config=self.tasks_config['fire_expert_task'],
+		)
+	
+	@task
+	def firefighter_planner_task(self) -> Task:
+		return Task(
+			config=self.tasks_config['firefighter_planner_task'],
+			output_pydantic=FirefighterPlannerSchema
+		)
 	
 	
 
