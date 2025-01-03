@@ -46,10 +46,6 @@ class ProjectFlow(Flow[ProjectState]):
         }
         self.state.info_medical = json.dumps(info_medical, indent=2)
         self.state.info_fire    = json.dumps(info_fire, indent=2)
-        print("----------")
-        print(self.state.info_fire)
-        print("----------")
-        print(self.state.info_medical)
     
     @router(emergency_crew)
     def router_medical_needed(self):
