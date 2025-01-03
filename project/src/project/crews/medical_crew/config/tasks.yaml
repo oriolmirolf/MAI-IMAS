@@ -7,7 +7,7 @@ medical_divide_task:
     Organize the information so each branch has only what it needs to proceed.
   expected_output: >
     Two sets of data: 
-      1) The subset of emergency information relevant to the ambulance branch, 
+      1) The subset of emergency information relevant to the ambulance branch.
       2) The subset relevant to the hospital branch. 
     Make sure to keep each subset self-contained and clearly labeled for its destination.
   agent: medical_divider_agent
@@ -18,19 +18,18 @@ ambulance_select_task:
     taking into account their availability, proximity, and capacity to handle the 
     current situation. Provide identifiers or references for the chosen ambulances.
   expected_output: >
-    A concise list of ambulance identifications along with any supporting details 
-    (e.g., capacity, ETA) that justify why these ambulances have been selected.
+    For each injured person (identified by their ID), assign them to an ambulance ID. 
+    Additionally, associate the IDs of the nurses and pilots responsible for that 
+    ambulance with the same ambulance ID.
   agent: ambulance_selector_agent
 
 ambulance_navigate_task:
   description: >
     Determine the optimal routes for each selected ambulance to travel from their 
     current location(s) to the emergency site. Base your route planning on minimal 
-    travel time, distance, or any other relevant constraints.
+    travel time.
   expected_output: >
-    A mapping of each ambulance identification to a route plan, indicating 
-    the path or key checkpoints. Include any notable travel constraints 
-    (e.g., closed roads, traffic conditions).
+    A mapping of each ambulance identification to a route plan.
   agent: ambulance_navigator_agent
 
 ambulance_plan_task:
@@ -45,12 +44,14 @@ ambulance_plan_task:
 
 hospital_select_task:
   description: >
-    Evaluate hospital options and select the most appropriate facilities for 
-    treating the victims, considering factors such as capacity, specialties, 
-    and distance from the emergency site.
+    Assess the available hospital options and choose the most suitable facilities 
+    for treating the victims. Take into account critical factors such as the hospital's 
+    capacity, specialized medical services, and proximity to the emergency site to 
+    ensure timely and effective care.
   expected_output: >
-    A list of chosen hospital(s) and a brief rationale for each selection, 
-    including current capacity or other critical constraints.
+    For all the injured persons, assign them to the hospital nearest hospital, taking
+    into account the available capacity and the severity of their injuries, meaning that
+    UCI patients should be assigned to UCI hospitals, and so on.
   agent: hospital_selector_agent
 
 hospital_navigate_task:
@@ -59,8 +60,9 @@ hospital_navigate_task:
     aiming for minimal travel time and safe transport of the injured. If 
     multiple hospitals are chosen, provide separate route plans for each.
   expected_output: >
-    A set of route plans—one per hospital assignment—specifying the chosen 
-    path or key checkpoints for each ambulance-hospital pairing.
+    A set of route plans—one per hospital IDs assignment—specifying the chosen 
+    path or key checkpoints for each patient injured (IDs) that needs to go to
+    the hospital.
   agent: hospital_navigator_agent
 
 hospital_plan_task:
@@ -76,11 +78,10 @@ hospital_plan_task:
 medical_plan_task:
   description: >
     Produce the final medical plan by aggregating the outputs from both 
-    the Ambulance branch (Selector, Navigator, Planner) and the Hospital 
-    branch (Selector, Navigator, Planner). Ensure a coherent, end-to-end 
+    the Ambulance branch and the Hospital branch. Ensure a coherent, end-to-end 
     proposal from dispatch to final patient handoff. 
   expected_output: >
     A single unified plan for the Medical Services Crew that includes ambulance 
     assignments, hospital assignments, and any relevant route or timing 
-    information. Follow the schema {MedicalPlannerSchema.get_schema()}.
+    information.
   agent: medical_planner_agent
