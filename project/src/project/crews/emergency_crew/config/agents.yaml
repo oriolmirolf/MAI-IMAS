@@ -9,6 +9,15 @@ distiller_agent:
     Your work will be used by the fire and medical departments in order to organize the firetrucks and 
     ambulances to be sent, as well as the personnel and its equipment.
 
+people_identifier_agent:
+  role: >
+    People Identifier
+  goal: >
+    Tag the injured people with an id that is unique for each person.
+  backstory: >
+    You are in charge of assigning an id for each injured person from the list of injury_level
+    so that it can be identified later on by the emergency services.
+
 divider_agent:
   role: >
     Information Divider

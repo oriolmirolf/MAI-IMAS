@@ -10,7 +10,7 @@ from .crews.emergency_crew.emergency_crew import EmergencyCrew
 
 
 class ProjectState(BaseModel):
-    emergency_file: str = "./tests/test1.txt"
+    emergency_file: str = "./tests/test4.txt"
     divided_info: str = ""
     medical_planning: str = ""
     firefighter_planning: str = ""

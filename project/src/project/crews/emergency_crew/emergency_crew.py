@@ -61,6 +61,16 @@ class EmergencyCrew():
 			tools=[file_read_tool],
 			max_iter=1,
 		)
+
+	@agent
+	def people_identifier_agent(self) -> Agent:
+		return Agent(
+			config=self.agents_config['people_identifier_agent'],
+			verbose=True,
+			allow_delegation=False,
+			llm='ollama/llama3.1',
+			max_iter=1,
+		)
 	
 	@agent
 	def divider_agent(self) -> Agent:
@@ -79,6 +89,13 @@ class EmergencyCrew():
 	def distill_task(self) -> Task:
 		return Task(
 			config=self.tasks_config['distill_task'],
+			output_pydantic=DistilledEmergencyCallSchema
+		)
+	
+	@task
+	def people_identification_task(self) -> Task:
+		return Task(
+			config=self.tasks_config['people_identification_task'],
 			output_pydantic=DistilledEmergencyCallSchema
 		)
 	

@@ -5,11 +5,22 @@ distill_task:
       2. Type of fire (ordinary, electrical, gas, chemical or other types).
       3. Location of the emergency.
       4. How many people are injured. Count ONLY injured people.
-      5. How bad severe the injuries of each person.
+      5. Describe the injury that each person has. You must use ONE STRING PER PERSON.
   expected_output: >
     A concise yet accurate list of bullet-points with the requested information 
     following schema: {DistilledEmergencyCallSchema.get_schema()}
   agent: distiller_agent
+
+people_identification_task:
+  description: >
+    The field of injury_level contains one string for injured person. Your task is to add at the
+    beginning an id to each injured person so that it can be identified later on. Each person should
+    have a different random id. NEVER alter any other field of the input.
+  expected_output: >
+    The same data structure as in the input but in the field of injury_level each string should
+    begin with an exclusive identifier.
+    The output should follow the schema: {DistilledEmergencyCallSchema.get_schema()}.
+  agent: people_identifier_agent
 
 divide_task:
   description: >
@@ -20,6 +31,7 @@ divide_task:
   expected_output: >
     The input information split in two: on the one hand information for the fire 
     department and on the other information for the medical department. 
-    Follow the schema {DividedInformationSchema.get_schema()} and make sure to put 
-    the field name and value in a single string.
+    Follow the schema {DividedInformationSchema.get_schema()}.
+    When filling the information for medical and fire, MAKE SURE to use one string for each field
+    of the original input. You SHOULD include the field name and the value IN THE SAME STRING.
   agent: divider_agent
