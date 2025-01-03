@@ -11,7 +11,9 @@ from .crews.emergency_crew.emergency_crew import EmergencyCrew
 
 class ProjectState(BaseModel):
     emergency_file: str = "./tests/test4.txt"
-    divided_info: str = ""
+    medical_services_needed: bool = True
+    info_medical: str = ""
+    info_fire: str = ""
     medical_planning: str = ""
     firefighter_planning: str = ""
     final_plan: str = ""
@@ -27,12 +29,31 @@ class ProjectFlow(Flow[ProjectState]):
             .crew()
             .kickoff()
         )
-        self.state.divided_info = result.raw
+        # split the fields into data relevant for medical and data relevant for firefighters
+        info_json = json.loads(result.raw)
+        self.state.medical_services_needed = bool(info_json["medical_services_needed"])
+        info_medical = {
+            "emergency_location": info_json["emergency_location"],
+            "number_injured_people": info_json["number_injured_people"],
+            "injury_level": info_json["injury_level"],
+            "extra_information_medical": info_json["extra_information_medical"],
+        }
+        info_fire = {
+            "fire_severity": info_json["fire_severity"],
+            "fire_type": info_json["fire_type"],
+            "emergency_location": info_json["emergency_location"],
+            "extra_information_fire": info_json["extra_information_fire"],
+        }
+        self.state.info_medical = json.dumps(info_medical, indent=2)
+        self.state.info_fire    = json.dumps(info_fire, indent=2)
+        print("----------")
+        print(self.state.info_fire)
+        print("----------")
+        print(self.state.info_medical)
     
     @router(emergency_crew)
     def router_medical_needed(self):
-        #print(f"Medical services needed: {json.loads(self.state.divided_info)["medical_services_needed"]}")
-        if bool(json.loads(self.state.divided_info)["medical_services_needed"]):
+        if self.state.medical_services_needed:
             return "medical-needed"
         else:
             return "medical-not-needed"

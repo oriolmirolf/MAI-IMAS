@@ -15,23 +15,9 @@ people_identification_task:
   description: >
     The field of injury_level contains one string for injured person. Your task is to add at the
     beginning an id to each injured person so that it can be identified later on. Each person should
-    have a different random id. NEVER alter any other field of the input.
+    have a different random id. Include ONLY injured people and NEVER alter any other field of the input.
   expected_output: >
     The same data structure as in the input but in the field of injury_level each string should
-    begin with an exclusive identifier.
+    begin with an exclusive identifier and a space separator.
     The output should follow the schema: {DistilledEmergencyCallSchema.get_schema()}.
   agent: people_identifier_agent
-
-divide_task:
-  description: >
-    You are going to receive information that describes an emergency situation, and 
-    your task is to divide such information into two, one should contain relevant 
-    information for the fire department and the other relevant information for the 
-    medical department.
-  expected_output: >
-    The input information split in two: on the one hand information for the fire 
-    department and on the other information for the medical department. 
-    Follow the schema {DividedInformationSchema.get_schema()}.
-    When filling the information for medical and fire, MAKE SURE to use one string for each field
-    of the original input. You SHOULD include the field name and the value IN THE SAME STRING.
-  agent: divider_agent

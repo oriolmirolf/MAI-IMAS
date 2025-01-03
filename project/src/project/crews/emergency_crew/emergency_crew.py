@@ -12,23 +12,10 @@ class DistilledEmergencyCallSchema(BaseModel):
 	fire_type: str = Field(..., description='Type of fire (ordinary, electrical, gas, chemical or other types).')
 	emergency_location: str = Field(..., description='Location of the emergency.')
 	number_injured_people: int = Field(..., description='How many people are injured.')
-	injury_level: List[str] = Field(..., description="How severe are each person's injuries.")
-	extra_information: List[str] = Field(..., description="Extra information not included previously.")
-
-	@classmethod
-	def get_schema(cls) -> str:
-		schema = '\n'
-		for field_name, field_instance in cls.model_fields.items():
-			schema += f'{field_name}, described as: {field_instance.description}\n'
-		return schema
-
-
-class DividedInformationSchema(BaseModel):
-	"""Output for the divide task."""
-	emergency_location: str = Field(..., description='Location of the emergency.')
 	medical_services_needed: bool = Field(..., description="Medical emergency services are needed to treat injured people.")
-	information_for_medical: List[str] = Field(..., description="Information that the medical department needs.")
-	information_for_fire: List[str] = Field(..., description="Information that the fire department needs.")
+	injury_level: List[str] = Field(..., description="How severe are each person's injuries.")
+	extra_information_medical: List[str] = Field(..., description="Extra information not included previously ONLY FOR THE MEDICAL DEPARTMENT, NEVER include information that has already been mentioned before.")
+	extra_information_fire: List[str] = Field(..., description="Extra information not included previously ONLY FOR THE FIREFIGHTER DEPARTMENT, NEVER include information that has already been mentioned before.")
 
 	@classmethod
 	def get_schema(cls) -> str:
@@ -71,16 +58,6 @@ class EmergencyCrew():
 			llm='ollama/llama3.1',
 			max_iter=1,
 		)
-	
-	@agent
-	def divider_agent(self) -> Agent:
-		return Agent(
-			config=self.agents_config['divider_agent'],
-			verbose=True,
-			allow_delegation=False,
-			llm='ollama/llama3.1',
-			max_iter=1,
-		)
 
 	# To learn more about structured task outputs, 
 	# task dependencies, and task callbacks, check out the documentation:
@@ -97,13 +74,6 @@ class EmergencyCrew():
 		return Task(
 			config=self.tasks_config['people_identification_task'],
 			output_pydantic=DistilledEmergencyCallSchema
-		)
-	
-	@task
-	def divide_task(self) -> Task:
-		return Task(
-			config=self.tasks_config['divide_task'],
-			output_pydantic=DividedInformationSchema
 		)
 	
 
