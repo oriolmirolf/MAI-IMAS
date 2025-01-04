@@ -25,165 +25,158 @@ class MedicalPlannerSchema(BaseModel):
 		return schema
 
 @CrewBase
-class MedicalCrew():
-	"""Medical Services Crew"""
+class MedicalCrew:
+    """Medical Services Crew"""
 
-	agents_config = 'config/agents.yaml'
-	tasks_config = 'config/tasks.yaml'
-	path_file_map = '../../maps/sitges.graphml'
-
-	def __init__(self, medical_file):
-		self._medical_file = medical_file
+    agents_config = 'config/agents.yaml'
+    tasks_config = 'config/tasks.yaml'
+    path_file_map = '../../maps/sitges.graphml'
 
     @agent
     def medical_divider_agent(self) -> Agent:
-		file_read_tool = FileReadTool(self._medical_file)
-		return Agent(
-			config=self.agents_config['medical_divider_agent'],
-			verbose=True,
-			allow_delegation=False,
-			llm='ollama/llama3.1',
-			tools=[file_read_tool],
-			max_iter=1,
-		)
+        file_read_tool = FileReadTool(self._medical_file)
+        return Agent(
+            config=self.agents_config['medical_divider_agent'],
+            verbose=True,
+            allow_delegation=False,
+            llm='ollama/llama3.1',
+            tools=[file_read_tool],
+            max_iter=1,
+        )
 
     @agent
     def ambulance_selector_agent(self) -> Agent:
-		distance_calculator_tool = RouteDistanceTool(self.path_file_map)
-		return Agent(
-			config=self.agents_config['ambulance_selector_agent'],
-			verbose=True,
-			allow_delegation=False,
-			llm='ollama/llama3.1',
-			tools=[distance_calculator_tool],
-			max_iter=1,
-		)
+        distance_calculator_tool = RouteDistanceTool(self.path_file_map)
+        return Agent(
+            config=self.agents_config['ambulance_selector_agent'],
+            verbose=True,
+            allow_delegation=False,
+            llm='ollama/llama3.1',
+            tools=[distance_calculator_tool],
+            max_iter=1,
+        )
 
     @agent
-	def ambulance_navigator_agent(self) -> Agent:
-		distance_calculator_tool = RouteDistanceTool(self.path_file_map)
-		return Agent(
-			config=self.agents_config['ambulance_navigator_agent'],
-			verbose=True,
-			allow_delegation=False,
-			llm='ollama/llama3.1',
-			tools=[distance_calculator_tool],
-			max_iter=1,
-		)
+    def ambulance_navigator_agent(self) -> Agent:
+        distance_calculator_tool = RouteDistanceTool(self.path_file_map)
+        return Agent(
+            config=self.agents_config['ambulance_navigator_agent'],
+            verbose=True,
+            allow_delegation=False,
+            llm='ollama/llama3.1',
+            tools=[distance_calculator_tool],
+            max_iter=1,
+        )
 
     @agent
-	def ambulance_planner_agent(self) -> Agent:
-		return Agent(
-			config=self.agents_config['ambulance_planner_agent'],
-			verbose=True,
-			allow_delegation=False,
-			llm='ollama/llama3.1',
-			max_iter=1,
-		)
+    def ambulance_planner_agent(self) -> Agent:
+        return Agent(
+            config=self.agents_config['ambulance_planner_agent'],
+            verbose=True,
+            allow_delegation=False,
+            llm='ollama/llama3.1',
+            max_iter=1,
+        )
 
     @agent
     def hospital_selector_agent(self) -> Agent:
-		distance_calculator_tool = RouteDistanceTool(self.path_file_map)
-		return Agent(
-			config=self.agents_config['hospital_selector_agent'],
-			verbose=True,
-			allow_delegation=False,
-			llm='ollama/llama3.1',
-			tools=[distance_calculator_tool],
-			max_iter=1,
-		)
+        distance_calculator_tool = RouteDistanceTool(self.path_file_map)
+        return Agent(
+            config=self.agents_config['hospital_selector_agent'],
+            verbose=True,
+            allow_delegation=False,
+            llm='ollama/llama3.1',
+            tools=[distance_calculator_tool],
+            max_iter=1,
+        )
 
     @agent
-	def hospital_navigator_agent(self) -> Agent:
-		distance_calculator_tool = RouteDistanceTool(self.path_file_map)
-		return Agent(
-			config=self.agents_config['hospital_navigator_agent'],
-			verbose=True,
-			allow_delegation=False,
-			llm='ollama/llama3.1',
-			tools=[distance_calculator_tool],
-			max_iter=1,
-		)
+    def hospital_navigator_agent(self) -> Agent:
+        distance_calculator_tool = RouteDistanceTool(self.path_file_map)
+        return Agent(
+            config=self.agents_config['hospital_navigator_agent'],
+            verbose=True,
+            allow_delegation=False,
+            llm='ollama/llama3.1',
+            tools=[distance_calculator_tool],
+            max_iter=1,
+        )
 
     @agent
-	def hospital_planner_agent(self) -> Agent:
-		return Agent(
-			config=self.agents_config['hospital_planner_agent'],
-			verbose=True,
-			allow_delegation=False,
-			llm='ollama/llama3.1',
-			max_iter=1,
-		)
+    def hospital_planner_agent(self) -> Agent:
+        return Agent(
+            config=self.agents_config['hospital_planner_agent'],
+            verbose=True,
+            allow_delegation=False,
+            llm='ollama/llama3.1',
+            max_iter=1,
+        )
 
     @agent
-	def medical_planner_agent(self) -> Agent:
-		return Agent(
-			config=self.agents_config['medical_planner_agent'],
-			verbose=True,
-			allow_delegation=False,
-			llm='ollama/llama3.1',
-			max_iter=1,
-		)
+    def medical_planner_agent(self) -> Agent:
+        return Agent(
+            config=self.agents_config['medical_planner_agent'],
+            verbose=True,
+            allow_delegation=False,
+            llm='ollama/llama3.1',
+            max_iter=1,
+        )
 
     @task
-	def medical_divide_task(self) -> Task:
-		return Task(
-			config=self.tasks_config['medical_divide_task']
-		)
+    def medical_divide_task(self) -> Task:
+        return Task(
+            config=self.tasks_config['medical_divide_task']
+        )
 
     @task
-	def ambulance_select_task(self) -> Task:
-		return Task(
-			config=self.tasks_config['ambulance_select_task']
-		)
+    def ambulance_select_task(self) -> Task:
+        return Task(
+            config=self.tasks_config['ambulance_select_task']
+        )
 
     @task
-	def ambulance_navigate_task(self) -> Task:
-		return Task(
-			config=self.tasks_config['ambulance_navigate_task']
-		)
+    def ambulance_navigate_task(self) -> Task:
+        return Task(
+            config=self.tasks_config['ambulance_navigate_task']
+        )
 
     @task
-	def ambulance_plan_task(self) -> Task:
-		return Task(
-			config=self.tasks_config['ambulance_plan_task']
-		)
+    def ambulance_plan_task(self) -> Task:
+        return Task(
+            config=self.tasks_config['ambulance_plan_task']
+        )
 
     @task
-	def hospital_select_task(self) -> Task:
-		return Task(
-			config=self.tasks_config['hospital_select_task']
-		)
+    def hospital_select_task(self) -> Task:
+        return Task(
+            config=self.tasks_config['hospital_select_task']
+        )
 
     @task
-	def hospital_navigate_task(self) -> Task:
-		return Task(
-			config=self.tasks_config['hospital_navigate_task']
-		)
+    def hospital_navigate_task(self) -> Task:
+        return Task(
+            config=self.tasks_config['hospital_navigate_task']
+        )
 
     @task
-	def hospital_plan_task(self) -> Task:
-		return Task(
-			config=self.tasks_config['hospital_plan_task']
-		)
+    def hospital_plan_task(self) -> Task:
+        return Task(
+            config=self.tasks_config['hospital_plan_task']
+        )
 
     @task
     def medical_plan_task(self) -> Task:
         return Task(
-			config=self.tasks_config['medical_plan_task'],
-			output_pydantic=MedicalPlannerSchema
+            config=self.tasks_config['medical_plan_task'],
+            output_pydantic=MedicalPlannerSchema
         )
 
-
     @crew
-	def crew(self) -> Crew:
-		"""Creates the Medical Services crew"""
-		# To learn how to add knowledge sources to your crew, check out the documentation:
-		# https://docs.crewai.com/concepts/knowledge#what-is-knowledge
-
-		return Crew(
-			agents=self.agents, # Automatically created by the @agent decorator
-			tasks=self.tasks, # Automatically created by the @task decorator
-			process=Process.sequential,
-			verbose=True,
-		)
+    def crew(self) -> Crew:
+        """Creates the Medical Services crew"""
+        return Crew(
+            agents=self.agents,  # Automatically created by the @agent decorator
+            tasks=self.tasks,  # Automatically created by the @task decorator
+            process=Process.sequential,
+            verbose=True,
+        )
