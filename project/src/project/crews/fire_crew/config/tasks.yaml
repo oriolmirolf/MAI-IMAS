@@ -1,13 +1,12 @@
 firefighter_divider_task:
   description: >
-    You will receive a description about a fire incident and the resources available in the firefighter department.
-    Your goal is to divide that content into two groups. One must contain the relevant information
-    to select the type and the number of firefighters needed. The other must include the relevant 
-    information to be able to select the equipment and types of vehicles needed.
+    You must read from a json file the resources available in the firefighter department.
+    You will also receive a description about a fire incident.
+    Extract all the information needed to make decisions about the type and number of firefighters.
+    Extract all the information needed to make decisions about the equipment and types of vehicles.
   expected_output: >
-    Two sets of data.
-      1) The subset of information relevant to select the personnel needed.
-      2) The subset of information relevant to select the material and vehicles needed.
+    Two sets of data. One with the relevant information to select the personnel needed, and the other one to select
+    the material and vehicles needed.
   agent: firefighter_divider_agent
 
 fire_expert_task:
@@ -21,26 +20,6 @@ fire_expert_task:
     You must indicate which firefighter units are necessary to assess the fire emergency described, indicating for each one the quantity.
   agent: fire_expert_agent
 
-material_select_task:
-  description: >
-    Based on the fire incident description and the available vehicles and equipment at the fire station, select the types and quantities of vehicles and equipment needed to address the fire. Ensure selections are within available resource limits.
-  expected_output: >
-    Provide a list of vehicles and equipment required to tackle the fire incident, including types and quantities for each.
-  agent: material_selector_agent
-
-material_navigate_task:
-  description: >
-    Calculate the optimal route for the selected vehicles to reach the fire incident location from the fire station. Consider factors like distance and travel time.
-  expected_output: >
-    Provide a route plan consisting of a list of (X, Y) coordinates from the fire station to the fire incident location, along with the estimated response time.
-  agent: material_navigator_agent
-
-material_plan_task:
-  description: >
-    Combine the selected vehicles and equipment with the calculated route to formulate a comprehensive material logistics plan.
-  expected_output: >
-    A unified plan detailing the vehicles and equipment to be deployed, the route to be taken, and the estimated response time.
-  agent: material_planner_agent
 
 firefighter_planner_task:
   description: > 
