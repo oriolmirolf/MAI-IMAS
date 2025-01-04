@@ -11,10 +11,10 @@ from typing import List, Tuple
 
 class FirefighterPlannerSchema(BaseModel):
     """Output for the firefighter plan task"""
-    personnel: List[Tuple[str, int]] = Field(..., description='Pairs of personnel types and its number of units')
-    vehicles: List[Tuple[str, int]] = Field(..., description='Pairs of vehicle types and its quantity')
-    material: List[Tuple[str, int]] = Field(..., description='Pairs of equipment that must be carried to assess the fire, along with its quanitity.')
-    route_to_fire: List[Tuple[float, float]] = Field(..., description='List with X and Y coordinates that form the route from the firefighter station to the fire incident location.')
+    personnel: List[Tuple[str, int]] = Field(..., description='Pairs indicating a personnel roles and the number of units necessary')
+    vehicles: List[Tuple[str, int]] = Field(..., description='Pairs indicating a type of vehicle and the quantity')
+    material: List[Tuple[str, int]] = Field(..., description='Pairs indicating an equipment that must be carried to assess the fire and its quanitity.')
+    route_to_fire: List[Tuple[float, float]] = Field(..., description='List with pairs of X and Y coordinates that form the route from the firefighter station to the fire incident location.')
     response_time: float = Field(..., description='Time taken to go from the firefighter station to the fire incident location.')
 
     @classmethod

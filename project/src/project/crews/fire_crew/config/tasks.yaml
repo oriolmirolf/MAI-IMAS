@@ -1,32 +1,35 @@
 firefighter_divider_task:
   description: >
-    You must read from a json file the resources available in the firefighter department.
-    You will also receive a description about a fire incident.
-    Extract all the information needed to make decisions about the type and number of firefighters.
-    Extract all the information needed to make decisions about the equipment and types of vehicles.
+    Read a json file about the description of a fire incident.
+    Read a second json file about the resources available in the firefighter department.
+    Determine the relevant information needed to make decisions about the type and number of firefighters.
+    Determine the relevant information needed to make decisions about the equipment and types of vehicles.
   expected_output: >
-    Two sets of data. One with the relevant information to select the personnel needed, and the other one to select
-    the material and vehicles needed.
+    Two sets of information. 
+    One set with the content involving the fire emergency context and firefighter personnel resources.
+    Another set with the content involving the fire emergency context and the material and vehicles resources of the fire station.
   agent: firefighter_divider_agent
 
 fire_expert_task:
   description: > 
-    Given the description of a fire incident and the information about the firefighter units (type and quantity)
-    in a firefighter station, your goal is to analyze the situation and answer the following question: which units are
-    necessary to use in order to properly assess the fire incident. 
-    You must only use the necessary types of firefighter units and determine the necessary quantity. You cannot use a higher number
-    of firefighters than the ones available per type. You cannot use types of firefighter that are not in the firefighter station.
+    Analyse the situation of the fire incident.
+    Answer the question: which roles and how many units are necessary to use in order to properly assess the fire incident. 
+    Do not consider individual firefighters, treat each role as a group.
+    You must provide an explanation about why a role is needed and how many units to include.
+    Ensure you only include roles that are specifically needed for that fire emergency.
+    Do not use a higher number of firefighters than the ones available per role.
+    Do not use types of firefighter that are not in the firefighter station.
   expected_output: >
-    You must indicate which firefighter units are necessary to assess the fire emergency described, indicating for each one the quantity.
+    You must indicate which firefighter roles are necessary to assess the fire emergency described, indicating for each one the quantity.
+    For every role, add a very brief explanation about why is needed, defining what the firefighter would have to do to address the fire incident.
   agent: fire_expert_agent
 
 
 firefighter_planner_task:
   description: > 
-    You have a description about the personnel, equipment, and vehicles of a firefighter crew to address a fire incident. You also
-    have the route to follow from the fire station to the fire and the total response time. You must create a plan to coordinate the firefighter actions to address the fire.
-    Ensure that the information unified is coherent between personnel, equipment, and vehicles. If you think some elements are missing in order to
-    properly assess the fire, you can add additional information, but only if it is extremely necessary.
+    Create a plan to coordinate the firefighter actions to address the fire.
+    Ensure that the information unified is coherent between personnel, equipment, and vehicles. 
+    Make sure to not include additional elements that are not specified in the information.
   expected_output: >
     A single unified plan for the firefighter crew that includes the personnel needed, the equipment and vehicles to bring in order to address the fire,
     the route that must be followed, and the total response time. 
