@@ -6,6 +6,30 @@ firefighter_divider_task:
     information to be able to select the equipment and type of vehicles needed.
   expected_output: >
     Two sets of data.
-      1) The subset of information relevant to select the personal needed.
+      1) The subset of information relevant to select the personnel needed.
       2) The subset of information relevant to select the material and vehicles needed.
   agent: firefigther_divider_agent
+
+
+fire_expert_task:
+  description: > 
+    Given the description of a fire incident and the information about the firefighter units (type and quantity)
+    in a firefigther station, your goal is to analyse the situation and answer the following question: which units are
+    necessary to use in order to properly assess the fire incident. 
+    You must only use the necessary types of firefighter units and determine the necessary quantity. You cannot use a higher number
+    of firefighters than the ones available per type. You cannot use types of firefighter that are not in the firefighter station.
+  expected_output: >
+    You must indicate which firefighter units are necessary to assess the fire emergency described, indicating for each one the quantity.
+  agent: firefighter_expert_agent
+
+
+firefighter_planner_task:
+  description: > 
+    You have a description about the personnel, equipment and vehicles of a firefighter crew to address a fire incident. You also
+    have the route to follow from the fire station to the fire and the total response time. You must create a plan to coordinate the firefighter actions to address the fire.
+    Ensure that the information unified is coherent between personnel, equipment and vehicles. If you think some elements are missing in order to
+    properly assesss the fire, you can add additional information, but only if it is extremelly necessary.
+  expected_output: >
+    A single unified plan for the firefighter crew that includes the personnel needed, the equipment and vehicles to bring in order to address the fire,
+    the route that must be followed and the total response time. 
+  agent: firefighter_planner_agent
