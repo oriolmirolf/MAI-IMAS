@@ -9,8 +9,7 @@ from tools.route_distance_tool import RouteDistanceTool
 class MedicalPlannerSchema(BaseModel):
 	"""Output for the medical plan task."""
 	personnel_employed: List[(str, str)] = Field(..., description='Pairs of personnel identifications with its ambulance identification assigned.')
-	ambulances_employed: List[str] = Field(..., description='Identifications of the ambulances employed.') # ToDo: Remove?
-	#materials_required: # ToDo: Include?
+	ambulances_employed: List[str] = Field(..., description='Identifications of the ambulances employed.') # TODO: Remove?
 	assigned_hospitals: List[(str, str)] = Field(..., description='Pairs of ambulance identifications with its hospital identification assigned.')
 	rooms_needed: List[(str, List[str])] = Field(..., description='Pairs of hospital identifications with a list of rooms identifications needed for that hospital.')
 	routes_to_fire: List[(float, float)] = Field(..., description='List of ambulance identifications along with the X and Y coordinates that form the route for that hospital from their current location to the fire scene.')
@@ -31,6 +30,9 @@ class MedicalCrew:
     agents_config = 'config/agents.yaml'
     tasks_config = 'config/tasks.yaml'
     path_file_map = '../../maps/sitges.graphml'
+
+    def __init__(self, medical_file):
+        self._medical_file = medical_file
 
     @agent
     def medical_divider_agent(self) -> Agent:
@@ -180,3 +182,9 @@ class MedicalCrew:
             process=Process.sequential,
             verbose=True,
         )
+    
+if __name__ == '__main__': # FIXME
+     return Crew(
+          crew(),
+          kickoff()
+     )

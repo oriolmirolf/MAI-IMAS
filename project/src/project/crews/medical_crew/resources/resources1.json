@@ -1,0 +1,51 @@
+{
+    "hospitals": {
+      "hospital1": "Location A",
+      "hospital2": "Location B",
+      "hospital3": "Location C"
+    },
+    "ambulances": {
+      "ambulance1": "hospital1",
+      "ambulance2": "hospital1",
+      "ambulance3": "hospital2",
+      "ambulance4": "hospital3",
+      "ambulance5": "hospital3",
+      "ambulance6": "hospital3"
+    },
+    "nurses": {
+      "nurse1": "hospital1",
+      "nurse2": "hospital1",
+      "nurse3": "hospital2",
+      "nurse4": "hospital2",
+      "nurse5": "hospital3",
+      "nurse6": "hospital3",
+      "nurse7": "hospital3"
+    },
+    "pilots": {
+      "pilot1": "hospital1",
+      "pilot2": "hospital1",
+      "pilot3": "hospital2",
+      "pilot4": "hospital2",
+      "pilot5": "hospital3",
+      "pilot6": "hospital3",
+      "pilot7": "hospital3"
+    },
+    "normal_rooms": {
+      "hospital1_room1": "hospital1",
+      "hospital1_room2": "hospital1",
+      "hospital1_room3": "hospital1",
+      "hospital1_room4": "hospital1",
+      "hospital1_room5": "hospital1",
+      "hospital2_room1": "hospital2",
+      "hospital2_room2": "hospital2",
+      "hospital2_room3": "hospital2",
+      "hospital3_room1": "hospital3"
+    },
+    "uci_rooms": {
+      "hospital1_uci1": "hospital1",
+      "hospital2_uci1": "hospital2",
+      "hospital3_uci1": "hospital3",
+      "hospital3_uci2": "hospital3",
+      "hospital3_uci3": "hospital3"
+    }
+  }  
