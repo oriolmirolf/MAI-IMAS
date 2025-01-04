@@ -10,7 +10,7 @@ from .crews.emergency_crew.emergency_crew import EmergencyCrew
 
 
 class ProjectState(BaseModel):
-    emergency_file: str = "./tests/test4.txt"
+    emergency_file: str = "./tests/test1.txt"
     medical_services_needed: bool = True
     info_medical: str = ""
     info_fire: str = ""
@@ -23,7 +23,6 @@ class ProjectFlow(Flow[ProjectState]):
 
     @start()
     def emergency_crew(self):
-        print("Generating poem")
         result = (
             EmergencyCrew(self.state.emergency_file)
             .crew()
@@ -46,6 +45,10 @@ class ProjectFlow(Flow[ProjectState]):
         }
         self.state.info_medical = json.dumps(info_medical, indent=2)
         self.state.info_fire    = json.dumps(info_fire, indent=2)
+        print()
+        print(self.state.info_medical)
+        print()
+        print(self.state.info_fire)
     
     @router(emergency_crew)
     def router_medical_needed(self):

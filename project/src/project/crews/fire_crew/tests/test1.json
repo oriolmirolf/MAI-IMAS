@@ -1,0 +1,9 @@
+{
+  "fire_severity": "severe",
+  "fire_type": "electrical",
+  "emergency_location": "Laietana Street, 42",
+  "extra_information_fire": [
+    "flames are too close",
+    "electrical"
+  ]
+}
