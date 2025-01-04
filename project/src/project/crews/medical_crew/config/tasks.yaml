@@ -1,22 +1,48 @@
 medical_divide_task:
   description: >
-    You will receive information describing a medical-related emergency. 
+    You will receive a JSON with some emergency information. 
     Your goal is to split the data into two branches: one for the ambulance-focused 
-    details (e.g., how many victims, needed emergency transport, etc.) and another 
-    for hospital-focused details (e.g., patient capacity, facility availability). 
+    details, which is basicaly the emergency location, how many injured people are 
+    and another branch for hospital-focused how many people are injured and how severe 
+    are their injuries and also the emergency location.
     Organize the information so each branch has only what it needs to proceed.
   expected_output: >
     Two sets of data: 
       1) The subset of emergency information relevant to the ambulance branch.
+        1.1) The emergency location.
+        1.2) The number of injured people and IDs.
       2) The subset relevant to the hospital branch. 
+        2,1) The emergency location.
+        2.2) The number of injured people and IDs.
+        2.3) Extra information per IDs or what happened to them.
     Make sure to keep each subset self-contained and clearly labeled for its destination.
   agent: medical_divider_agent
 
+emergency_doctor_task:
+  description: >
+    You will receive information about some emergency with information of the
+    hurted people. Evaluate the severity of each patient's injuries and determine 
+    the appropriate level of care needed for each individual. You have to classify
+    every patient in one of the following categories: Nurse Check, Hospitalization 
+    and ICU. Nurse check means that will be attended by the ambulance nurses and it
+    should be sufficient. Hospital Check is that they need to go to the hospital to
+    do more checks or to be hospitalized but not ICU. Finally, ICU is that they need 
+    to stay in the Intensive Care Unit (ICU) because they are very damaged.
+  expected_output: >
+    For each injured person (identified by their ID), evaluate the 
+    severity of their injuries and classify them to the level of care they require. 
+    Those are Nurse Check, Hospitalization, and ICU.
+  agent: emergency_doctor_agent
+
 ambulance_select_task:
   description: >
-    Analyze the emergency details and decide how many ambulances are required, 
-    taking into account their availability, proximity, and capacity to handle the 
-    current situation. Provide identifiers or references for the chosen ambulances.
+    Analyze the emergency details and decide how many ambulances are required and also
+    the personal they need to go to the emergency. Take intro account that all the people
+    that need hospitalization or ICU should have one ambulance assigned to them. For the
+    people that only require a nurse check, they can be assigned to the same ambulance, but
+    take in to account that no more than 3 people can be assigned to the same ambulance, so in
+    case we have more than 3 people that only require a nurse check, we will need to assign
+    more ambulances, respecting the limit.
   expected_output: >
     For each injured person (identified by their ID), assign them to an ambulance ID. 
     Additionally, associate the IDs of the nurses and pilots responsible for that 
@@ -50,8 +76,7 @@ hospital_select_task:
     ensure timely and effective care.
   expected_output: >
     For all the injured persons, assign them to the hospital nearest hospital, taking
-    into account the available capacity and the severity of their injuries, meaning that
-    UCI patients should be assigned to UCI hospitals, and so on.
+    into account the available capacity and the severity of their injuries.
   agent: hospital_selector_agent
 
 hospital_navigate_task:

@@ -47,6 +47,16 @@ class MedicalCrew:
         )
 
     @agent
+    def emergency_doctor_agent(self) -> Agent:
+        return Agent(
+            config=self.agents_config['emergency_doctor_agent'],
+            verbose=True,
+            allow_delegation=False,
+            llm='ollama/llama3.1',
+            max_iter=1,
+        )
+
+    @agent
     def ambulance_selector_agent(self) -> Agent:
         distance_calculator_tool = RouteDistanceTool(self.path_file_map)
         return Agent(
@@ -129,6 +139,12 @@ class MedicalCrew:
         return Task(
             config=self.tasks_config['medical_divide_task']
         )
+    
+    @task
+    def emergency_doctor_task(self) -> Task:
+        return Task(
+			config=self.tasks_config['emergency_doctor_task']
+		)
 
     @task
     def ambulance_select_task(self) -> Task:
@@ -184,7 +200,7 @@ class MedicalCrew:
         )
     
 if __name__ == '__main__': # FIXME
-     return Crew(
-          crew(),
-          kickoff()
-     )
+	return Crew(
+		crew(),
+		kickoff()
+	)
