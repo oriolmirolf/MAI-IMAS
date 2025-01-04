@@ -1,3 +1,5 @@
+import sys
+
 from crewai import Agent, Crew, Process, Task
 from crewai.project import CrewBase, agent, crew, task
 from crewai_tools import FileReadTool
@@ -89,3 +91,11 @@ class EmergencyCrew():
 			process=Process.sequential,
 			verbose=True,
 		)
+
+
+if __name__ == "__main__":
+	result = (
+			EmergencyCrew(sys.argv[1])
+			.crew()
+			.kickoff()
+	)
