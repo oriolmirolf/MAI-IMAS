@@ -1,14 +1,13 @@
 firefighter_divider_task:
   description: >
-    You will receive a description about a fire incident and the resources available in the firefighter department.
-    Your goal is to divide that content into two groups. One must contain the relevant information
-    to select the type and the number of firefighters needed. The other must include the relevant 
-    information to be able to select the equipment and type of vehicles needed.
+    You must read from a json file the resources available in the firefighter department.
+    You will also receive a description about a fire incident.
+    Extract all the information needed to make decisions about the type and number of firefighters.
+    Extract all the information needed to make decisions about the equipment and types of vehicles.
   expected_output: >
-    Two sets of data.
-      1) The subset of information relevant to select the personnel needed.
-      2) The subset of information relevant to select the material and vehicles needed.
-  agent: firefigther_divider_agent
+    Two sets of data. One with the relevant information to select the personnel needed, and the other one to select
+    the material and vehicles needed.
+  agent: firefighter_divider_agent
 
 
 fire_expert_task:
@@ -20,7 +19,7 @@ fire_expert_task:
     of firefighters than the ones available per type. You cannot use types of firefighter that are not in the firefighter station.
   expected_output: >
     You must indicate which firefighter units are necessary to assess the fire emergency described, indicating for each one the quantity.
-  agent: firefighter_expert_agent
+  agent: fire_expert_agent
 
 
 firefighter_planner_task:

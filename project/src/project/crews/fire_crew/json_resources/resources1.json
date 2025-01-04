@@ -20,6 +20,7 @@
     "equipment_inventory": [
       {
         "tool": "Fire Hose",
+        "description": "Used to deliver water to extinguish fires.",
         "quantity": 5,
         "details": {
           "length": "50 meters",
@@ -28,38 +29,41 @@
       },
       {
         "tool": "Fire Extinguisher",
+        "description": "Portable device for small fire suppression.",
         "quantity": 10,
         "details": {
           "type": "Foam"
         }
       },
       {
+        "tool": "Protective Gear",
+        "quantity": 20
+      },
+      {
         "tool": "Ladder",
+        "description": "Used for accessing high places.",
         "quantity": 3,
         "details": {
-          "length": "10 meters"
+          "length": "5 meters"
         }
       },
       {
-        "tool": "Hydraulic Cutter",
-        "quantity": 2,
+        "tool": "Large Ladder",
+        "description": "Used for accessing higher places than a normal ladder.",
+        "quantity": 3,
         "details": {
-          "power_source": "Battery"
+          "length": "15 meters"
         }
       },
       {
-        "tool": "First Aid Kit",
-        "quantity": 5,
-        "details": {
-          "contents": ["Bandages", "Antiseptic", "Burn Cream"]
-        }
+        "name": "Axe",
+        "description": "Used for forcible entry and rescue operations.",
+        "quantity": 15
       },
       {
-        "tool": "Communication Radio",
-        "quantity": 8,
-        "details": {
-          "range": "5 km"
-        }
+        "name": "Thermal Imaging Camera",
+        "description": "Helps locate individuals in low visibility conditions.",
+        "quantity": 5
       }
     ],
     "vehicles": [

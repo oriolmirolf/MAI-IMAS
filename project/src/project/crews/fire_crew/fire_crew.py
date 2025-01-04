@@ -1,19 +1,20 @@
+import sys
 from crewai import Agent, Crew, Process, Task
 from crewai.project import CrewBase, agent, crew, task
 from crewai_tools import FileReadTool
 from pydantic import BaseModel, Field
-from typing import List
+from typing import List, Tuple
 
 
 
 class FirefighterPlannerSchema(BaseModel):
 	"""Output for the firefighter plan task"""
 	# TODO: Identification or type of vehicle. More than one vehicle of the same type?
-	personnel: List[(str, int)] = Field(..., description='Pairs of personnel types and its number of units')
+	personnel: List[Tuple[str, int]] = Field(..., description='Pairs of personnel types and its number of units')
 	#personnel: List[(str, str)] = Field(..., description='Pairs of personnel identifications with its vehicle identification assigned.')
-	vehciles: List[(str, int)] = Field(..., description='Pairs of vehicle types and its quantity')
-	material: List[(str, int)] = Field(..., description='Pairs of equipment that must be carried to assess the fire, along with its quanitity.')
-	route_to_fire: List[(float, float)] = Field(..., description='List with X and Y coordinates that form the route from the firefighter station to the fire incident location.')
+	vehciles: List[Tuple[str, int]] = Field(..., description='Pairs of vehicle types and its quantity')
+	material: List[Tuple[str, int]] = Field(..., description='Pairs of equipment that must be carried to assess the fire, along with its quanitity.')
+	route_to_fire: List[Tuple[float, float]] = Field(..., description='List with X and Y coordinates that form the route from the firefighter station to the fire incident location.')
 	response_time: float = Field(..., description='Time taken to go from the firefighter station to the fire incident location.')
 
 	@classmethod
@@ -32,18 +33,20 @@ class FirefighterCrew():
 	agents_config = 'config/agents.yaml'
 	tasks_config = 'config/tasks.yaml'
 
-	def __init__(self, emergency_file):
+	def __init__(self, emergency_file, resources_file):
 		self._emergency_file = emergency_file
+		self._resources_file = resources_file
 
 	@agent
 	def firefighter_divider_agent(self) -> Agent:
-		file_read_tool = FileReadTool(self._emergency_file)
+		file_read_tool = FileReadTool(file_path=self._emergency_file)
+		resources_read_tool = FileReadTool(file_path=self._resources_file)
 		return Agent(
 			config=self.agents_config['firefighter_divider_agent'],
 			verbose=True,
 			allow_delegation=False,
 			llm='ollama/llama3.1',
-			tools=[file_read_tool],
+			tools=[file_read_tool, resources_read_tool],
 			max_iter=1,
 		)
 	
@@ -104,3 +107,11 @@ class FirefighterCrew():
 			process=Process.sequential,
 			verbose=True,
 		)
+
+
+if __name__ == "__main__":
+	result = (
+			FirefighterCrew(sys.argv[1], sys.argv[2])
+			.crew()
+			.kickoff()
+	)
