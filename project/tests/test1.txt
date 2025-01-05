@@ -1,33 +1,17 @@
-Emergency Services Operator: "911, what's your emergency?"
+Dispatcher: Emergency services, what’s your emergency?
 
-Old Lady: "Help! My house is on fire! There’s smoke everywhere, I don’t know what to do!"
+Caller (Old Lady): My house is on fire at Carrer del Jardi, 70! It started from a short circuit, and my husband is badly hurt!
 
-Emergency Services Operator: "Stay calm, ma’am. I can help. Can you tell me the address, please?"
+Dispatcher: I’m sending help now. Is anyone else injured?
 
-Old Lady: "Yes, it’s Laietana Street, 42! Hurry, please!"
+Caller: No, just him. He’s burned!
 
-Emergency Services Operator: "Thank you. We have your location. Can you tell me what started the fire?"
+Dispatcher: Can you safely leave the house?
 
-Old Lady: "I think it was a short circuit! I saw sparks, and then the fire started so quickly!"
+Caller: I can’t move him! The fire is spreading!
 
-Emergency Services Operator: "Understood. Are there any other people in the house?"
+Dispatcher: If it’s too dangerous, get yourself to safety. Help is almost there.
 
-Old Lady: "No, no... It’s just me and my husband. But he’s badly hurt, I think."
+Caller: Please hurry!
 
-Emergency Services Operator: "I understand, ma’am. Is your husband able to move? Can you get him out of the house?"
-
-Old Lady: "He’s lying on the floor... he can’t move. I think he’s hurt his leg. The fire... the smoke is so thick, I can hardly breathe."
-
-Emergency Services Operator: "Okay, stay calm. We’re sending help right away. Can you get to a window or an open area to signal for help?"
-
-Old Lady: "I... I don’t know. I’m scared... the smoke is everywhere, and I can’t get to him."
-
-Emergency Services Operator: "I understand, ma’am. Stay as low as possible to avoid smoke inhalation. Firefighters are on their way. Is there a way to exit the house safely, perhaps through a back door or window?"
-
-Old Lady: "I don’t think so. The flames are too close... I can’t move."
-
-Emergency Services Operator: "Okay, ma’am. Stay on the phone with me. Help is coming soon. We will have the firefighters at your location shortly."
-
-Old Lady: "I’m so scared. Please hurry."
-
-Emergency Services Operator: "We’re doing everything we can. Just stay safe and keep your phone on. Help is almost there."
+Dispatcher: We’re on our way. Stay safe.

@@ -10,7 +10,7 @@ from .crews.emergency_crew.emergency_crew import EmergencyCrew
 
 
 class ProjectState(BaseModel):
-    emergency_file: str = "./tests/test1.txt"
+    emergency_file: str = "./tests/test4.txt"
     medical_services_needed: bool = True
     info_medical: str = ""
     info_fire: str = ""
@@ -30,21 +30,32 @@ class ProjectFlow(Flow[ProjectState]):
         )
         # split the fields into data relevant for medical and data relevant for firefighters
         info_json = json.loads(result.raw)
-        self.state.medical_services_needed = bool(info_json["medical_services_needed"])
-        info_medical = {
-            "emergency_location": info_json["emergency_location"],
-            "number_injured_people": info_json["number_injured_people"],
-            "injury_level": info_json["injury_level"],
-            "extra_information_medical": info_json["extra_information_medical"],
-        }
-        info_fire = {
-            "fire_severity": info_json["fire_severity"],
-            "fire_type": info_json["fire_type"],
-            "emergency_location": info_json["emergency_location"],
-            "extra_information_fire": info_json["extra_information_fire"],
-        }
-        self.state.info_medical = json.dumps(info_medical, indent=2)
-        self.state.info_fire    = json.dumps(info_fire, indent=2)
+        try:
+            self.state.medical_services_needed = bool(info_json["medical_services_needed"])
+        except:
+            self.state.medical_services_needed = True
+        try:
+            info_medical = {
+                "emergency_location": info_json["emergency_location"],
+                "number_injured_people": info_json["number_injured_people"],
+                "injury_level": [f"ID{i} {il}" for i, il in enumerate(info_json["injury_level"])],
+                "extra_information_medical": info_json["extra_information_medical"],
+            }
+            if info_medical["number_injured_people"] == 0:
+                info_medical["injury_level"] = []
+            self.state.info_medical = json.dumps(info_medical, indent=2)
+        except:
+            self.state.info_medical = result.raw
+        try:
+            info_fire = {
+                "fire_severity": info_json["fire_severity"],
+                "fire_type": info_json["fire_type"],
+                "emergency_location": info_json["emergency_location"],
+                "extra_information_fire": info_json["extra_information_fire"],
+            }
+            self.state.info_fire = json.dumps(info_fire, indent=2)
+        except:
+            self.state.info_fire = result.raw
         print()
         print(self.state.info_medical)
         print()

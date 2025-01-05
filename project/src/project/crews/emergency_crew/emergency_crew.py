@@ -12,7 +12,7 @@ class DistilledEmergencyCallSchema(BaseModel):
 	"""Output for the distill task."""
 	fire_severity: str = Field(..., description='Severity of the fire (light, moderate, severe, extreme).')
 	fire_type: str = Field(..., description='Type of fire (ordinary, electrical, gas, chemical or other types).')
-	emergency_location: str = Field(..., description='Location of the emergency.')
+	emergency_location: str = Field(..., description='Location of the emergency, just the address without extra information.')
 	number_injured_people: int = Field(..., description='How many people are injured.')
 	medical_services_needed: bool = Field(..., description="Medical emergency services are needed to treat injured people.")
 	injury_level: List[str] = Field(..., description="How severe are each person's injuries.")
@@ -51,16 +51,6 @@ class EmergencyCrew():
 			max_iter=1,
 		)
 
-	@agent
-	def people_identifier_agent(self) -> Agent:
-		return Agent(
-			config=self.agents_config['people_identifier_agent'],
-			verbose=True,
-			allow_delegation=False,
-			llm='ollama/llama3.1',
-			max_iter=1,
-		)
-
 	# To learn more about structured task outputs, 
 	# task dependencies, and task callbacks, check out the documentation:
 	# https://docs.crewai.com/concepts/tasks#overview-of-a-task
@@ -69,15 +59,7 @@ class EmergencyCrew():
 		return Task(
 			config=self.tasks_config['distill_task'],
 			output_pydantic=DistilledEmergencyCallSchema
-		)
-	
-	@task
-	def people_identification_task(self) -> Task:
-		return Task(
-			config=self.tasks_config['people_identification_task'],
-			output_pydantic=DistilledEmergencyCallSchema
-		)
-	
+		)	
 
 	@crew
 	def crew(self) -> Crew:

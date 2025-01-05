@@ -36,10 +36,6 @@
       }
     },
     {
-      "tool": "Protective Gear",
-      "quantity": 20
-    },
-    {
       "tool": "Ladder",
       "description": "Used for accessing high places.",
       "quantity": 3,
@@ -56,14 +52,25 @@
       }
     },
     {
-      "tool": "Axe",
+      "tool": "Hydraulic Cutter",
+      "quantity": 2,
+      "details": {
+        "power_source": "Battery"
+      }
+    },
+    {
+      "name": "Axe",
       "description": "Used for forcible entry and rescue operations.",
       "quantity": 15
     },
     {
-      "tool": "Thermal Imaging Camera",
+      "name": "Thermal Imaging Camera",
       "description": "Helps locate individuals in low visibility conditions.",
       "quantity": 5
+    },
+    {
+      "tool": "Protective Gear",
+      "quantity": 20
     }
   ],
   "vehicles": [

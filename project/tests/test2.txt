@@ -1,29 +1,17 @@
-Emergency Services Operator: "911, what's your emergency?"
+Dispatcher: Emergency services, what’s your emergency?
 
-Hiker: "Hello, I’m calling from Collserola National Park. There’s a huge wildfire, and it's spreading fast! The flames are getting closer to several houses!"
+Caller: Hi, I’m at Jardines de Terramar, and there’s a huge wildfire. It’s spreading fast and heading toward some houses.
 
-Emergency Services Operator: "Stay calm. Can you tell me your exact location?"
+Dispatcher: Are you or anyone else in immediate danger?
 
-Hiker: "Yes, I’m near the trailhead at the bottom of the park, close to the El Pardo area. The fire is really big—lots of smoke, and the flames are moving toward the townhouses just up the hill."
+Caller: No, I’m safe for now, and I don’t see any injured people, but the fire is close to residential areas.
 
-Emergency Services Operator: "Thank you. Are there any people in immediate danger? Are there any injured individuals?"
+Dispatcher: Can you describe the fire?
 
-Hiker: "No, I haven’t seen anyone hurt, but the fire is getting closer to the homes, and I’m worried it might spread there soon."
+Caller: It’s big, with high flames and thick smoke, moving downhill toward the houses.
 
-Emergency Services Operator: "Understood. Please stay away from the fire, and try to keep a safe distance. Can you describe the size of the fire? How far is it from the houses?"
+Dispatcher: Understood. Stay where you are if it’s safe, and avoid the smoke. Help is on the way.
 
-Hiker: "It’s massive. The flames are really tall now. The fire is about a kilometer from the first houses, but it’s moving quickly, and the wind is really strong."
+Caller: Okay, I’ll stay alert and call back if anything changes.
 
-Emergency Services Operator: "Thank you for the information. We’re dispatching firefighters and other emergency teams right now. I need you to move to a safe area and avoid the fire. Are you able to leave the area or take shelter?"
-
-Hiker: "Yes, I’m starting to head back down the trail. I don’t want to get too close. But I can still see the fire from here, and it’s spreading faster."
-
-Emergency Services Operator: "Good. Keep heading away from the fire. We’ll have help on the way soon. If you see any people near the affected homes, please alert them and advise them to evacuate immediately."
-
-Hiker: "I will, I’ll warn anyone I can. It looks like the fire’s getting close to the main road, too."
-
-Emergency Services Operator: "Thank you for your quick thinking. Stay safe and keep an eye out for any signs of evacuation orders. Emergency teams will be there soon."
-
-Hiker: "Okay, thank you! Please hurry."
-
-Emergency Services Operator: "Help is on the way. Stay safe and keep us updated if anything changes."
+Dispatcher: Thank you. Stay safe.
