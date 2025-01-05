@@ -1,0 +1,26 @@
+{
+    "hospitals": {
+        "hospital1": "Carrer de Sant Josep, 21, 23, 08800 Vilanova i la Geltru, Barcelona",
+        "hospital2": "Carrer Manuel Marques, 08800 Vilanova i la Geltru, Barcelona",
+        "hospital3": "Carrer del Jardi, 106, 08800 Vilanova i la Geltru, Barcelona",
+        "hospital4": "Pl. Boleranys, 5, 08800 Vilanova i la Geltrú, Barcelona"
+    },
+    "normal_rooms": {
+        "hospital1_room1": "hospital1",
+        "hospital1_room2": "hospital1",
+        "hospital1_room3": "hospital1",
+        "hospital1_room4": "hospital1",
+        "hospital1_room5": "hospital1",
+        "hospital2_room1": "hospital2",
+        "hospital2_room2": "hospital2",
+        "hospital2_room3": "hospital2",
+        "hospital3_room1": "hospital3"
+        },
+    "uci_rooms": {
+        "hospital1_uci1": "hospital1",
+        "hospital2_uci1": "hospital2",
+        "hospital3_uci1": "hospital3",
+        "hospital3_uci2": "hospital3",
+        "hospital3_uci3": "hospital3"
+    }
+}

@@ -1,12 +1,8 @@
 {
-  "emergency_location": "Laietana Street, 42",
-  "number_injured_people": 1,
+  "emergency_location": "Carrer del Cardenal, 19, 08800 Vilanova i la Geltru, Barcelona",
+  "number_injured_people": 2,
   "injury_level": [
     "ID: 12345 hurt his leg",
     "ID: 67890 smoke inhalation"
-  ],
-  "extra_information_medical": [
-    "leg injury",
-    "short circuit"
   ]
 }

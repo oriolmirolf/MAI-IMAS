@@ -6,14 +6,12 @@ from pydantic import BaseModel, Field
 
 class RouteDistanceSchema(BaseModel):
     """Input for the RouteDistanceTool."""
-    x_origin: float = Field(..., description='X coordinate of the origin location.')
-    y_origin: float = Field(..., description='Y coordinate of the origin location.')
-    x_destination: float = Field(..., description='X coordinate of the destination location.')
-    y_destination: float = Field(..., description='Y coordinate of the destination location.')
+    origin_location: str = Field(..., description='Name of the origin location.')
+    destination_location: str = Field(..., description='Name of the destination location.')
 
 class RouteDistanceTool(BaseTool):
     name: str = 'Route distance calculator'
-    description: str = 'A tool to find the driving route distance between an origin and a destination in a map given their coordinates.'
+    description: str = 'A tool to find the driving route distance between an origin location and a destination location.'
     args_schema: Type[BaseModel] = RouteDistanceSchema
     city_map: networkx.classes.multidigraph.MultiDiGraph = None
     
@@ -29,11 +27,18 @@ class RouteDistanceTool(BaseTool):
         self.city_map = ox.routing.add_edge_travel_times(self.city_map)
     
     def _run(self, *args, **kwargs) -> int:
+        if not args:
+            raise ValueError("No arguments provided to RouteDistanceTool. You must provide as arguments a dictionary with 'origin_location' and 'destination_location'.")
         args = args[0]
-        x_origin = args.get('x_origin')
-        y_origin = args.get('y_origin')
-        x_destination = args.get('x_destination')
-        y_destination = args.get('y_destination')
+        print(f'Els inputs que estic rebent són')
+        print(args)
+        origin_location = args.get('origin_location')
+        x_origin = origin_location[1]
+        y_origin = origin_location[0]
+
+        destination_location = args.get('destination_location')
+        x_destination = destination_location[1]
+        y_destination = destination_location[0]
         
         return self._find_distance(x_origin, y_origin, x_destination, y_destination)
 

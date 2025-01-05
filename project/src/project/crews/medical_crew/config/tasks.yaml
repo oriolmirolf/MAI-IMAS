@@ -1,26 +1,26 @@
-medical_divide_task:
-  description: >
-    You will receive a JSON with some emergency information. 
-    Your goal is to split the data into two branches: one for the ambulance-focused 
-    details, which is basicaly the emergency location, how many injured people are 
-    and another branch for hospital-focused how many people are injured and how severe 
-    are their injuries and also the emergency location.
-    Organize the information so each branch has only what it needs to proceed.
-  expected_output: >
-    Two sets of data: 
-      1) The subset of emergency information relevant to the ambulance branch.
-        1.1) The emergency location.
-        1.2) The number of injured people and IDs.
-      2) The subset relevant to the hospital branch. 
-        2,1) The emergency location.
-        2.2) The number of injured people and IDs.
-        2.3) Extra information per IDs or what happened to them.
-    Make sure to keep each subset self-contained and clearly labeled for its destination.
-  agent: medical_divider_agent
+# medical_divide_task:
+#   description: >
+#     You will receive a JSON with some emergency information. 
+#     Your goal is to split the data into two branches: one for the ambulance-focused 
+#     details, which is basically the emergency location, how many injured people are 
+#     and another branch for hospital-focused how many people are injured and how severe 
+#     are their injuries and also the emergency location.
+#     Organize the information so each branch has only what it needs to proceed.
+#   expected_output: >
+#     Two sets of data:
+#       1) The subset of emergency information relevant to the ambulance branch.
+#         1.1) The emergency location.
+#         1.2) The number of injured people and IDs.
+#       2) The subset relevant to the hospital branch. 
+#         2.1) The emergency location.
+#         2.2) The number of injured people and IDs.
+#         2.3) Extra information per IDs and what happened to them.
+#     Make sure to keep each subset self-contained and clearly labeled for its destination.
+#   agent: medical_divider_agent
 
 emergency_doctor_task:
   description: >
-    You will receive information about some emergency with information of the
+    Use the FileReadTool to read information about some emergency with information of the
     hurted people. Evaluate the severity of each patient's injuries and determine 
     the appropriate level of care needed for each individual. You have to classify
     every patient in one of the following categories: Nurse Check, Hospitalization 
@@ -32,21 +32,33 @@ emergency_doctor_task:
     For each injured person (identified by their ID), evaluate the 
     severity of their injuries and classify them to the level of care they require. 
     Those are Nurse Check, Hospitalization, and ICU.
+    You MUST use the following output structure:
+    """
+    - Injured {injured_id1}: {Nurse Check/Hospitalization/ICU}
+    - Injured {injured_id2}: {Nurse Check/Hospitalization/ICU}
+    ...
+    """
   agent: emergency_doctor_agent
 
 ambulance_select_task:
   description: >
-    Analyze the emergency details and decide how many ambulances are required and also
-    the personal they need to go to the emergency. Take intro account that all the people
-    that need hospitalization or ICU should have one ambulance assigned to them. For the
-    people that only require a nurse check, they can be assigned to the same ambulance, but
-    take in to account that no more than 3 people can be assigned to the same ambulance, so in
-    case we have more than 3 people that only require a nurse check, we will need to assign
-    more ambulances, respecting the limit.
+    First, decide how many ambulances are required for the fire emergency. Then, obtain the location
+    of the fire emergency. Then, obtain the location of all ambulances, you must use again the FileReadTool.
+    Then, once you have all ambulances locations, you MUST use the RouteDistanceCalculator tool passing as parameters: 
+    {"origin_location": {location_of_the_ambulance}, "destination_location": {fire_emergency_location}, one time
+    for each ambulance location. Keep the distance from each ambulance to the fire emergency. Then,
+    select the closest ambulances to send to the fire emergency, given the number of ambulances you decided earlier.
+    Assign to each ambulance one pilot and one nurse, providing their ids. No pilot, ambulance and nurse can be repeated.
   expected_output: >
-    For each injured person (identified by their ID), assign them to an ambulance ID. 
-    Additionally, associate the IDs of the nurses and pilots responsible for that 
-    ambulance with the same ambulance ID.
+    For each injured person (use their ID to identify them), assign them to an ambulance ID.
+    Additionally, for each ambulance, provide IDs of the nurse and pilot that go to that ambulace.
+    For example:
+    """
+    Injured {injured_id}:
+      - Ambulance Assigned: {ambulance_id}
+      - Pilot Assigned: {pilot_id}
+      - Nurse Assigned: {nurse_id}
+    """
   agent: ambulance_selector_agent
 
 ambulance_navigate_task:

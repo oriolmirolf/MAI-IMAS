@@ -1,20 +1,22 @@
+import sys
+
 from crewai import Agent, Crew, Process, Task
 from crewai.project import CrewBase, agent, crew, task
 from crewai_tools import FileReadTool
 from pydantic import BaseModel, Field
-from typing import List
+from typing import List, Tuple
 
 from tools.route_distance_tool import RouteDistanceTool
 
 class MedicalPlannerSchema(BaseModel):
 	"""Output for the medical plan task."""
-	personnel_employed: List[(str, str)] = Field(..., description='Pairs of personnel identifications with its ambulance identification assigned.')
+	personnel_employed: List[Tuple[str, str]] = Field(..., description='Pairs of personnel identifications with its ambulance identification assigned.')
 	ambulances_employed: List[str] = Field(..., description='Identifications of the ambulances employed.') # TODO: Remove?
-	assigned_hospitals: List[(str, str)] = Field(..., description='Pairs of ambulance identifications with its hospital identification assigned.')
-	rooms_needed: List[(str, List[str])] = Field(..., description='Pairs of hospital identifications with a list of rooms identifications needed for that hospital.')
-	routes_to_fire: List[(float, float)] = Field(..., description='List of ambulance identifications along with the X and Y coordinates that form the route for that hospital from their current location to the fire scene.')
-	routes_to_hospitals: List[str, List[(float, float)]] = Field(..., description='List of ambulance identifications along with the X and Y coordinates that form the route from the fire scene to the assigned hospital.')
-	response_time: List[str, int] = Field(..., description=('Pairs of ambulance identifications and their time taken to reach the fire scene.'))
+	assigned_hospitals: List[Tuple[str, str]] = Field(..., description='Pairs of ambulance identifications with its hospital identification assigned.')
+	rooms_needed: List[Tuple[str, List[str]]] = Field(..., description='Pairs of hospital identifications with a list of rooms identifications needed for that hospital.')
+	routes_to_fire: List[Tuple[float, float]] = Field(..., description='List of ambulance identifications along with the X and Y coordinates that form the route for that hospital from their current location to the fire scene.')
+	routes_to_hospitals: List[Tuple[str, List[Tuple[float, float]]]] = Field(..., description='List of ambulance identifications along with the X and Y coordinates that form the route from the fire scene to the assigned hospital.')
+	response_time: List[Tuple[str, int]] = Field(..., description=('Pairs of ambulance identifications and their time taken to reach the fire scene.'))
 
 	@classmethod
 	def get_schema(cls) -> str:
@@ -29,16 +31,30 @@ class MedicalCrew:
 
     agents_config = 'config/agents.yaml'
     tasks_config = 'config/tasks.yaml'
-    path_file_map = '../../maps/sitges.graphml'
+    path_file_map = 'maps/vilanova_i_la_geltru.graphml'
+    ambulance_file = 'crews/medical_crew/resources/resourcesAmbulances1.json'
+    hospital_file = 'crews/medical_crew/resources/resourcesHospitals1.json'
 
     def __init__(self, medical_file):
         self._medical_file = medical_file
 
+    # @agent
+    # def medical_divider_agent(self) -> Agent:
+    #     file_read_tool = FileReadTool(self._medical_file)
+    #     return Agent(
+    #         config=self.agents_config['medical_divider_agent'],
+    #         verbose=True,
+    #         allow_delegation=False,
+    #         llm='ollama/llama3.1',
+    #         tools=[file_read_tool],
+    #         max_iter=1,
+    #     )
+
     @agent
-    def medical_divider_agent(self) -> Agent:
+    def emergency_doctor_agent(self) -> Agent:
         file_read_tool = FileReadTool(self._medical_file)
         return Agent(
-            config=self.agents_config['medical_divider_agent'],
+            config=self.agents_config['emergency_doctor_agent'],
             verbose=True,
             allow_delegation=False,
             llm='ollama/llama3.1',
@@ -47,36 +63,29 @@ class MedicalCrew:
         )
 
     @agent
-    def emergency_doctor_agent(self) -> Agent:
-        return Agent(
-            config=self.agents_config['emergency_doctor_agent'],
-            verbose=True,
-            allow_delegation=False,
-            llm='ollama/llama3.1',
-            max_iter=1,
-        )
-
-    @agent
     def ambulance_selector_agent(self) -> Agent:
+        file_read_tool = FileReadTool(self.ambulance_file)
+        print(self.ambulance_file)
         distance_calculator_tool = RouteDistanceTool(self.path_file_map)
         return Agent(
             config=self.agents_config['ambulance_selector_agent'],
             verbose=True,
             allow_delegation=False,
             llm='ollama/llama3.1',
-            tools=[distance_calculator_tool],
+            tools=[file_read_tool, distance_calculator_tool],
             max_iter=1,
         )
 
     @agent
     def ambulance_navigator_agent(self) -> Agent:
+        file_read_tool = FileReadTool(self.ambulance_file)
         distance_calculator_tool = RouteDistanceTool(self.path_file_map)
         return Agent(
             config=self.agents_config['ambulance_navigator_agent'],
             verbose=True,
             allow_delegation=False,
             llm='ollama/llama3.1',
-            tools=[distance_calculator_tool],
+            tools=[file_read_tool, distance_calculator_tool],
             max_iter=1,
         )
 
@@ -92,25 +101,27 @@ class MedicalCrew:
 
     @agent
     def hospital_selector_agent(self) -> Agent:
+        file_read_tool = FileReadTool(self.hospital_file)
         distance_calculator_tool = RouteDistanceTool(self.path_file_map)
         return Agent(
             config=self.agents_config['hospital_selector_agent'],
             verbose=True,
             allow_delegation=False,
             llm='ollama/llama3.1',
-            tools=[distance_calculator_tool],
+            tools=[file_read_tool, distance_calculator_tool],
             max_iter=1,
         )
 
     @agent
     def hospital_navigator_agent(self) -> Agent:
+        file_read_tool = FileReadTool(self.hospital_file)
         distance_calculator_tool = RouteDistanceTool(self.path_file_map)
         return Agent(
             config=self.agents_config['hospital_navigator_agent'],
             verbose=True,
             allow_delegation=False,
             llm='ollama/llama3.1',
-            tools=[distance_calculator_tool],
+            tools=[file_read_tool, distance_calculator_tool],
             max_iter=1,
         )
 
@@ -134,12 +145,12 @@ class MedicalCrew:
             max_iter=1,
         )
 
-    @task
-    def medical_divide_task(self) -> Task:
-        return Task(
-            config=self.tasks_config['medical_divide_task']
-        )
-    
+    # @task
+    # def medical_divide_task(self) -> Task:
+    #     return Task(
+    #         config=self.tasks_config['medical_divide_task']
+    #     )
+
     @task
     def emergency_doctor_task(self) -> Task:
         return Task(
@@ -166,14 +177,18 @@ class MedicalCrew:
 
     @task
     def hospital_select_task(self) -> Task:
+        distance_calculator_tool = RouteDistanceTool(self.path_file_map)
         return Task(
-            config=self.tasks_config['hospital_select_task']
+            config=self.tasks_config['hospital_select_task'],
+            tools=[distance_calculator_tool]
         )
 
     @task
     def hospital_navigate_task(self) -> Task:
+        distance_calculator_tool = RouteDistanceTool(self.path_file_map)
         return Task(
-            config=self.tasks_config['hospital_navigate_task']
+            config=self.tasks_config['hospital_navigate_task'],
+            tools=[distance_calculator_tool]
         )
 
     @task
@@ -191,16 +206,17 @@ class MedicalCrew:
 
     @crew
     def crew(self) -> Crew:
-        """Creates the Medical Services crew"""
+        """Creates the Medical Services Crew"""
         return Crew(
             agents=self.agents,  # Automatically created by the @agent decorator
             tasks=self.tasks,  # Automatically created by the @task decorator
             process=Process.sequential,
             verbose=True,
         )
-    
-if __name__ == '__main__': # FIXME
-	return Crew(
-		crew(),
-		kickoff()
+
+if __name__ == '__main__':
+    result = (
+          MedicalCrew(sys.argv[1])
+          .crew()
+          .kickoff()
 	)
