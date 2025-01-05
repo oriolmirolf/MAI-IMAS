@@ -1,23 +1,13 @@
 distill_task:
   description: >
+    This is an extremely important task and the lives of people depend on the results.
     Extract information from the call transcript provided in the file related to:
       1. Severity of the fire (light, moderate, severe, extreme).
-      2. Type of fire (ordinary, electrical, gas, chemical or other types).
+      2. Type of fire (ordinary, electrical, gas, chemical, wildfire or other types).
       3. Location of the emergency.
       4. How many people are injured. Count ONLY injured people.
-      5. Describe the injury that each person has. You must use ONE STRING PER PERSON.
+      5. Describe the injury level of EXCLUSIVELY injured people, using just ONE string per person.
   expected_output: >
     A concise yet accurate list of bullet-points with the requested information 
     following schema: {DistilledEmergencyCallSchema.get_schema()}
   agent: distiller_agent
-
-people_identification_task:
-  description: >
-    The field of injury_level contains one string for injured person. Your task is to add at the
-    beginning an id to each injured person so that it can be identified later on. Each person should
-    have a different random id. Include ONLY injured people and NEVER alter any other field of the input.
-  expected_output: >
-    The same data structure as in the input but in the field of injury_level each string should
-    begin with an exclusive identifier and a space separator.
-    The output should follow the schema: {DistilledEmergencyCallSchema.get_schema()}.
-  agent: people_identifier_agent

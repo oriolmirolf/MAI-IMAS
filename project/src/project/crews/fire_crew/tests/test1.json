@@ -1,9 +1,8 @@
 {
   "fire_severity": "severe",
   "fire_type": "electrical",
-  "emergency_location": "Laietana Street, 42",
+  "emergency_location": "Carrer del Jardi, 70",
   "extra_information_fire": [
-    "flames are too close",
-    "electrical"
+    "spreading"
   ]
 }

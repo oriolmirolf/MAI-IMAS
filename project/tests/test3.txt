@@ -1,25 +1,17 @@
-Operator: Emergency Services, how may I assist you?
+Emergency Operator: "Emergency services, how can I help?"
 
-Caller: Hi, uh, yes, I need to report a fire. There’s a trash container on fire in my street.
+Man: "Hi, there’s a trash container on fire on Carrer del Castell 9."
 
-Operator: Alright, can you tell me your location, please?
+Emergency Operator: "Is anyone injured or in danger?"
 
-Caller: Yes, it’s on Raval Street, near number 34.
+Man: "No, everything’s fine. It’s just the trash can burning."
 
-Operator: Got it. Is anyone injured or in immediate danger?
+Emergency Operator: "Okay, we’re sending fire services now. Please stay safe and keep a distance from the fire."
 
-Caller: No, no one is hurt. It’s just the container. There’s no property nearby that’s at risk either.
+Man: "I will. Thanks!"
 
-Operator: Understood. Can you describe the fire? Is it large, or is it manageable at this point?
+Emergency Operator: "You're welcome. Help is on the way."
 
-Caller: It’s not huge, but it’s burning pretty steadily. There’s a lot of smoke, and it seems to be spreading through the trash inside the container.
+Man: "Goodbye."
 
-Operator: Alright, thank you for the information. Stay at a safe distance and avoid inhaling the smoke. We’ll dispatch the fire department to handle it.
-
-Caller: Okay, thank you.
-
-Operator: You’re welcome. If anything changes, please call us back.
-
-Caller: Will do. Thanks again.
-
-Operator: Take care.
+Emergency Operator: "Goodbye."
