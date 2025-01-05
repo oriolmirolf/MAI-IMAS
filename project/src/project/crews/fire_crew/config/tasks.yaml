@@ -1,7 +1,6 @@
 firefighter_divider_task:
   description: >
-    Read a json file about the description of a fire incident.
-    Read a second json file about the resources available in the firefighter department.
+    Read a json file about the description of a fire incident and a json file about the resources available in the firefighter department.
     Determine the relevant information needed to make decisions about the type and number of firefighters.
     Determine the relevant information needed to make decisions about the equipment and types of vehicles.
   expected_output: >
