@@ -32,11 +32,12 @@ class MedicalCrew:
     agents_config = 'config/agents.yaml'
     tasks_config = 'config/tasks.yaml'
     path_file_map = 'maps/vilanova_i_la_geltru.graphml'
-    ambulance_file = 'crews/medical_crew/resources/resourcesAmbulances1.json'
-    hospital_file = 'crews/medical_crew/resources/resourcesHospitals1.json'
+    
 
     def __init__(self, medical_file):
         self._medical_file = medical_file
+        self._ambulance_file = 'crews/medical_crew/resources/resourcesAmbulances1.json'
+        self._hospital_file = 'crews/medical_crew/resources/resourcesHospitals1.json'
 
     # @agent
     # def medical_divider_agent(self) -> Agent:
@@ -52,7 +53,7 @@ class MedicalCrew:
 
     @agent
     def emergency_doctor_agent(self) -> Agent:
-        file_read_tool = FileReadTool(self._medical_file)
+        file_read_tool = FileReadTool(file_path=self._medical_file)
         return Agent(
             config=self.agents_config['emergency_doctor_agent'],
             verbose=True,
@@ -60,33 +61,35 @@ class MedicalCrew:
             llm='ollama/llama3.1',
             tools=[file_read_tool],
             max_iter=1,
+            cache=False,
         )
 
     @agent
     def ambulance_selector_agent(self) -> Agent:
-        file_read_tool = FileReadTool(self.ambulance_file)
-        print(self.ambulance_file)
+        ambulance_read_tool = FileReadTool(file_path=self._ambulance_file)
         distance_calculator_tool = RouteDistanceTool(self.path_file_map)
         return Agent(
             config=self.agents_config['ambulance_selector_agent'],
             verbose=True,
             allow_delegation=False,
             llm='ollama/llama3.1',
-            tools=[file_read_tool, distance_calculator_tool],
+            tools=[FileReadTool(self._ambulance_file), distance_calculator_tool],
             max_iter=1,
+            cache=False,
         )
 
     @agent
     def ambulance_navigator_agent(self) -> Agent:
-        file_read_tool = FileReadTool(self.ambulance_file)
+        ambulance_read_tool = FileReadTool(self._ambulance_file)
         distance_calculator_tool = RouteDistanceTool(self.path_file_map)
         return Agent(
             config=self.agents_config['ambulance_navigator_agent'],
             verbose=True,
             allow_delegation=False,
             llm='ollama/llama3.1',
-            tools=[file_read_tool, distance_calculator_tool],
+            tools=[FileReadTool(self._ambulance_file), distance_calculator_tool],
             max_iter=1,
+            cache=False,
         )
 
     @agent
@@ -97,24 +100,26 @@ class MedicalCrew:
             allow_delegation=False,
             llm='ollama/llama3.1',
             max_iter=1,
+            cache=False,
         )
 
     @agent
     def hospital_selector_agent(self) -> Agent:
-        file_read_tool = FileReadTool(self.hospital_file)
+        hospital_read_tool = FileReadTool(self._hospital_file)
         distance_calculator_tool = RouteDistanceTool(self.path_file_map)
         return Agent(
             config=self.agents_config['hospital_selector_agent'],
             verbose=True,
             allow_delegation=False,
             llm='ollama/llama3.1',
-            tools=[file_read_tool, distance_calculator_tool],
+            tools=[hospital_read_tool, distance_calculator_tool],
             max_iter=1,
+            cache=False,
         )
 
     @agent
     def hospital_navigator_agent(self) -> Agent:
-        file_read_tool = FileReadTool(self.hospital_file)
+        file_read_tool = FileReadTool(self._hospital_file)
         distance_calculator_tool = RouteDistanceTool(self.path_file_map)
         return Agent(
             config=self.agents_config['hospital_navigator_agent'],
@@ -123,6 +128,7 @@ class MedicalCrew:
             llm='ollama/llama3.1',
             tools=[file_read_tool, distance_calculator_tool],
             max_iter=1,
+            cache=False,
         )
 
     @agent
@@ -133,6 +139,7 @@ class MedicalCrew:
             allow_delegation=False,
             llm='ollama/llama3.1',
             max_iter=1,
+            cache=False,
         )
 
     @agent
@@ -143,6 +150,7 @@ class MedicalCrew:
             allow_delegation=False,
             llm='ollama/llama3.1',
             max_iter=1,
+            cache=False,
         )
 
     # @task

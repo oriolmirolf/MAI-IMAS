@@ -1,4 +1,5 @@
 import networkx
+import json
 import osmnx as ox
 from crewai_tools import BaseTool
 from typing import Optional, Type
@@ -26,19 +27,32 @@ class RouteDistanceTool(BaseTool):
         self.city_map = ox.routing.add_edge_speeds(self.city_map)
         self.city_map = ox.routing.add_edge_travel_times(self.city_map)
     
-    def _run(self, *args, **kwargs) -> int:
+    def _run(self, *args) -> int:
         if not args:
-            raise ValueError("No arguments provided to RouteDistanceTool. You must provide as arguments a dictionary with 'origin_location' and 'destination_location'.")
-        args = args[0]
-        print(f'Els inputs que estic rebent són')
-        print(args)
-        origin_location = args.get('origin_location')
-        x_origin = origin_location[1]
-        y_origin = origin_location[0]
+            raise ValueError(
+                "No arguments provided to RouteDistanceTool. "
+                "You must provide a JSON string with 'origin_location' and 'destination_location'."
+            )
+        
+        input_str = args[0]
 
-        destination_location = args.get('destination_location')
-        x_destination = destination_location[1]
-        y_destination = destination_location[0]
+        try:
+            # Parse the JSON string into a dictionary
+            input_data = json.loads(input_str)
+            print("Parsed input data:", input_data)
+        except json.JSONDecodeError as e:
+            raise ValueError(f"Invalid JSON format: {e}")
+
+        # Extract locations from the parsed data
+        origin_location = input_str.get('origin_location')
+        origin_coordinates = ox.geocode(origin_location)
+        
+        x_origin, y_origin = origin_coordinates[1], origin_coordinates[0]
+
+        destination_location = args.input_str('destination_location')
+        destination_coordinates = ox.geocode(destination_location)
+
+        x_destination, y_destination = destination_coordinates[1], destination_coordinates[0]
         
         return self._find_distance(x_origin, y_origin, x_destination, y_destination)
 
