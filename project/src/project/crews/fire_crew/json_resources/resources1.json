@@ -1,94 +1,93 @@
 {
-    "firefighter_roles": [
-      {
-        "role": "Team Leader",
-        "count": 1
-      },
-      {
-        "role": "Hose Operator",
-        "count": 3
-      },
-      {
-        "role": "Search and Rescue Specialist",
-        "count": 2
-      },
-      {
-        "role": "Equipment Technician",
-        "count": 1
+  "firefighter_roles": [
+    {
+      "role": "Team Leader",
+      "count": 1
+    },
+    {
+      "role": "Hose Operator",
+      "count": 3
+    },
+    {
+      "role": "Search and Rescue Specialist",
+      "count": 2
+    },
+    {
+      "role": "Equipment Technician",
+      "count": 1
+    }
+  ],
+  "equipment_inventory": [
+    {
+      "tool": "Fire Hose",
+      "description": "Used to deliver water to extinguish fires.",
+      "quantity": 5,
+      "details": {
+        "length": "50 meters",
+        "type": "High-pressure"
       }
-    ],
-    "equipment_inventory": [
-      {
-        "tool": "Fire Hose",
-        "description": "Used to deliver water to extinguish fires.",
-        "quantity": 5,
-        "details": {
-          "length": "50 meters",
-          "type": "High-pressure"
-        }
-      },
-      {
-        "tool": "Fire Extinguisher",
-        "description": "Portable device for small fire suppression.",
-        "quantity": 10,
-        "details": {
-          "type": "Foam"
-        }
-      },
-      {
-        "tool": "Protective Gear",
-        "quantity": 20
-      },
-      {
-        "tool": "Ladder",
-        "description": "Used for accessing high places.",
-        "quantity": 3,
-        "details": {
-          "length": "5 meters"
-        }
-      },
-      {
-        "tool": "Large Ladder",
-        "description": "Used for accessing higher places than a normal ladder.",
-        "quantity": 3,
-        "details": {
-          "length": "15 meters"
-        }
-      },
-      {
-        "name": "Axe",
-        "description": "Used for forcible entry and rescue operations.",
-        "quantity": 15
-      },
-      {
-        "name": "Thermal Imaging Camera",
-        "description": "Helps locate individuals in low visibility conditions.",
-        "quantity": 5
+    },
+    {
+      "tool": "Fire Extinguisher",
+      "description": "Portable device for small fire suppression.",
+      "quantity": 10,
+      "details": {
+        "type": "Foam"
       }
-    ],
-    "vehicles": [
-      {
-        "type": "Fire Engine",
-        "count": 2,
-        "details": {
-          "water_tank_capacity": "1000 liters",
-          "pump_capacity": "300 liters/min"
-        }
-      },
-      {
-        "type": "Rescue Truck",
-        "count": 1,
-        "details": {
-          "equipment_storage_capacity": "2 cubic meters"
-        }
-      },
-      {
-        "type": "Water Tanker",
-        "count": 1,
-        "details": {
-          "water_tank_capacity": "5000 liters"
-        }
+    },
+    {
+      "tool": "Protective Gear",
+      "quantity": 20
+    },
+    {
+      "tool": "Ladder",
+      "description": "Used for accessing high places.",
+      "quantity": 3,
+      "details": {
+        "length": "5 meters"
       }
-    ]
-  }
-  
+    },
+    {
+      "tool": "Large Ladder",
+      "description": "Used for accessing higher places than a normal ladder.",
+      "quantity": 3,
+      "details": {
+        "length": "15 meters"
+      }
+    },
+    {
+      "tool": "Axe",
+      "description": "Used for forcible entry and rescue operations.",
+      "quantity": 15
+    },
+    {
+      "tool": "Thermal Imaging Camera",
+      "description": "Helps locate individuals in low visibility conditions.",
+      "quantity": 5
+    }
+  ],
+  "vehicles": [
+    {
+      "type": "Fire Engine",
+      "count": 2,
+      "details": {
+        "water_tank_capacity": "1000 liters",
+        "pump_capacity": "300 liters/min"
+      }
+    },
+    {
+      "type": "Rescue Truck",
+      "count": 1,
+      "details": {
+        "equipment_storage_capacity": "2 cubic meters"
+      }
+    },
+    {
+      "type": "Water Tanker",
+      "count": 1,
+      "details": {
+        "water_tank_capacity": "5000 liters"
+      }
+    }
+  ]
+}
