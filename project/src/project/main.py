@@ -8,6 +8,8 @@ from crewai.flow.flow import Flow, listen, start, router, or_, and_
 
 from .crews.emergency_crew.emergency_crew import EmergencyCrew
 
+from .crews.reporter_crew.reporter_crew import ReporterCrew
+
 
 class ProjectState(BaseModel):
     emergency_file: str = "./tests/test4.txt"
@@ -77,7 +79,7 @@ class ProjectFlow(Flow[ProjectState]):
     @listen("medical-not-needed")
     def no_medical_crew(self):
         print("NO MEDICAL CREW NEEDED")
-        self.state.medical_planning = "{medical_services_needed: false}"
+        self.state.medical_planning = '{"medical_services_needed": "false"}'
     
     @listen(or_(medical_crew, no_medical_crew))
     def medical_output(self):
