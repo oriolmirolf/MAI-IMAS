@@ -9,6 +9,7 @@ from typing import List, Tuple
 
 from tools.ambulance_selector_tool import AmbulanceSelectorTool
 from tools.hospital_selector_tool import HospitalSelectorTool
+from tools.route_navigator_tool import RouteNavigatorTool
 from tools.route_distance_tool import RouteDistanceTool
 
 
@@ -95,7 +96,7 @@ class MedicalCrew:
     @agent
     def route_navigator_agent(self) -> Agent:
         file_read_tool = FileReadTool(self._hospital_file)
-        distance_calculator_tool = RouteDistanceTool(self.path_file_map)
+        #route_navigator_tool = RouteNavigatorTool(self.path_file_map)
         return Agent(
             config=self.agents_config['route_navigator_agent'],
             verbose=True,
@@ -136,11 +137,9 @@ class MedicalCrew:
         )
 
     @task
-    def hospital_navigate_task(self) -> Task:
-        distance_calculator_tool = RouteDistanceTool(self.path_file_map)
+    def route_navigate_task(self) -> Task:
         return Task(
-            config=self.tasks_config['hospital_navigate_task'],
-            tools=[distance_calculator_tool]
+            config=self.tasks_config['route_navigate_task']
         )
 
     @task

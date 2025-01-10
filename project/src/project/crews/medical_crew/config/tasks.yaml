@@ -20,6 +20,7 @@ ambulance_select_task:
     First, decide how many ambulances N are required for the fire emergency (one ambulance for each injured person needing 
     Hospitalization or ICU).
     Second, use the AmbulanceSelectorTool to obtain the N closest ambulances ids to the fire emergency and their distances.
+    Third, once obtained the tool results, write the output using the expected_output guidelines.
   expected_output: >
     For each injured person state their requirement (Nurse Check, Hospitalization or ICU), the ambulance id that it was assigned,
     the ambulance starting location and its travel distance.
@@ -36,11 +37,13 @@ ambulance_select_task:
 hospital_assign_task:
   description: >
     First, use the FileReadTool only once to read a file containing information about the hospitals and their capacities.
-    Then, assign one hospital to each of the ambulances selected by the previous agent.
+    Second, use HospitalSelectorTool to obtain the information relevant for each hospital (distance from the fire location,
+    number of normal rooms available, and number of ICU rooms available). Then, assign to each ambulance a hospital and an appropriate hospital room.
     You MUST take into account the hospitals capacities (for example, if the injured needs ICU, the hospital assigned 
     must have one ICU room available).
+    Third, write the output following the guidelines of the expected_output.
   expected_output: >
-    For each ambulance assign them to a hospital. You MUST use the following output structure:
+    For each ambulance assign them to a hospital and hospital room. You MUST use the following output structure:
     * Ambulance {1st_ambulance_id} transporting injured {1st_injured_id} requiring {1st_injured_requirement} was assigned to hospital {hospital_id} in room {room_id}.
           Ambulance {1st_ambulance_id} starts at {1st_ambulance_location} and has a travel distance of {previous_calculated_ambulance_distance} meters.
           Ambulance {1st_ambulance_id} ends at {hospital_assigned_location} and has a travel distance of {1st_ambulance_distance} meters.
@@ -58,7 +61,7 @@ route_navigate_task:
   expected_output: >
     Show each calculated route.
 
-  agent: hospital_navigator_agent
+  agent: route_navigator_agent
 
 
 medical_plan_task:

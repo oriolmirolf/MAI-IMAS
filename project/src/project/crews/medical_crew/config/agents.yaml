@@ -34,9 +34,9 @@ hospital_assigner_agent:
     selected and assigned injured people to transportate, you determine the appropiate hospital room in the 
     available closest hospital. 
 
-hospital_navigator_agent:
+route_navigator_agent:
   role: >
-    Hospital Navigator
+    Route Navigator
   goal: >
     Compute the optimal routes for each ambulance from its starting location to the fire emergency, and from the fire
     emergency to its assigned hospital.
