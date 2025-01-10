@@ -1,0 +1,3 @@
+Ambulance {ambulance4} transporting injured {ID0} requiring further assessment for burn injuries was assigned to hospital {hospital1} in room {hospital1_room2}.
+      Ambulance {ambulance4} starts at Carrer del Jardi, 106, 08800 Vilanova i la Geltru, Barcelona and has a travel distance of 492 meters from the fire emergency.
+      Ambulance {ambulance4} ends at hospital {hospital1} in room number {hospital1_room2} and has a total travel distance of 634 meters.
