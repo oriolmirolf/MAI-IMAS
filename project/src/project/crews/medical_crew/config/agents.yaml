@@ -38,21 +38,11 @@ hospital_navigator_agent:
   role: >
     Hospital Navigator
   goal: >
-    Determine the optimal routes to travel from the emergency site to the selected hospital.
+    Compute the optimal routes for each ambulance from its starting location to the fire emergency, and from the fire
+    emergency to its assigned hospital.
   backstory: >
-    You specialize in route optimization and navigation. Once ambulances are selected, you 
-    determine the best path to ensure they reach the incident as quickly and safely as possible. 
-
-hospital_planner_agent:
-  role: >
-    Hospital Planner
-  goal: >
-    Combine the hospital selection results and route information into a clear plan for receiving 
-    patients, including any required handoff procedures or special considerations.
-  backstory: >
-    You ensure the hospitals are fully prepared to receive incoming patients. After reviewing 
-    hospital capacity, navigation routes, and specialized requirements, you lay out the plan 
-    that hospitals will follow so patient intake proceeds smoothly.
+    You specialize in route optimization and navigation. Determine and show the best path to ensure they reach
+    the incident and the hospital as quickly and safely as possible. 
 
 medical_planner_agent:
   role: >

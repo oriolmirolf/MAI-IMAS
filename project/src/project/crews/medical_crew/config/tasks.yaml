@@ -9,11 +9,9 @@ emergency_doctor_task:
   expected_output: >
     For each injured person you must state their id, injury and requirement. 
     You MUST use the following output structure:
-    """
     * Person {1st_injured_id} with injury {state their injury} needs {Nurse Check/Hospitalization/ICU}.
     * Person {2nd_injured_id} with injury {state their injury} needs {Nurse Check/Hospitalization/ICU}.
     ...
-    """
   agent: emergency_doctor_agent
 
 
@@ -26,15 +24,14 @@ ambulance_select_task:
     For each injured person state their requirement (Nurse Check, Hospitalization or ICU), the ambulance id that it was assigned,
     the ambulance starting location and its travel distance.
     You MUST use the following output structure:
-    """
     * Injured {1st_injured_id} requiring {1st_injured_requirement} was assigned to {1st_ambulance_id}.
           Ambulance {1st_ambulance_id} starts at {1st_ambulance_location} and has a travel distance of {1st_ambulance_distance} meters.
     * Injured {2nd_injured_id} requiring {2nd_injured_requirement} was assigned to {2nd_ambulance_id}.
           Ambulance {2nd_ambulance_id} starts at {2nd_ambulance_location} and has a travel distance of {2nd_ambulance_distance} meters.
     ...
-    """
   agent: ambulance_selector_agent
 # TODO: Add an ambulance for every 4 persons needing nurse check (Nº ambulances nurse check = 4 / n_persons_needing_nurse_check)
+
 
 hospital_assign_task:
   description: >
@@ -43,60 +40,26 @@ hospital_assign_task:
     You MUST take into account the hospitals capacities (for example, if the injured needs ICU, the hospital assigned 
     must have one ICU room available).
   expected_output: >
-    For each ambulance assign them to a hospital.
-    """
+    For each ambulance assign them to a hospital. You MUST use the following output structure:
     * Ambulance {1st_ambulance_id} transporting injured {1st_injured_id} requiring {1st_injured_requirement} was assigned to hospital {hospital_id} in room {room_id}.
-          Ambulance {1st_ambulance_id} starts at {1st_ambulance_location} and has a travel distance of {1st_previous_ambulance_distance} meters.
+          Ambulance {1st_ambulance_id} starts at {1st_ambulance_location} and has a travel distance of {previous_calculated_ambulance_distance} meters.
           Ambulance {1st_ambulance_id} ends at {hospital_assigned_location} and has a travel distance of {1st_ambulance_distance} meters.
     * Ambulance {1st_ambulance_id} transporting injured {2nd_injured_id} requiring {1st_injured_requirement} was assigned to hospital {hospital_id} in room {room_id}.
-          Ambulance {2nd_ambulance_id} starts at {2nd_ambulance_location} and has a travel distance of {2nd_previous_ambulance_distance} meters.
+          Ambulance {2nd_ambulance_id} starts at {2nd_ambulance_location} and has a travel distance of {previous_calculated_ambulance_distance} meters.
           Ambulance {2nd_ambulance_id} ends at {hospital_assigned_location} and has a travel distance of {2nd_ambulance_distance} meters.
     ...
-    """
   agent: hospital_assigner_agent
 
 
-ambulance_plan_task:
+route_navigate_task:
   description: >
-    Combine the outputs from the Ambulance Selector and Ambulance Navigator. 
-    Produce a unified ambulance plan that specifies which ambulances are assigned 
-    and the route each will follow. This plan is then passed along to the next stage.
+    First, use the RouteNavigatorTool only once to compute the route for each ambulance from its starting location
+    to the fire emergency, and from the fire emergency to its assigned hospital. 
   expected_output: >
-    A single, consolidated plan detailing each selected ambulance, its route, 
-    and any additional notes or requirements needed by the ambulance teams.
-  agent: ambulance_planner_agent
+    Show each calculated route.
 
-hospital_select_task:
-  description: >
-    Assess the available hospital options and choose the most suitable facilities 
-    for treating the victims. Take into account critical factors such as the hospital's 
-    capacity, specialized medical services, and proximity to the emergency site to 
-    ensure timely and effective care.
-  expected_output: >
-    For all the injured persons, assign them to the hospital nearest hospital, taking
-    into account the available capacity and the severity of their injuries.
-  agent: hospital_selector_agent
-
-hospital_navigate_task:
-  description: >
-    Plan the route from the emergency location to the selected hospital(s), 
-    aiming for minimal travel time and safe transport of the injured. If 
-    multiple hospitals are chosen, provide separate route plans for each.
-  expected_output: >
-    A set of route plans—one per hospital IDs assignment—specifying the chosen 
-    path or key checkpoints for each patient injured (IDs) that needs to go to
-    the hospital.
   agent: hospital_navigator_agent
 
-hospital_plan_task:
-  description: >
-    Synthesize the outputs from the Hospital Selector and Hospital Navigator 
-    into a comprehensive hospital plan. Include which hospitals are chosen, 
-    and how each ambulance will reach them.
-  expected_output: >
-    A consolidated view of hospital usage, highlighting each hospital, 
-    assigned patients/ambulances, and the routes to be followed.
-  agent: hospital_planner_agent
 
 medical_plan_task:
   description: >

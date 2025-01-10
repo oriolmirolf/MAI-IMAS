@@ -23,6 +23,7 @@ class AmbulanceSelectorTool(BaseTool):
     def __init__(self, city_map: str, input, **kwargs):
         super().__init__(**kwargs)
 
+        # Initialize the map
         self.city_map = ox.load_graphml(city_map)
         self.city_map = ox.routing.add_edge_speeds(self.city_map)
         self.city_map = ox.routing.add_edge_travel_times(self.city_map)
@@ -59,7 +60,8 @@ class AmbulanceSelectorTool(BaseTool):
 
             ambulance_distances.append({
                 "ambulance_id": amb_id,
-                "distance": distance
+                "distance": distance,
+                "location": amb_location
             })
 
         # Sort ambulances by distance (ascending order)
@@ -68,7 +70,7 @@ class AmbulanceSelectorTool(BaseTool):
         # Select the required number of closest ambulances
         selected_ambulances = ambulance_distances[:ambulances_needed]
 
-        print('Ambulances results are ')
+        print('Ambulances results:')
         print(ambulance_distances)
 
         return selected_ambulances
