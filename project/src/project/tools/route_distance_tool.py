@@ -6,13 +6,13 @@ from typing import Optional, Type
 from pydantic import BaseModel, Field
 
 class RouteDistanceSchema(BaseModel):
-    """Input for the RouteDistanceTool."""
-    origin_location: str = Field(..., description='Name of the origin location.')
-    destination_location: str = Field(..., description='Name of the destination location.')
+    """Input schema for the Route Distance Calculator Tool."""
+    origin_location: str = Field(..., description='Address of the origin location.')
+    destination_location: str = Field(..., description='Address of the destination location.')
 
 class RouteDistanceTool(BaseTool):
-    name: str = 'Route distance calculator'
-    description: str = 'A tool to find the driving route distance between an origin location and a destination location.'
+    name: str = 'Route Distance Calculator'
+    description: str = 'A tool to find the shortest distance between an origin and destination location.'
     args_schema: Type[BaseModel] = RouteDistanceSchema
     city_map: networkx.classes.multidigraph.MultiDiGraph = None
     
@@ -21,13 +21,13 @@ class RouteDistanceTool(BaseTool):
     
     def __init__(self, city_map: str, **kwargs):
         super().__init__(**kwargs)
-        if not city_map:
-            raise Exception('A valid city map path to a graphml file must be provided.')
+
         self.city_map = ox.load_graphml(city_map)
         self.city_map = ox.routing.add_edge_speeds(self.city_map)
         self.city_map = ox.routing.add_edge_travel_times(self.city_map)
     
     def _run(self, *args) -> int:
+        print(f'Args is {args}')
         if not args:
             raise ValueError(
                 "No arguments provided to RouteDistanceTool. "

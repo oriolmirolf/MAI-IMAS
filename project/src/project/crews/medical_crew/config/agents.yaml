@@ -14,8 +14,8 @@ ambulance_selector_agent:
   role: >
     Ambulance Selector
   goal: >
-    Decide how many ambulances are required and which specific units to dispatch assign them to 
-    one ambulance, based on proximity to the fire emergency.
+    Decide how many ambulances and which specific ambulances are required to dispatch
+    based on proximity to the fire emergency.
     Take into account the ambulance origin location and the fire location (destination) location 
     using the file read tool to obtain the required locations.
   backstory: >

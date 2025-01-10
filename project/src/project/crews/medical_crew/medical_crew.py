@@ -39,18 +39,6 @@ class MedicalCrew:
         self._ambulance_file = 'crews/medical_crew/resources/resourcesAmbulances1.json'
         self._hospital_file = 'crews/medical_crew/resources/resourcesHospitals1.json'
 
-    # @agent
-    # def medical_divider_agent(self) -> Agent:
-    #     file_read_tool = FileReadTool(self._medical_file)
-    #     return Agent(
-    #         config=self.agents_config['medical_divider_agent'],
-    #         verbose=True,
-    #         allow_delegation=False,
-    #         llm='ollama/llama3.1',
-    #         tools=[file_read_tool],
-    #         max_iter=1,
-    #     )
-
     @agent
     def emergency_doctor_agent(self) -> Agent:
         file_read_tool = FileReadTool(file_path=self._medical_file)
