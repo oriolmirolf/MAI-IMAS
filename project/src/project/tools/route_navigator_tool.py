@@ -6,12 +6,15 @@ from pydantic import BaseModel, Field
 
 class RouteNavigatorSchema(BaseModel):
     """Input schema for the Route Navigator Tool."""
-    origin_location: str = Field(..., description='Address of origin.')
-    destination_location: int = Field(..., description='Address of destination.')
+    fire_location: str = Field(..., description='Address of the fire location.')
+    ambulance_information: Dict = Field(..., description="""Dictionary containing as key the ambulance ids and as values another Dictionary with keys 'address1'
+                                        and 'address2' containing the origin ambulance location address and the destination address, respectively.
+                                        E.g: {"ambulance1": {"address1": "Origin location", "address2": "Destination location"},
+                                              "ambulance2": {"address1": "Origin location", "address2": "Destination location"}, ...}""")
 
 class RouteNavigatorTool(BaseTool):
     name: str = 'Route Navigator Tool'
-    description: str = 'This tool computes a route from the origin to the destination.'
+    description: str = 'This tool returns a route between two locations, as a list of street names.'
     args_schema: Type[BaseModel] = RouteNavigatorSchema
     city_map: networkx.classes.multidigraph.MultiDiGraph = None
     route: list = List[str]
