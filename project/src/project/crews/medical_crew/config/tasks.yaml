@@ -23,17 +23,20 @@ ambulance_select_task:
     Hospitalization or ICU).
     Second, use the AmbulanceSelectorTool to obtain the N closest ambulances ids to the fire emergency and their distances.
   expected_output: >
-    For each injured person state their requirement (Nurse Check, Hospitalization or ICU), the ambulance id it was assigned and its distance.
+    For each injured person state their requirement (Nurse Check, Hospitalization or ICU), the ambulance id that it was assigned,
+    the ambulance starting location and its travel distance.
     You MUST use the following output structure:
     """
-    * Injured {1st_injured_id} requiring {1st_injured_requirement} was assigned to {1st_ambulance_id} ({1st_ambulance_distance} meters).
-    * Injured {2nd_injured_id} requiring {2nd_injured_requirement} was assigned to {2nd_ambulance_id} ({1st_ambulance_distance} meters).
+    * Injured {1st_injured_id} requiring {1st_injured_requirement} was assigned to {1st_ambulance_id}.
+          Ambulance {1st_ambulance_id} starts at {1st_ambulance_location} and has a travel distance of {1st_ambulance_distance} meters.
+    * Injured {2nd_injured_id} requiring {2nd_injured_requirement} was assigned to {2nd_ambulance_id}.
+          Ambulance {2nd_ambulance_id} starts at {2nd_ambulance_location} and has a travel distance of {2nd_ambulance_distance} meters.
     ...
     """
   agent: ambulance_selector_agent
 # TODO: Add an ambulance for every 4 persons needing nurse check (Nº ambulances nurse check = 4 / n_persons_needing_nurse_check)
 
-ambulance_navigate_task:
+hospital_assign_task:
   description: >
     First, use the FileReadTool only once to read a file containing information about the hospitals and their capacities.
     Then, assign one hospital to each of the ambulances selected by the previous agent.
@@ -42,11 +45,15 @@ ambulance_navigate_task:
   expected_output: >
     For each ambulance assign them to a hospital.
     """
-    * Ambulance {1st_ambulance_id} transporting injured {1st_injured_id} requiring {1st_injured_requirement} was assigned to hospital {hospital_id}.
-    * Ambulance {1st_ambulance_id} transporting injured {2nd_injured_id} requiring {1st_injured_requirement} was assigned to hospital {hospital_id}.
+    * Ambulance {1st_ambulance_id} transporting injured {1st_injured_id} requiring {1st_injured_requirement} was assigned to hospital {hospital_id} in room {room_id}.
+          Ambulance {1st_ambulance_id} starts at {1st_ambulance_location} and has a travel distance of {1st_previous_ambulance_distance} meters.
+          Ambulance {1st_ambulance_id} ends at {hospital_assigned_location} and has a travel distance of {1st_ambulance_distance} meters.
+    * Ambulance {1st_ambulance_id} transporting injured {2nd_injured_id} requiring {1st_injured_requirement} was assigned to hospital {hospital_id} in room {room_id}.
+          Ambulance {2nd_ambulance_id} starts at {2nd_ambulance_location} and has a travel distance of {2nd_previous_ambulance_distance} meters.
+          Ambulance {2nd_ambulance_id} ends at {hospital_assigned_location} and has a travel distance of {2nd_ambulance_distance} meters.
     ...
     """
-  agent: ambulance_navigator_agent
+  agent: hospital_assigner_agent
 
 
 ambulance_plan_task:

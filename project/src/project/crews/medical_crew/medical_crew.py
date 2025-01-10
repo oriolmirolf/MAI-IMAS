@@ -72,40 +72,15 @@ class MedicalCrew:
         )
 
     @agent
-    def ambulance_navigator_agent(self) -> Agent:
+    def hospital_assigner_agent(self) -> Agent:
         ambulance_read_tool = FileReadTool(self._ambulance_file)
         distance_calculator_tool = RouteDistanceTool(self.path_file_map)
         return Agent(
-            config=self.agents_config['ambulance_navigator_agent'],
+            config=self.agents_config['hospital_assigner_agent'],
             verbose=True,
             allow_delegation=False,
             llm='ollama/llama3.1',
             tools=[FileReadTool(self._ambulance_file)],
-            max_iter=1,
-            cache=False,
-        )
-
-    @agent
-    def ambulance_planner_agent(self) -> Agent:
-        return Agent(
-            config=self.agents_config['ambulance_planner_agent'],
-            verbose=True,
-            allow_delegation=False,
-            llm='ollama/llama3.1',
-            max_iter=1,
-            cache=False,
-        )
-
-    @agent
-    def hospital_selector_agent(self) -> Agent:
-        hospital_read_tool = FileReadTool(self._hospital_file)
-        distance_calculator_tool = RouteDistanceTool(self.path_file_map)
-        return Agent(
-            config=self.agents_config['hospital_selector_agent'],
-            verbose=True,
-            allow_delegation=False,
-            llm='ollama/llama3.1',
-            tools=[hospital_read_tool],
             max_iter=1,
             cache=False,
         )
@@ -125,17 +100,6 @@ class MedicalCrew:
         )
 
     @agent
-    def hospital_planner_agent(self) -> Agent:
-        return Agent(
-            config=self.agents_config['hospital_planner_agent'],
-            verbose=True,
-            allow_delegation=False,
-            llm='ollama/llama3.1',
-            max_iter=1,
-            cache=False,
-        )
-
-    @agent
     def medical_planner_agent(self) -> Agent:
         return Agent(
             config=self.agents_config['medical_planner_agent'],
@@ -145,13 +109,7 @@ class MedicalCrew:
             max_iter=1,
             cache=False,
         )
-
-    # @task
-    # def medical_divide_task(self) -> Task:
-    #     return Task(
-    #         config=self.tasks_config['medical_divide_task']
-    #     )
-
+    
     @task
     def emergency_doctor_task(self) -> Task:
         return Task(

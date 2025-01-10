@@ -23,36 +23,16 @@ ambulance_selector_agent:
     availability of the ambulances, the proximity to the emergency, and the capacity to handle
     the emergency.
 
-ambulance_navigator_agent:
+hospital_assigner_agent:
   role: >
-    Ambulance Navigator
+    Hospital Assigner
   goal: >
-    Compute most efficient routes for ambulances to travel from their current locations to 
-    the emergency site.
+    Assign for each injured person being transported in an ambulance the appropiate hospital and
+    hospital room based on the injury level.
   backstory: >
-    You specialize in route optimization and navigation. Once ambulances are selected, you 
-    determine the best path to ensure they reach the incident as quickly and safely as possible. 
-
-ambulance_planner_agent:
-  role: >
-    Ambulance Planner
-  goal: >
-    Combine the chosen ambulances and their routes into a coherent plan that can be executed 
-    swiftly.
-  backstory: >
-    You integrate the outputs from the Ambulance Selector and Navigator, ensuring that each 
-    assigned ambulance has a clear route and timeline.
-
-hospital_selector_agent:
-  role: >
-    Hospital Selector
-  goal: >
-    Evaluate hospitals for capacity and also for special ability rooms (ICU or non-ICU) and
-    assign every ambulance to an hospital depending of their needs.
-  backstory: >
-    You are well-informed about each hospital’s current occupancy and resources. 
-    After assessing the severity of the emergency and patient needs, you recommend the most 
-    appropriate hospital destinations to ensure patients get the care they need promptly.
+    You specialize in assigning injured people to appropiate hospital rooms. Once ambulances have been
+    selected and assigned injured people to transportate, you determine the appropiate hospital room in the 
+    available closest hospital. 
 
 hospital_navigator_agent:
   role: >
