@@ -15,8 +15,7 @@ from tools.route_distance_tool import RouteDistanceTool
 
 class MedicalPlannerSchema(BaseModel):
 	"""Output for the medical plan task."""
-	personnel_employed: List[Tuple[str, str]] = Field(..., description='Pairs of personnel identifications with its ambulance identification assigned.')
-	ambulances_employed: List[str] = Field(..., description='Identifications of the ambulances employed.') # TODO: Remove?
+	ambulances_employed: List[str] = Field(..., description='Pairs of ambulance identifications with the injured person identfications assigned.')
 	assigned_hospitals: List[Tuple[str, str]] = Field(..., description='Pairs of ambulance identifications with its hospital identification assigned.')
 	rooms_needed: List[Tuple[str, List[str]]] = Field(..., description='Pairs of hospital identifications with a list of rooms identifications needed for that hospital.')
 	routes_to_fire: List[Tuple[float, float]] = Field(..., description='List of ambulance identifications along with the X and Y coordinates that form the route for that hospital from their current location to the fire scene.')
@@ -77,8 +76,6 @@ class MedicalCrew:
 
     @agent
     def hospital_assigner_agent(self) -> Agent:
-        file_read_tool = FileReadTool(self._ambulance_file)
-
         with open(self._hospital_file, "r") as f:
             hospital_data = json.load(f)
 
@@ -88,7 +85,7 @@ class MedicalCrew:
             verbose=True,
             allow_delegation=False,
             llm='ollama/llama3.1',
-            tools=[file_read_tool, hospital_selector_tool],
+            tools=[hospital_selector_tool],
             max_iter=1,
             cache=False,
         )
@@ -157,6 +154,13 @@ class MedicalCrew:
             tasks=self.tasks,  # Automatically created by the @task decorator
             process=Process.sequential,
             verbose=True,
+            memory=True,
+            embedder={
+                "provider": "ollama",
+                "config": {
+                    "model": "mxbai-embed-large"
+                }
+            }
         )
 
 if __name__ == '__main__':

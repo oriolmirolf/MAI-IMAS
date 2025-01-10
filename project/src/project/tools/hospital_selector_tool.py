@@ -72,7 +72,9 @@ class HospitalSelectorTool(BaseTool):
                 "hospital_id": hosp_id,
                 "distance": distance,
                 "normal_rooms_available": normal_count,
-                "icu_rooms_available": uci_count
+                "normal_rooms_ids": [room for room, hosp in self.normal_rooms.items() if hosp == hosp_id],
+                "icu_rooms_available": uci_count,
+                "icu_rooms_ids": [room for room, hosp in self.uci_rooms.items() if hosp == hosp_id]
             })
 
         return hospital_info
