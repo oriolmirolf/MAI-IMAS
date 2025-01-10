@@ -6,6 +6,12 @@ writing_task:
     in the report. It might be the case that there is no need to deploy medical assistance, in such
     case mention that. You must include ALL the detailed information. It is crucial that you DO NOT
     ALTER in ANY way the information provided.
+    
+    The information that the firefighter services need is:
+    {firefighter_data}
+
+    The information that the medical services need is:
+    {medical_data}
   expected_output: >
     A detailed report which includes ALL the information required by the emergency services to solve
     the emergency situation. Include ONLY information that is present in the input, without altering
@@ -15,8 +21,17 @@ writing_task:
 editing_task:
   description: >
     Take the report provided as input, which details steps to be followed by the emergency services
-    in order to solve an emergency situation, and revise its contents looking for improving writing
-    style and fixing possible errors. NEVER alter the information contained into the report.
+    in order to solve an emergency situation. Revise its contents looking for improving writing
+    style and fixing possible errors.
+    NEVER alter the information contained into the report. Insert a brief description of each
+    section at the beginning of it justifying the resources needed, always referencing to elements
+    of the original call transcript provided below. Also properly format the markdown, inserting
+    sections when needed. Be cautious to include ALL the information from the original report, don't
+    forget to include ANYTHING, as those are crucial pieces of information.
+    The original call transcript is:
+    {original_call}
   expected_output: >
-    The report with the same information contents but with improved readability and style.
+    The report with the same information contents but with improved readability, justification of the
+    choices made and style. Also include a brief explanatory paragraph at the beginning of each
+    section justifying the choices made and with the sections formatted correctly in markdown.
   agent: editor_agent

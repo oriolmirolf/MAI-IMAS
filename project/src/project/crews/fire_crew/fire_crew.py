@@ -5,7 +5,9 @@ from crewai.project import CrewBase, agent, crew, task
 from crewai_tools import FileReadTool
 from pydantic import BaseModel, Field
 from typing import List, Tuple
-from tools.route_distance_tool import RouteDistanceTool
+from tools.fire_crew_navigator_tool import FireCrewNavigatorTool
+
+CHOSEN_LLM = 'ollama/llama3.1'
 
 class FirefighterPlannerSchema(BaseModel):
     """Output for the firefighter plan task"""
@@ -42,20 +44,20 @@ class FirefighterCrew:
             config=self.agents_config['new_fire_expert_agent'],
             verbose=True,
             allow_delegation=False,
-            llm='ollama/llama3.1',
+            llm=CHOSEN_LLM,
             max_iter=1,
         )
 
     # Material Selector Agent
     @agent
     def material_selector_agent(self) -> Agent:
-        file_read_tool = FileReadTool(file_path=self._emergency_file)
+        # file_read_tool = FileReadTool(file_path=self._emergency_file)
         resources_read_tool = FileReadTool(file_path=self.resources_file)
         return Agent(
             config=self.agents_config['material_selector_agent'],
             verbose=True,
             allow_delegation=False,
-            llm='ollama/llama3.1',
+            llm=CHOSEN_LLM,
             tools=[resources_read_tool],
             max_iter=1,
         )
@@ -63,13 +65,16 @@ class FirefighterCrew:
     # Material Navigator Agent
     @agent
     def material_navigator_agent(self) -> Agent:
-        distance_calculator_tool = RouteDistanceTool(self.path_file_map)
+        fire_crew_navigator_tool = FireCrewNavigatorTool(
+            city_map_file=self.path_file_map,
+            fire_station_location='Av. de Francesc Macià, 134, 08800 Vilanova i la Geltrú, Barcelona'
+        )
         return Agent(
             config=self.agents_config['material_navigator_agent'],
             verbose=True,
             allow_delegation=False,
-            llm='ollama/llama3.1',
-            tools=[distance_calculator_tool],
+            llm=CHOSEN_LLM,
+            tools=[fire_crew_navigator_tool],
             max_iter=1,
         )
 
@@ -80,7 +85,7 @@ class FirefighterCrew:
             config=self.agents_config['firefighter_planner_agent'],
             verbose=True,
             allow_delegation=False,
-            llm='ollama/llama3.1',
+            llm=CHOSEN_LLM,
             max_iter=1,
         )
 
@@ -130,5 +135,5 @@ if __name__ == "__main__":
                     .crew()
                     .kickoff(inputs={'FireEmergency': fire_emergency_content})
             )
-    except:
-        raise FileNotFoundError("Input fire emergency not found")
+    except Exception as e:
+        raise RuntimeError(f"An error occurred: {e}") from e

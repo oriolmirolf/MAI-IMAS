@@ -39,15 +39,26 @@ material_navigate_task:
   description: >
     **Your Task:**
     1. Receive the fire incident location coordinates.
-    2. Calculate the fastest and safest route from the fire station to the fire incident location.
+    2. Use the FireCrewNavigatorTool to calculate the fastest and safest route from the fire station to the fire incident location.
     3. Consider factors such as distance, road conditions, and any known obstacles.
     4. Provide the route as a list of (X, Y) coordinates.
     5. Estimate the response time to reach the incident location.
   expected_output: >
-    Provide:
-    - Route to the fire: list of (X, Y) coordinates from the fire station to the fire incident location.
-    - Response time: estimated time to reach the fire incident location.
+    Provide the route and response time.
+
+    You MUST use the following output structure:
+    ```
+    **Route to Fire:**
+    - Point 1: (<X1>, <Y1>)
+    - Point 2: (<X2>, <Y2>)
+    - Point 3: (<X3>, <Y3>)
+    ...
+
+    **Estimated Response Time:** <Time in minutes> minutes
+    ```
+    Ensure the route is optimized for speed and safety.
   agent: material_navigator_agent
+
 
 # Firefighter Planner Task
 firefighter_planner_task:
