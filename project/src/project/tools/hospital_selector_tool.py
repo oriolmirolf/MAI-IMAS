@@ -2,7 +2,7 @@ import networkx
 import json
 import osmnx as ox
 from crewai_tools import BaseTool
-from typing import List, Dict, Optional, Type, Any
+from typing import List, Dict, Type, Any
 from pydantic import BaseModel, Field
 
 class HospitalSelectorSchema(BaseModel):
@@ -13,22 +13,28 @@ class HospitalSelectorSchema(BaseModel):
 
 class HospitalSelectorTool(BaseTool):
     name: str = 'Hospital Selector Tool'
-    description: str = 'This tool selects the closest Hospitalizations and ICU rooms from the fire location.'
+    description: str = 'This tool selects the closest available Hospitalizations and ICU rooms from the fire location.'
     args_schema: Type[BaseModel] = HospitalSelectorSchema
     city_map: networkx.classes.multidigraph.MultiDiGraph = None
-    hospitals: dict = List[Dict]
+    hospitals: Dict[str, str] = {}
+    normal_rooms: Dict[str, str] = {}
+    uci_rooms: Dict[str, str] = {}
     
     class Config:
         arbitrary_types_allowed = True
     
-    def __init__(self, city_map: str, input, **kwargs):
+    def __init__(self, city_map: str, input: Dict[str, Any], **kwargs):
         super().__init__(**kwargs)
 
+        # Initialize the map
         self.city_map = ox.load_graphml(city_map)
         self.city_map = ox.routing.add_edge_speeds(self.city_map)
         self.city_map = ox.routing.add_edge_travel_times(self.city_map)
 
-        self.hospitals = input
+        # Parse input data for hospitals and rooms
+        self.hospitals = input.get("hospitals")
+        self.normal_rooms = input.get("normal_rooms")
+        self.uci_rooms = input.get("uci_rooms")
     
     def _run(self, fire_location: str, normal_rooms_needed: int, ICU_rooms_needed: int) -> List[Dict[str, Any]]:
         # Geocode the fire location
@@ -38,41 +44,38 @@ class HospitalSelectorTool(BaseTool):
             raise ValueError(f"Error geocoding fire location: {e}")
         x_fire, y_fire = fire_coordinates[1], fire_coordinates[0]
 
-        # List to store distances for each ambulance
-        ambulance_distances = []
+        # List to store information for each hospital
+        hospital_info = []
 
-        # Loop over each ambulance and calculate distance
-        for amb_id, amb_location in self.ambulances.items():
+        # Loop over each hospital to calculate distance and count available rooms
+        for hosp_id, hosp_location in self.hospitals.items():
             try:
-                # Geocode ambulance location
-                amb_coordinates = ox.geocode(amb_location)
+                # Geocode hospital location
+                hosp_coordinates = ox.geocode(hosp_location)
             except Exception as e:
-                print(f"Error geocoding ambulance {amb_id} at {amb_location}: {e}")
-                continue  # Skip this ambulance if geocoding fails
+                print(f"Error geocoding hospital {hosp_id} at {hosp_location}: {e}")
+                continue  # Skip this hospital if geocoding fails
             
-            x_amb, y_amb = amb_coordinates[1], amb_coordinates[0]
+            x_hosp, y_hosp = hosp_coordinates[1], hosp_coordinates[0]
             try:
-                # Calculate distance from fire to ambulance
-                distance = self._find_distance(x_fire, y_fire, x_amb, y_amb)
+                # Calculate distance from fire to hospital
+                distance = self._find_distance(x_fire, y_fire, x_hosp, y_hosp)
             except Exception as e:
-                print(f"Error calculating distance for ambulance {amb_id}: {e}")
+                print(f"Error calculating distance for hospital {hosp_id}: {e}")
                 continue
 
-            ambulance_distances.append({
-                "ambulance_id": amb_id,
-                "distance": distance
+            # Count available rooms for this hospital
+            normal_count = sum(1 for room, hosp in self.normal_rooms.items() if hosp == hosp_id)
+            uci_count = sum(1 for room, hosp in self.uci_rooms.items() if hosp == hosp_id)
+
+            hospital_info.append({
+                "hospital_id": hosp_id,
+                "distance": distance,
+                "normal_rooms_available": normal_count,
+                "icu_rooms_available": uci_count
             })
 
-        # Sort ambulances by distance (ascending order)
-        ambulance_distances.sort(key=lambda x: x["distance"])
-
-        # Select the required number of closest ambulances
-        selected_ambulances = ambulance_distances[:ambulances_needed]
-
-        print('Ambulances results are ')
-        print(ambulance_distances)
-
-        return selected_ambulances
+        return hospital_info
 
 
     def _find_distance(self, x_origin: float, y_origin: float, x_destination: float, y_destination: float) -> int:

@@ -7,8 +7,10 @@ from crewai_tools import FileReadTool
 from pydantic import BaseModel, Field
 from typing import List, Tuple
 
-from tools.route_distance_tool import RouteDistanceTool
 from tools.ambulance_selector_tool import AmbulanceSelectorTool
+from tools.hospital_selector_tool import HospitalSelectorTool
+from tools.route_distance_tool import RouteDistanceTool
+
 
 class MedicalPlannerSchema(BaseModel):
 	"""Output for the medical plan task."""
@@ -56,11 +58,12 @@ class MedicalCrew:
 
     @agent
     def ambulance_selector_agent(self) -> Agent:
+        file_read_tool = FileReadTool(file_path=self._medical_file)
+
         with open(self._ambulance_file, "r") as f:
             ambulance_data = json.load(f)
 
         ambulance_selector_tool = AmbulanceSelectorTool(self.path_file_map, input=ambulance_data["ambulances"])
-        file_read_tool = FileReadTool(file_path=self._medical_file)
         return Agent(
             config=self.agents_config['ambulance_selector_agent'],
             verbose=True,
@@ -73,24 +76,28 @@ class MedicalCrew:
 
     @agent
     def hospital_assigner_agent(self) -> Agent:
-        ambulance_read_tool = FileReadTool(self._ambulance_file)
-        distance_calculator_tool = RouteDistanceTool(self.path_file_map)
+        file_read_tool = FileReadTool(self._ambulance_file)
+
+        with open(self._hospital_file, "r") as f:
+            hospital_data = json.load(f)
+
+        hospital_selector_tool = HospitalSelectorTool(self.path_file_map, hospital_data)
         return Agent(
             config=self.agents_config['hospital_assigner_agent'],
             verbose=True,
             allow_delegation=False,
             llm='ollama/llama3.1',
-            tools=[FileReadTool(self._ambulance_file)],
+            tools=[file_read_tool, hospital_selector_tool],
             max_iter=1,
             cache=False,
         )
 
     @agent
-    def hospital_navigator_agent(self) -> Agent:
+    def route_navigator_agent(self) -> Agent:
         file_read_tool = FileReadTool(self._hospital_file)
         distance_calculator_tool = RouteDistanceTool(self.path_file_map)
         return Agent(
-            config=self.agents_config['hospital_navigator_agent'],
+            config=self.agents_config['route_navigator_agent'],
             verbose=True,
             allow_delegation=False,
             llm='ollama/llama3.1',
@@ -123,23 +130,9 @@ class MedicalCrew:
         )
 
     @task
-    def ambulance_navigate_task(self) -> Task:
+    def hospital_assign_task(self) -> Task:
         return Task(
-            config=self.tasks_config['ambulance_navigate_task']
-        )
-
-    @task
-    def ambulance_plan_task(self) -> Task:
-        return Task(
-            config=self.tasks_config['ambulance_plan_task']
-        )
-
-    @task
-    def hospital_select_task(self) -> Task:
-        distance_calculator_tool = RouteDistanceTool(self.path_file_map)
-        return Task(
-            config=self.tasks_config['hospital_select_task'],
-            tools=[distance_calculator_tool]
+            config=self.tasks_config['hospital_assign_task']
         )
 
     @task
@@ -148,12 +141,6 @@ class MedicalCrew:
         return Task(
             config=self.tasks_config['hospital_navigate_task'],
             tools=[distance_calculator_tool]
-        )
-
-    @task
-    def hospital_plan_task(self) -> Task:
-        return Task(
-            config=self.tasks_config['hospital_plan_task']
         )
 
     @task

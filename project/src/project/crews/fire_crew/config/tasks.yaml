@@ -16,38 +16,54 @@ new_fire_expert_task:
 # Material Selector Task
 material_select_task:
   description: >
-    Using the output from the Fire Expert and considering the actual resources available at the station, adjust the plan to fit the resources.
-    Identify any discrepancies between the ideal plan and available resources.
-    Suggest additional resources needed if necessary and possible solutions.
+    You are given:
+    - The Fire Expert's recommendations (list of required firefighter roles, materials, and vehicles).
+    - The list of actual resources available at the station (materials and vehicles).
+
+    **Your Task:**
+    1. Compare the Fire Expert's recommendations with the available resources.
+    2. Adjust the plan to use only the resources we have.
+    3. If some recommended items are not available, suggest alternatives from available resources.
+    4. List any additional materials or equipment needed that are not currently available.
   expected_output: >
-    Provide an adjusted plan that aligns with the available resources.
-    List any additional materials or equipment required that are not currently available.
-    Ensure the adjusted plan is feasible with the current resources.
+    Provide an adjusted plan that fits the resources we have, including:
+    - Personnel: roles and quantities.
+    - Vehicles: types and quantities.
+    - Materials: equipment and quantities.
+    - List of any additional materials or equipment required that are not available.
+    Ensure the adjusted plan is practical and feasible.
   agent: material_selector_agent
 
 # Material Navigator Task
 material_navigate_task:
   description: >
-    Compute the optimal route from the fire station to the fire incident location specified in the emergency.
-    Consider factors such as distance, traffic, and road conditions.
+    **Your Task:**
+    1. Receive the fire incident location coordinates.
+    2. Calculate the fastest and safest route from the fire station to the fire incident location.
+    3. Consider factors such as distance, road conditions, and any known obstacles.
+    4. Provide the route as a list of (X, Y) coordinates.
+    5. Estimate the response time to reach the incident location.
   expected_output: >
-    Provide the route as a list of (X, Y) coordinates from the fire station to the fire incident location.
-    Include the estimated response time to reach the incident location.
+    Provide:
+    - Route to the fire: list of (X, Y) coordinates from the fire station to the fire incident location.
+    - Response time: estimated time to reach the fire incident location.
   agent: material_navigator_agent
 
 # Firefighter Planner Task
 firefighter_planner_task:
   description: >
-    Combine the adjusted plans from the Material Selector and the route from the Material Navigator into a clear and coherent plan.
-    Provide arguments for the decisions made.
-    Ensure that the plan is actionable and efficient.
+    **Your Task:**
+    1. Combine the adjusted plan from the Material Selector Agent (personnel, materials, vehicles) with the route and response time from the Material Navigator Agent.
+    2. Create a comprehensive and coherent plan for the firefighting operation.
+    3. Provide reasoning for the decisions made.
+    4. Ensure that the plan is actionable, efficient, and practical.
   expected_output: >
-    A comprehensive plan detailing:
-    - Personnel: roles and quantities.
-    - Vehicles: types and quantities.
-    - Materials: equipment and quantities.
-    - Route to fire: list of (X, Y) coordinates.
-    - Response time: estimated time to reach the fire incident location.
-    Provide reasoning for the decisions made and ensure all elements are coherent.
+    A detailed plan including:
+    - **Personnel**: roles and quantities.
+    - **Vehicles**: types and quantities.
+    - **Materials**: equipment and quantities.
+    - **Route to fire**: list of (X, Y) coordinates.
+    - **Response time**: estimated time to reach the fire incident location.
+    - **Reasoning**: explanations for the decisions made.
+    Ensure all elements are coherent and the plan is feasible.
   agent: firefighter_planner_agent
-  # output_pydantic: FirefighterPlannerSchema

@@ -7,7 +7,6 @@ from pydantic import BaseModel, Field
 from typing import List, Tuple
 from tools.route_distance_tool import RouteDistanceTool
 
-
 class FirefighterPlannerSchema(BaseModel):
     """Output for the firefighter plan task"""
     personnel: List[Tuple[str, int]] = Field(..., description='Pairs indicating personnel roles and the number of units necessary')
@@ -30,11 +29,11 @@ class FirefighterCrew:
 
     agents_config = 'config/agents.yaml'
     tasks_config = 'config/tasks.yaml'
-    resources_file = 'json_resources/resources1.json'
+    path_file_map = 'maps/vilanova_i_la_geltru.graphml'
 
     def __init__(self, emergency_file):
         self._emergency_file = emergency_file
-        self.path_file_map = '../../maps/vilanova_i_la_geltru.graphml'
+        self.resources_file = 'crews/fire_crew/resources/resources1.json'
 
     # Fire Expert Agent
     @agent
@@ -57,7 +56,7 @@ class FirefighterCrew:
             verbose=True,
             allow_delegation=False,
             llm='ollama/llama3.1',
-            tools=[file_read_tool, resources_read_tool],
+            tools=[resources_read_tool],
             max_iter=1,
         )
 
