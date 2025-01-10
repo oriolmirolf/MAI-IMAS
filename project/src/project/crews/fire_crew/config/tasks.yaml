@@ -16,6 +16,7 @@ new_fire_expert_task:
     You must decide the roles of firefighters, the materials and the vehicles needed for the firefighter crew to
     properly assess the fire incident.
     Reason about why each element is needed for that fire emergency. Also provide an approximate number of quantity per element.
+    The decision must be coherent. Do not include that are not useful for the specific case.
   expected_output: >
     You must indicate which firefighter roles, materials and vehicles are necessary to assess the fire emergency.
     Indicate the approximate quantity needed for each element.
