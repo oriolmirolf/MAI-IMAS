@@ -48,6 +48,8 @@ class RouteNavigatorTool(BaseTool):
         route_df = route_df['name'].fillna('')
         route_list = [name for i, name in enumerate(route_df) if name != '' and (i == 0 or name != route_df[i - 1])]
 
+        return route_list
+
     
     def _run(self, fire_location: str, ambulance_information: dict) -> Dict[str, dict]:
         routes = {}
