@@ -7,7 +7,7 @@ from pydantic import BaseModel, Field
 from typing import List, Tuple
 from tools.fire_crew_navigator_tool import FireCrewNavigatorTool
 
-CHOSEN_LLM = 'ollama/phi3:medium'
+CHOSEN_LLM = 'ollama/llama3.1'
 
 class FirefighterPlannerSchema(BaseModel):
     """Output for the firefighter plan task"""
