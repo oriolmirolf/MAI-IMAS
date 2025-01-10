@@ -1,54 +1,53 @@
 emergency_doctor_task:
   description: >
-    First, use the FileReadTool to read information about the fire emergency.
-    Second, evaluate the severity of each injured people and classify their injury 
-    in one of the following categories: "Nurse Check", "Hospitalization" and "ICU".
-    Nurse check means that being attended by the ambulance nurses is sufficient.
-    Hospital Check means that they need to go to the hospital, but not ICU.
-    ICU means they need Intensive Care Unit (ICU) because they are very damaged.
+    First, use the FileReadTool only once to read a file containing information about the fire emergency.
+    Second, using the information from the file read, evaluate the severity of each injured person and classify their injury in one of the
+    following three categories: "Nurse Check", "Hospitalization" and "ICU".
+    'Nurse Check': Being attended by the ambulance nurses is sufficient.
+    'Hospital Check': The person needs to go to the hospital, but not ICU.
+    'ICU': The person needs Intensive Care Unit (ICU) because they are very injured.
   expected_output: >
+    For each injured person you must state their id, injury and requirement. 
     You MUST use the following output structure:
     """
-    Injured {injured_id1}
-    - Injury: {State their injury}
-    - Requires {Nurse Check/Hospitalization/ICU}
-
-    Injured {injured_id2}
-    - Injury: {State their injury}
-    - Requires {Nurse Check/Hospitalization/ICU}
+    * Person {1st_injured_id} with injury {state their injury} needs {Nurse Check/Hospitalization/ICU}.
+    * Person {2nd_injured_id} with injury {state their injury} needs {Nurse Check/Hospitalization/ICU}.
     ...
     """
   agent: emergency_doctor_agent
 
+
 ambulance_select_task:
   description: >
-    First, decide how many ambulances are required for the fire emergency. Then, obtain the location
-    of the fire emergency. Then, obtain the location of all ambulances, you must use again the FileReadTool to obtain a new result.
-    Then, once you have all ambulances locations, you MUST use the RouteDistanceCalculator tool passing TWO parameters: 
-    the first parameter is a string containing the location of the ambulance, and the second parameter is a string containing 
-    the location of the fire emergency. Keep the distance from each ambulance to the fire emergency. Then,
-    select the closest ambulances to send to the fire emergency, given the number of ambulances you decided earlier.
-    Assign to each ambulance one pilot and one nurse, providing their ids. No pilot, ambulance and nurse can be repeated.
+    First, decide how many ambulances N are required for the fire emergency (one ambulance for each injured person needing 
+    Hospitalization or ICU).
+    Second, use the AmbulanceSelectorTool to obtain the N closest ambulances ids to the fire emergency and their distances.
   expected_output: >
-    For each injured person (use their ID to identify them), assign them to an ambulance ID.
-    Additionally, for each ambulance, provide IDs of the nurse and pilot that go to that ambulace.
-    For example:
+    For each injured person state their requirement (Nurse Check, Hospitalization or ICU), the ambulance id it was assigned and its distance.
+    You MUST use the following output structure:
     """
-    Injured {injured_id}:
-      - Ambulance Assigned: {ambulance_id}
-      - Pilot Assigned: {pilot_id}
-      - Nurse Assigned: {nurse_id}
+    * Injured {1st_injured_id} requiring {1st_injured_requirement} was assigned to {1st_ambulance_id} ({1st_ambulance_distance} meters).
+    * Injured {2nd_injured_id} requiring {2nd_injured_requirement} was assigned to {2nd_ambulance_id} ({1st_ambulance_distance} meters).
+    ...
     """
   agent: ambulance_selector_agent
+# TODO: Add an ambulance for every 4 persons needing nurse check (Nº ambulances nurse check = 4 / n_persons_needing_nurse_check)
 
 ambulance_navigate_task:
   description: >
-    Determine the optimal routes for each selected ambulance to travel from their 
-    current location(s) to the emergency site. Base your route planning on minimal 
-    travel time.
+    First, use the FileReadTool only once to read a file containing information about the hospitals and their capacities.
+    Then, assign one hospital to each of the ambulances selected by the previous agent.
+    You MUST take into account the hospitals capacities (for example, if the injured needs ICU, the hospital assigned 
+    must have one ICU room available).
   expected_output: >
-    A mapping of each ambulance identification to a route plan.
+    For each ambulance assign them to a hospital.
+    """
+    * Ambulance {1st_ambulance_id} transporting injured {1st_injured_id} requiring {1st_injured_requirement} was assigned to hospital {hospital_id}.
+    * Ambulance {1st_ambulance_id} transporting injured {2nd_injured_id} requiring {1st_injured_requirement} was assigned to hospital {hospital_id}.
+    ...
+    """
   agent: ambulance_navigator_agent
+
 
 ambulance_plan_task:
   description: >

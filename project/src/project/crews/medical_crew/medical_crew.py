@@ -1,4 +1,5 @@
 import sys
+import json
 
 from crewai import Agent, Crew, Process, Task
 from crewai.project import CrewBase, agent, crew, task
@@ -7,6 +8,7 @@ from pydantic import BaseModel, Field
 from typing import List, Tuple
 
 from tools.route_distance_tool import RouteDistanceTool
+from tools.ambulance_selector_tool import AmbulanceSelectorTool
 
 class MedicalPlannerSchema(BaseModel):
 	"""Output for the medical plan task."""
@@ -54,14 +56,17 @@ class MedicalCrew:
 
     @agent
     def ambulance_selector_agent(self) -> Agent:
-        ambulance_read_tool = FileReadTool(file_path=self._ambulance_file)
-        distance_calculator_tool = RouteDistanceTool(self.path_file_map)
+        with open(self._ambulance_file, "r") as f:
+            ambulance_data = json.load(f)
+
+        ambulance_selector_tool = AmbulanceSelectorTool(self.path_file_map, input=ambulance_data["ambulances"])
+        file_read_tool = FileReadTool(file_path=self._medical_file)
         return Agent(
             config=self.agents_config['ambulance_selector_agent'],
             verbose=True,
             allow_delegation=False,
             llm='ollama/llama3.1',
-            tools=[FileReadTool(self._ambulance_file), distance_calculator_tool],
+            tools=[file_read_tool, ambulance_selector_tool],
             max_iter=1,
             cache=False,
         )
@@ -75,7 +80,7 @@ class MedicalCrew:
             verbose=True,
             allow_delegation=False,
             llm='ollama/llama3.1',
-            tools=[FileReadTool(self._ambulance_file), distance_calculator_tool],
+            tools=[FileReadTool(self._ambulance_file)],
             max_iter=1,
             cache=False,
         )
@@ -100,7 +105,7 @@ class MedicalCrew:
             verbose=True,
             allow_delegation=False,
             llm='ollama/llama3.1',
-            tools=[hospital_read_tool, distance_calculator_tool],
+            tools=[hospital_read_tool],
             max_iter=1,
             cache=False,
         )
@@ -114,7 +119,7 @@ class MedicalCrew:
             verbose=True,
             allow_delegation=False,
             llm='ollama/llama3.1',
-            tools=[file_read_tool, distance_calculator_tool],
+            tools=[file_read_tool],
             max_iter=1,
             cache=False,
         )

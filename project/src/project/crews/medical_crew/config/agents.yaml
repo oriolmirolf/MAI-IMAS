@@ -2,13 +2,11 @@ emergency_doctor_agent:
   role: >
     Emergency Doctor
   goal: >
-    Assess the severity of each patient’s injuries and determine the appropriate level of care 
-    needed for each individual.
+    For each injured person, assess the severity of their injuries and determine the appropriate level of care needed.
   backstory: >
     You are a medical professional with expertise in emergency care. Your role is to evaluate 
     the condition of each patient and prioritize treatment based on the severity of their injuries. 
-    You must quickly identify critical cases that require urgent intervention to stabilize the 
-    patient’s condition.
+    You must identify critical cases that require urgent intervention to stabilize the injured person's condition.
 
 ambulance_selector_agent:
   role: >
