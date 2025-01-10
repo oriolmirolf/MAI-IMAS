@@ -64,10 +64,22 @@ class ReporterCrew():
 			verbose=True,
 		)
 
-
 if __name__ == "__main__":
+
+	def fileContents(fname):
+		with open(fname) as f:
+			contents = f.read()
+		return contents
+
+	inputs = {
+		"firefighter_data": fileContents(sys.argv[1]),
+		"medical_data": fileContents(sys.argv[2]),
+		"original_call": fileContents(sys.argv[3])
+	}
 	result = (
-			ReporterCrew(sys.argv[1])
+			ReporterCrew()
 			.crew()
-			.kickoff()
+			.kickoff(inputs=inputs)
 	)
+	print("-----------")
+	print(result.raw)
