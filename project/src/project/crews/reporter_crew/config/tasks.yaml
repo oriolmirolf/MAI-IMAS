@@ -1,0 +1,22 @@
+writing_task:
+  description: >
+    Take the condensed information provided by the emergency planning team and elaborate a technical
+    report with all the details provided in the input sources, so that the emergency personnel, when
+    deployed, is capable of fully organizing the rescue operation exclusively by following the steps
+    in the report. It might be the case that there is no need to deploy medical assistance, in such
+    case mention that. You must include ALL the detailed information. It is crucial that you DO NOT
+    ALTER in ANY way the information provided.
+  expected_output: >
+    A detailed report which includes ALL the information required by the emergency services to solve
+    the emergency situation. Include ONLY information that is present in the input, without altering
+    or modifying it in ANY way.
+  agent: writer_agent
+
+editing_task:
+  description: >
+    Take the report provided as input, which details steps to be followed by the emergency services
+    in order to solve an emergency situation, and revise its contents looking for improving writing
+    style and fixing possible errors. NEVER alter the information contained into the report.
+  expected_output: >
+    The report with the same information contents but with improved readability and style.
+  agent: editor_agent

@@ -1,0 +1,23 @@
+{
+  "firefighter_info":
+  {
+    "personnel": [
+      ["Fire Chief", "Engineer", "Ladder Truck Operator"],
+      ["Firefighter 1", "Firefighter 2", "Firefighter 3"]
+    ],
+    "vehicles": [
+      ["Vehicle 1", "Engine 123", "Type: Fire Engine", "Route: From Fire Station (43.6532° N, 79.3832° W) to Fire Incident Location (43.6499° N, 79.3776° W)", "Estimated Response Time: 2-3 minutes"],
+      ["Vehicle 2", "Ladder Truck 456", "Type: Ladder Truck", "Route: Same as Engine 123", "Estimated Response Time: 2-3 minutes"]
+    ],
+    "material": [
+      ["Equipment 1", "Water Tanker", "Capacity: 500 gallons", "Deployed with Vehicle 1 to ensure sufficient water supply for firefighting operations"],
+      ["Equipment 2", "Generator", "Power Output: 10 kW", "Deployed with Vehicle 2 to provide power for lighting and equipment"]
+    ],
+    "route_to_fire": [
+      ["From Fire Station (43.6532° N, 79.3832° W)", "To Fire Incident Location (43.6499° N, 79.3776° W)"],
+      ["Route Distance: Approximately 0.5 miles", "Driving Route Distance can be calculated using a map or GPS device, taking into account traffic conditions and road restrictions"]
+    ],
+    "response_time": 2.5
+  },
+  "medical_info": {"medical_services_needed": "false"}
+}
