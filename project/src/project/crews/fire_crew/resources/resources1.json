@@ -2,26 +2,60 @@
   "firefighter_roles": [
     {
       "role": "Team Leader",
-      "count": 1
+      "count": 2,
+      "description": "Leads the firefighting team, making strategic decisions."
     },
     {
       "role": "Hose Operator",
-      "count": 3
+      "count": 6,
+      "description": "Operates hoses to deliver water or foam to extinguish fires."
     },
     {
       "role": "Search and Rescue Specialist",
-      "count": 2
+      "count": 4,
+      "description": "Specializes in locating and rescuing trapped individuals."
     },
     {
       "role": "Equipment Technician",
-      "count": 1
+      "count": 2,
+      "description": "Maintains and operates specialized firefighting equipment."
+    },
+    {
+      "role": "Paramedic",
+      "count": 3,
+      "description": "Provides medical assistance to injured individuals on the scene."
+    },
+    {
+      "role": "Driver/Operator",
+      "count": 3,
+      "description": "Responsible for operating firefighting vehicles and apparatus."
+    },
+    {
+      "role": "Fire Investigator",
+      "count": 1,
+      "description": "Determines the cause and origin of fires."
+    },
+    {
+      "role": "Hazardous Materials Specialist",
+      "count": 2,
+      "description": "Handles incidents involving hazardous materials."
+    },
+    {
+      "role": "Communications Officer",
+      "count": 1,
+      "description": "Manages communication between the team and dispatch."
+    },
+    {
+      "role": "Aerial Apparatus Operator",
+      "count": 1,
+      "description": "Operates vehicles equipped with aerial ladders or platforms."
     }
   ],
   "equipment_inventory": [
     {
       "tool": "Fire Hose",
-      "description": "Used to deliver water to extinguish fires.",
-      "quantity": 5,
+      "description": "Used to deliver water or foam to extinguish fires.",
+      "quantity": 15,
       "details": {
         "length": "50 meters",
         "type": "High-pressure"
@@ -30,15 +64,15 @@
     {
       "tool": "Fire Extinguisher",
       "description": "Portable device for small fire suppression.",
-      "quantity": 10,
+      "quantity": 20,
       "details": {
-        "type": "Foam"
+        "type": "Foam and Dry Chemical"
       }
     },
     {
       "tool": "Ladder",
       "description": "Used for accessing high places.",
-      "quantity": 3,
+      "quantity": 5,
       "details": {
         "length": "5 meters"
       }
@@ -46,54 +80,198 @@
     {
       "tool": "Large Ladder",
       "description": "Used for accessing higher places than a normal ladder.",
-      "quantity": 3,
+      "quantity": 2,
       "details": {
         "length": "15 meters"
       }
     },
     {
       "tool": "Hydraulic Cutter",
-      "quantity": 2,
+      "description": "Used for cutting through metal and debris.",
+      "quantity": 4,
       "details": {
-        "power_source": "Battery"
+        "power_source": "Hydraulic"
       }
     },
     {
-      "name": "Axe",
+      "tool": "Axe",
       "description": "Used for forcible entry and rescue operations.",
-      "quantity": 15
+      "quantity": 20
     },
     {
-      "name": "Thermal Imaging Camera",
+      "tool": "Thermal Imaging Camera",
       "description": "Helps locate individuals in low visibility conditions.",
-      "quantity": 5
+      "quantity": 8
     },
     {
       "tool": "Protective Gear",
+      "description": "Includes helmets, gloves, boots, and fire-resistant suits.",
+      "quantity": 25
+    },
+    {
+      "tool": "Breathing Apparatus",
+      "description": "Provides breathable air in smoke-filled environments.",
+      "quantity": 15,
+      "details": {
+        "type": "Self-Contained Breathing Apparatus (SCBA)"
+      }
+    },
+    {
+      "tool": "Chainsaw",
+      "description": "Used to cut through wood and debris.",
+      "quantity": 3,
+      "details": {
+        "type": "Gas-powered"
+      }
+    },
+    {
+      "tool": "Ventilation Fan",
+      "description": "Used to remove smoke and gases from structures.",
+      "quantity": 2
+    },
+    {
+      "tool": "First Aid Kit",
+      "description": "Provides basic medical supplies for treating injuries.",
+      "quantity": 5
+    },
+    {
+      "tool": "Hazardous Material Suit",
+      "description": "Protective suits for handling hazardous materials.",
+      "quantity": 4
+    },
+    {
+      "tool": "Rescue Basket",
+      "description": "Used for lifting victims during rescue operations.",
+      "quantity": 2
+    },
+    {
+      "tool": "Communication Radio",
+      "description": "Handheld radios for team communication.",
       "quantity": 20
+    },
+    {
+      "tool": "Emergency Lighting",
+      "description": "Portable lighting for low-visibility conditions.",
+      "quantity": 6
+    },
+    {
+      "tool": "Defibrillator",
+      "description": "Used for restoring normal heart rhythm.",
+      "quantity": 2
+    },
+    {
+      "tool": "Gas Detector",
+      "description": "Detects hazardous gas levels.",
+      "quantity": 3
+    },
+    {
+      "tool": "Rope and Harness",
+      "description": "Used for rappelling and rescue operations.",
+      "quantity": 10
+    },
+    {
+      "tool": "Portable Pump",
+      "description": "Used to pump water where fire engines can't reach.",
+      "quantity": 2,
+      "details": {
+        "capacity": "500 liters/min"
+      }
+    },
+    {
+      "tool": "Spreader Tool",
+      "description": "Hydraulic tool used to pry open vehicles or debris.",
+      "quantity": 2
+    },
+    {
+      "tool": "Cutting Torch",
+      "description": "Used for cutting through metal structures.",
+      "quantity": 2
+    },
+    {
+      "tool": "Stretchers",
+      "description": "Used for transporting injured individuals.",
+      "quantity": 4
+    },
+    {
+      "tool": "Flare Gun",
+      "description": "Used to signal for assistance or mark locations.",
+      "quantity": 2
     }
   ],
   "vehicles": [
     {
       "type": "Fire Engine",
-      "count": 2,
+      "count": 3,
       "details": {
-        "water_tank_capacity": "1000 liters",
-        "pump_capacity": "300 liters/min"
+        "water_tank_capacity": "2000 liters",
+        "pump_capacity": "500 liters/min"
+      }
+    },
+    {
+      "type": "Ladder Truck",
+      "count": 1,
+      "details": {
+        "ladder_reach": "30 meters",
+        "platform_capacity": "400 kg"
       }
     },
     {
       "type": "Rescue Truck",
-      "count": 1,
+      "count": 2,
       "details": {
-        "equipment_storage_capacity": "2 cubic meters"
+        "equipment_storage_capacity": "2.5 cubic meters"
       }
     },
     {
       "type": "Water Tanker",
+      "count": 2,
+      "details": {
+        "water_tank_capacity": "8000 liters"
+      }
+    },
+    {
+      "type": "Ambulance",
+      "count": 2,
+      "details": {
+        "medical_equipment": "Advanced Life Support"
+      }
+    },
+    {
+      "type": "Command Vehicle",
       "count": 1,
       "details": {
-        "water_tank_capacity": "5000 liters"
+        "communication_systems": "Satellite and Radio"
+      }
+    },
+    {
+      "type": "HazMat Truck",
+      "count": 1,
+      "details": {
+        "special_equipment": "Containment and Decontamination Systems"
+      }
+    },
+    {
+      "type": "Aerial Platform",
+      "count": 1,
+      "details": {
+        "platform_height": "40 meters",
+        "water_nozzle_capacity": "1000 liters/min"
+      }
+    },
+    {
+      "type": "Brush Truck",
+      "count": 1,
+      "details": {
+        "description": "Used for fighting wildfires in rough terrain.",
+        "water_tank_capacity": "1500 liters"
+      }
+    },
+    {
+      "type": "Foam Tender",
+      "count": 1,
+      "details": {
+        "foam_capacity": "3000 liters",
+        "used_for": "Petroleum and chemical fires"
       }
     }
   ]
