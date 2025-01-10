@@ -1,10 +1,11 @@
 import sys
+# from jinja2 import Template
 from crewai import Agent, Crew, Process, Task
 from crewai.project import CrewBase, agent, crew, task
 from crewai_tools import FileReadTool
 from pydantic import BaseModel, Field
 from typing import List, Tuple
-from tools.route_distance_tool import RouteDistanceTool
+# from tools.route_distance_tool import RouteDistanceTool
 
 
 class FirefighterPlannerSchema(BaseModel):
@@ -35,43 +36,54 @@ class FirefighterCrew:
         self._emergency_file = emergency_file
         self.path_file_map = '../../maps/vilanova_i_la_geltru.graphml'
 
-    @agent
-    def firefighter_divider_agent(self) -> Agent:
-        file_read_tool = FileReadTool()
-        return Agent(
-            config=self.agents_config['firefighter_divider_agent'],
-            goal=f"""Read the JSON file {self._emergency_file} about an emergency fire.
-                    Read the JSON {self.resources_file} about the resources of the firefighter department. 
-                    Split the content about the firefighter resources and about the fire emergency into information relevant for the personnel.""",
-            verbose=True,
-            allow_delegation=False,
-            llm='ollama/llama3.1',
-            tools=[file_read_tool],
-            max_iter=3,
-        )
 
+    # @agent
+    # def firefighter_divider_agent(self) -> Agent:
+    #     file_read_tool = FileReadTool()
+    #     return Agent(
+    #         config=self.agents_config['firefighter_divider_agent'],
+    #         goal=f"""Read the JSON file {self._emergency_file} about an emergency fire.
+    #                 Read the JSON {self.resources_file} about the resources of the firefighter department. 
+    #                 Split the content about the firefighter resources and about the fire emergency into information relevant for the personnel.""",
+    #         verbose=True,
+    #         allow_delegation=False,
+    #         llm='ollama/llama3.1',
+    #         tools=[file_read_tool],
+    #         max_iter=3,
+    #     )
+    
     @agent
-    def fire_expert_agent(self) -> Agent:
+    def new_fire_expert_agent(self) -> Agent:
         return Agent(
-            config=self.agents_config['fire_expert_agent'],
+            config=self.agents_config['new_fire_expert_agent'],
             verbose=True,
             allow_delegation=False,
             llm='ollama/llama3.1',
             max_iter=1,
         )
 
-    @agent
-    def material_selector_agent(self) -> Agent:
-        file_read_tool = FileReadTool(file_path=self._emergency_file)
-        resources_read_tool = FileReadTool(file_path=self._resources_file)
-        return Agent(
-            config=self.agents_config['material_selector_agent'],
-            verbose=True,
-            allow_delegation=False,
-            llm='ollama/llama3.1',
-            tools=[file_read_tool, resources_read_tool],
-            max_iter=1,
-        )
+    # @agent
+    # def fire_expert_agent(self) -> Agent:
+    #     return Agent(
+    #         config=self.agents_config['fire_expert_agent'],
+    #         verbose=True,
+    #         allow_delegation=False,
+    #         llm='ollama/llama3.1',
+    #         max_iter=1,
+    #     )
+
+    # @agent
+    # def material_selector_agent(self) -> Agent:
+    #     file_read_tool = FileReadTool(file_path=self._emergency_file)
+    #     resources_read_tool = FileReadTool(file_path=self._resources_file)
+    #     return Agent(
+    #         config=self.agents_config['material_selector_agent'],
+    #         verbose=True,
+    #         allow_delegation=False,
+    #         llm='ollama/llama3.1',
+    #         tools=[file_read_tool, resources_read_tool],
+    #         max_iter=1,
+    #     )
 
     # @agent
     # def material_navigator_agent(self) -> Agent:
@@ -85,37 +97,37 @@ class FirefighterCrew:
     #         max_iter=1,
     #     )
 
-    @agent
-    def material_planner_agent(self) -> Agent:
-        return Agent(
-            config=self.agents_config['material_planner_agent'],
-            verbose=True,
-            allow_delegation=False,
-            llm='ollama/llama3.1',
-            max_iter=1,
-        )
+    # @agent
+    # def material_planner_agent(self) -> Agent:
+    #     return Agent(
+    #         config=self.agents_config['material_planner_agent'],
+    #         verbose=True,
+    #         allow_delegation=False,
+    #         llm='ollama/llama3.1',
+    #         max_iter=1,
+    #     )
 
-    @agent
-    def firefighter_planner_agent(self) -> Agent:
-        return Agent(
-            config=self.agents_config['firefighter_planner_agent'],
-            verbose=True,
-            allow_delegation=False,
-            llm='ollama/llama3.1',
-            max_iter=1,
-        )
+    # @agent
+    # def firefighter_planner_agent(self) -> Agent:
+    #     return Agent(
+    #         config=self.agents_config['firefighter_planner_agent'],
+    #         verbose=True,
+    #         allow_delegation=False,
+    #         llm='ollama/llama3.1',
+    #         max_iter=1,
+    #     )
 
     # Tasks
-    @task
-    def firefighter_divider_task(self) -> Task:
-        return Task(
-            config=self.tasks_config['firefighter_divider_task'],
-        )
+    # @task
+    # def firefighter_divider_task(self) -> Task:
+    #     return Task(
+    #         config=self.tasks_config['firefighter_divider_task'],
+    #     )
 
     @task
-    def fire_expert_task(self) -> Task:
+    def new_fire_expert_task(self) -> Task:
         return Task(
-            config=self.tasks_config['fire_expert_task'],
+            config=self.tasks_config['new_fire_expert_task']
         )
 
     # @task
@@ -130,18 +142,18 @@ class FirefighterCrew:
     #         config=self.tasks_config['material_navigate_task'],
     #     )
 
-    @task
-    def material_plan_task(self) -> Task:
-        return Task(
-            config=self.tasks_config['material_plan_task'],
-        )
+    # @task
+    # def material_plan_task(self) -> Task:
+    #     return Task(
+    #         config=self.tasks_config['material_plan_task'],
+    #     )
 
-    @task
-    def firefighter_planner_task(self) -> Task:
-        return Task(
-            config=self.tasks_config['firefighter_planner_task'],
-            output_pydantic=FirefighterPlannerSchema
-        )
+    # @task
+    # def firefighter_planner_task(self) -> Task:
+    #     return Task(
+    #         config=self.tasks_config['firefighter_planner_task'],
+    #         output_pydantic=FirefighterPlannerSchema
+    #     )
 
     @crew
     def crew(self) -> Crew:
@@ -155,8 +167,13 @@ class FirefighterCrew:
 
 
 if __name__ == "__main__":
-	result = (
-			FirefighterCrew(sys.argv[1])
-			.crew()
-			.kickoff()
-	)
+    try:
+        with open(sys.argv[1], 'r') as file:
+            fire_emergency_content = file.read().strip()
+            result = (
+                    FirefighterCrew(sys.argv[1])
+                    .crew()
+                    .kickoff(inputs={'FireEmergency': fire_emergency_content})
+            )
+    except:
+        raise FileNotFoundError("Input fire emergency not found")
