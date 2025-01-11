@@ -11,6 +11,7 @@ new_fire_expert_task:
     You must indicate which firefighter roles, materials, and vehicles are necessary to assess the fire emergency.
     Indicate the approximate quantity needed for each element.
     Do not include the reasoning about why you select the elements; only provide a list.
+    Include the address of the fire location!
   agent: new_fire_expert_agent
 
 # Material Selector Task
@@ -32,6 +33,7 @@ material_select_task:
     - Materials: equipment and quantities.
     - List of any additional materials or equipment required that are not available.
     Ensure the adjusted plan is practical and feasible.
+    Include the address of the fire location!
   agent: material_selector_agent
 
 # Material Navigator Task

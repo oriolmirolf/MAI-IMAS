@@ -1,7 +1,8 @@
 import networkx as nx
 import osmnx as ox
+import matplotlib.pyplot as plt
 from crewai_tools import BaseTool
-from typing import Type, Dict, Any
+from typing import Type, List, Dict, Any
 from pydantic import BaseModel, Field
 
 class FireCrewNavigatorSchema(BaseModel):
@@ -12,7 +13,7 @@ class FireCrewNavigatorTool(BaseTool):
     name: str = 'Fire Crew Navigator Tool'
     description: str = 'Computes the optimal route and distance from the fire station to the fire location.'
     args_schema: Type[BaseModel] = FireCrewNavigatorSchema
-    city_map: nx.MultiDiGraph = None
+    city_map: nx.classes.multidigraph.MultiDiGraph = None
     fire_station_location: str = None
     
     class Config:
@@ -23,61 +24,42 @@ class FireCrewNavigatorTool(BaseTool):
 
         # Initialize the map
         self.city_map = ox.load_graphml(city_map_file)
-        self.city_map = ox.add_edge_speeds(self.city_map)
-        self.city_map = ox.add_edge_travel_times(self.city_map)
+        self.city_map = ox.routing.add_edge_speeds(self.city_map)
+        self.city_map = ox.routing.add_edge_travel_times(self.city_map)
 
         # Set the fire station location
         self.fire_station_location = fire_station_location
+    
+    
+    def compute_route(self, origin_location: str, destination_location: str) -> List[str]:
+        try:
+            origin_coordinates = ox.geocode(origin_location)
+            destination_coordinates = ox.geocode(destination_location)
 
-    def _run(self, fire_location: str) -> Dict[str, Any]:
+            x_origin, y_origin = origin_coordinates[1], origin_coordinates[0]
+            x_destination, y_destination = destination_coordinates[1], destination_coordinates[0]
+
+            origin = ox.distance.nearest_nodes(self.city_map, X=x_origin, Y=y_origin)
+            destination = ox.distance.nearest_nodes(self.city_map, X=x_destination, Y=y_destination)
+
+            route = ox.shortest_path(self.city_map, origin, destination, weight='travel_time')
+            fig, ax = ox.plot_graph_route(self.city_map, route, node_size=0)
+            plt.show()
+            # fig.savefig('firefighter_route_map.png', dpi=300)
+            
+            route_df = ox.routing.route_to_gdf(self.city_map, route)
+            route_df = route_df['name'].fillna('').reset_index(drop=True)
+            route_list = []
+            route_list = [street_name for i, street_name in enumerate(route_df) 
+                        if street_name != '' and (i == 0 or street_name != route_df[i - 1])]
+            
+            route_list = [item for sublist in route_list for item in (sublist if isinstance(sublist, list) else [sublist])]
+
+            return route_list
         
-        fire_location = "Carrer de la Unió, 8-24, 08800 Vilanova i la Geltrú, Barcelona"
-        # Geocode the fire location
-        try:
-            fire_coordinates = ox.geocode(fire_location)
         except Exception as e:
-            raise ValueError(f"Error geocoding fire location: {e}")
-        y_fire, x_fire = fire_coordinates[0], fire_coordinates[1]
+            raise ValueError(f"Error geocoding location: {e}")
+        
 
-        # Geocode the fire station location
-        try:
-            station_coordinates = ox.geocode(self.fire_station_location)
-        except Exception as e:
-            raise ValueError(f"Error geocoding fire station location: {e}")
-        y_station, x_station = station_coordinates[0], station_coordinates[1]
-
-        try:
-            # Compute the route and related information
-            route_info = self._compute_route(x_station, y_station, x_fire, y_fire)
-        except Exception as e:
-            raise ValueError(f"Error computing route: {e}")
-
-        return route_info
-
-    def _compute_route(self, x_origin: float, y_origin: float, x_destination: float, y_destination: float) -> Dict[str, Any]:
-        # Find the nearest nodes to the origin and destination
-        origin_node = ox.nearest_nodes(self.city_map, x_origin, y_origin)
-        destination_node = ox.nearest_nodes(self.city_map, x_destination, y_destination)
-
-        # Compute the shortest path based on travel time
-        route = nx.shortest_path(self.city_map, origin_node, destination_node, weight='travel_time')
-
-        # Get edge attributes for the route
-        route_edges = ox.utils_graph.get_route_edge_attributes(self.city_map, route)
-
-        # Calculate total length and travel time
-        total_length = sum(edge['length'] for edge in route_edges)  # in meters
-        total_travel_time = sum(edge['travel_time'] for edge in route_edges)  # in seconds
-
-        # Extract route coordinates
-        route_coords = []
-        for node in route:
-            x = self.city_map.nodes[node]['x']
-            y = self.city_map.nodes[node]['y']
-            route_coords.append({'x': x, 'y': y})
-
-        return {
-            'route_coordinates': route_coords,
-            'total_length_meters': round(total_length, 2),
-            'total_travel_time_minutes': round(total_travel_time / 60, 2)  # Convert seconds to minutes
-        }
+    def _run(self, fire_location: str) -> Dict[str, dict]:
+        return self.compute_route(self.fire_station_location, fire_location)
