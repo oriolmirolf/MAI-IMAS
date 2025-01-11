@@ -9,7 +9,7 @@ class RouteNavigatorSchema(BaseModel):
     fire_location: str = Field(..., description='Address of the fire location.')
     ambulance_information: Dict = Field(..., description="""Dictionary containing as key the ambulance ids and as values another Dictionary with keys 'address1'
                                         and 'address2' containing appropiate real origin ambulance location address and the destination address, respectively,
-                                        which you can find in the corresponding answers and files.
+                                        which you can find in the corresponding answers and files. Your MUST follow the following structure:
                                         E.g: {"ambulance1": {"address1": "Real Ambulance Origin location", "address2": "Real Fire Location"},
                                               "ambulance2": {"address1": "Real Fire location", "address2": "Real Ambulance Assigned Location"}, ...}""")
 
@@ -38,14 +38,21 @@ class RouteNavigatorTool(BaseTool):
 
             x_origin, y_origin = origin_coordinates[1], origin_coordinates[0]
             x_destination, y_destination = destination_coordinates[1], destination_coordinates[0]
+        except Exception as e:
+           raise ValueError(f"Error geocoding location: {e}")
 
+        try:   
             origin = ox.distance.nearest_nodes(self.city_map, X=x_origin, Y=y_origin)
             destination = ox.distance.nearest_nodes(self.city_map, X=x_destination, Y=y_destination)
 
             route = ox.shortest_path(self.city_map, origin, destination, weight='travel_time')
             #fig, ax = ox.plot_graph_route(self.city_map, route, node_size=0)
             #fig.savefig('route_map.png', dpi=300)
+            print(f'The route found between {origin_location} and {destination_location} is {route}')
+        except Exception as e:
+            raise ValueError(f"Error computing route: {e}")
             
+        try:
             route_df = ox.routing.route_to_gdf(self.city_map, route)
             route_df = route_df['name'].fillna('').reset_index(drop=True)
             route_list = []
@@ -56,9 +63,8 @@ class RouteNavigatorTool(BaseTool):
             route_list = [item for i, item in enumerate(route_list) if  i == 0 or route_list[i] != route_list[i-1]]
 
             return route_list
-        
         except Exception as e:
-            raise ValueError(f"Error geocoding location: {e}")
+            raise ValueError(f"Error processing route data: {e}")
 
     
     def _run(self, fire_location: str, ambulance_information: dict) -> Dict[str, dict]:

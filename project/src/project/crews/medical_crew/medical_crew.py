@@ -28,7 +28,7 @@ agent_llm = ChatOpenAI(
 
 class MedicalPlannerSchema(BaseModel):
 	"""Output for the medical plan task."""
-	ambulances_employed: List[str] = Field(..., description='Pairs of ambulance identifications with the injured person identfications assigned.')
+	ambulances_employed: List[str] = Field(..., description='Pairs of ambulance identifications with the injured person identifications assigned.')
 	assigned_hospitals: List[Tuple[str, str]] = Field(..., description='Pairs of ambulance identifications with its hospital identification assigned.')
 	rooms_needed: List[Tuple[str, List[str]]] = Field(..., description='Pairs of hospital identifications with a list of rooms identifications needed for that hospital.')
 	routes_to_fire: List[Tuple[float, float]] = Field(..., description='List of ambulance identifications along with the X and Y coordinates that form the route for that hospital from their current location to the fire scene.')

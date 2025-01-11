@@ -57,15 +57,18 @@ hospital_assign_task:
 
 route_navigate_task:
   description: >
-    Use the RouteNavigatorTool only once to compute the two routes for each ambulance.
-    First, the route from their starting location to the fire emergency.
-    Second, the route from the fire emergency to the hospital they were assigned to.
+    Use the RouteNavigatorTool to obtain the two routes for each ambulance.
+    For each ambulance, the first route you obtain route is the route from their starting location to the fire emergency.
+    The second you obtain is the route from the fire emergency to the hospital they were assigned to.
     DO NOT HALLUCINATE.
   expected_output: >
     You MUST NOT delete or change anything from the previous agent's answer.
     Your final output MUST ADD the following output structure to the previous agent's output,
     and INCLUDING the answer from the previous agent's output:
-    For each ambulance, you must provide the two routes they have to do.
+    A Fire Emergency has been reported at {real address of the fire location}.\n
+    * Ambulance {1st_ambulance_id} transporting injured {1st_injured_id} requiring {1st_injured_requirement} was assigned to hospital {hospital_id} in room {room_id}.
+          Ambulance {1st_ambulance_id} starts at {1st_ambulance_location} and has a travel distance of {previous_calculated_ambulance_distance} meters.
+          Ambulance {1st_ambulance_id} ends at {hospital_assigned_location} and has a travel distance of {1st_ambulance_distance} meters.
     
   agent: route_navigator_agent
 
