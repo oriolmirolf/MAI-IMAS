@@ -1,6 +1,6 @@
 import networkx as nx
 import osmnx as ox
-from crewai_tools import BaseTool
+from crewai.tools import BaseTool
 from typing import Type, Dict, Any
 from pydantic import BaseModel, Field
 

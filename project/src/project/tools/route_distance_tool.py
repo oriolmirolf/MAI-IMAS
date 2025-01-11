@@ -1,7 +1,7 @@
 import networkx
 import json
 import osmnx as ox
-from crewai_tools import BaseTool
+from crewai.tools import BaseTool
 from typing import Optional, Type
 from pydantic import BaseModel, Field
 from typing import Any
