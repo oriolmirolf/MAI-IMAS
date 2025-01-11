@@ -6,12 +6,11 @@ from crewai import Agent, Crew, Process, Task
 from crewai.project import CrewBase, agent, crew, task
 from crewai_tools import FileReadTool
 from pydantic import BaseModel, Field
-from typing import List, Tuple
+from typing import List, Tuple, Dict
 
 from tools.ambulance_selector_tool import AmbulanceSelectorTool
 from tools.hospital_selector_tool import HospitalSelectorTool
 from tools.route_navigator_tool import RouteNavigatorTool
-from tools.route_distance_tool import RouteDistanceTool
 
 from langchain_openai import ChatOpenAI
 
@@ -25,15 +24,15 @@ agent_llm = ChatOpenAI(
     # model='gpt-4o', 
 )
 
-
 class MedicalPlannerSchema(BaseModel):
 	"""Output for the medical plan task."""
-	ambulances_employed: List[str] = Field(..., description='Pairs of ambulance identifications with the injured person identifications assigned.')
-	assigned_hospitals: List[Tuple[str, str]] = Field(..., description='Pairs of ambulance identifications with its hospital identification assigned.')
-	rooms_needed: List[Tuple[str, List[str]]] = Field(..., description='Pairs of hospital identifications with a list of rooms identifications needed for that hospital.')
-	routes_to_fire: List[Tuple[float, float]] = Field(..., description='List of ambulance identifications along with the X and Y coordinates that form the route for that hospital from their current location to the fire scene.')
-	routes_to_hospitals: List[Tuple[str, List[Tuple[float, float]]]] = Field(..., description='List of ambulance identifications along with the X and Y coordinates that form the route from the fire scene to the assigned hospital.')
-	response_time: List[Tuple[str, int]] = Field(..., description=('Pairs of ambulance identifications and their time taken to reach the fire scene.'))
+	person_injury: Dict[str, str] = Field(..., Description='Dictionary of person identifications with the classification of their injury (Nurse Check/Hospitalization/ICU).')
+	ambulance_injured_assignations: Dict[str, str] = Field(..., description='Dictionary of ambulance identifications with the injured person identifications they are assigned.')
+	ambulance_hospitals_assignations: Dict[str, str] = Field(..., description='Dictionary of ambulance identifications with the identification of the hospital assigned.')
+	injured_room_assignations: Dict[str, str] = Field(..., description='Dictionary of the injured persons identifications with their assigned room identifications.')
+	routes_to_fire: Dict[str, List[str]] = Field(..., description='Dictionary of ambulance identifications along with a list of their routes from their origin location to the fire emergency.')
+	routes_to_hospitals: Dict[str, List[str]] = Field(..., description='Dictionary of ambulance identifications along with a list of their routes from the fire emergency to the hospital assigned.')
+	ambulance_distances: Dict[str, int] = Field(..., description='Dictionary of ambulance identifications with their total travel distance.')
 
 	@classmethod
 	def get_schema(cls) -> str:
@@ -71,8 +70,6 @@ class MedicalCrew:
 
     @agent
     def ambulance_selector_agent(self) -> Agent:
-        file_read_tool = FileReadTool(file_path=self._medical_file)
-
         with open(self._ambulance_file, "r") as f:
             ambulance_data = json.load(f)
 
@@ -82,7 +79,7 @@ class MedicalCrew:
             verbose=True,
             allow_delegation=False,
             llm=agent_llm,
-            tools=[file_read_tool, ambulance_selector_tool],
+            tools=[ambulance_selector_tool],
             max_iter=1,
             cache=False,
         )
@@ -112,7 +109,7 @@ class MedicalCrew:
             verbose=True,
             allow_delegation=False,
             llm=agent_llm,
-            tools=[file_read_tool, route_navigator_tool],
+            tools=[route_navigator_tool],
             max_iter=1,
             cache=False,
         )

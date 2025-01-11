@@ -70,9 +70,6 @@ class AmbulanceSelectorTool(BaseTool):
         # Select the required number of closest ambulances
         selected_ambulances = ambulance_distances[:ambulances_needed]
 
-        print('Ambulances results:')
-        print(ambulance_distances)
-
         return selected_ambulances
 
 
