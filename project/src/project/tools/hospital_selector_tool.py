@@ -70,6 +70,7 @@ class HospitalSelectorTool(BaseTool):
 
             hospital_info.append({
                 "hospital_id": hosp_id,
+                "hospital_location": hosp_location,
                 "distance": distance,
                 "normal_rooms_available": normal_count,
                 "normal_rooms_ids": [room for room, hosp in self.normal_rooms.items() if hosp == hosp_id],

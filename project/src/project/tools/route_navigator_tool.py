@@ -8,9 +8,10 @@ class RouteNavigatorSchema(BaseModel):
     """Input schema for the Route Navigator Tool."""
     fire_location: str = Field(..., description='Address of the fire location.')
     ambulance_information: Dict = Field(..., description="""Dictionary containing as key the ambulance ids and as values another Dictionary with keys 'address1'
-                                        and 'address2' containing the origin ambulance location address and the destination address, respectively.
-                                        E.g: {"ambulance1": {"address1": "Origin location", "address2": "Destination location"},
-                                              "ambulance2": {"address1": "Origin location", "address2": "Destination location"}, ...}""")
+                                        and 'address2' containing appropiate real origin ambulance location address and the destination address, respectively,
+                                        which you can find in the corresponding answers and files.
+                                        E.g: {"ambulance1": {"address1": "Real Ambulance Origin location", "address2": "Real Fire Location"},
+                                              "ambulance2": {"address1": "Real Fire location", "address2": "Real Ambulance Assigned Location"}, ...}""")
 
 class RouteNavigatorTool(BaseTool):
     name: str = 'Route Navigator Tool'
