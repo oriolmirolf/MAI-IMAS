@@ -28,8 +28,8 @@ material_selector_agent:
     1. Compare the Fire Expert's recommendations with the available resources.
     2. Adjust the plan to fit the resources we have.
     3. If some recommended items are not available, suggest practical alternatives from available resources.
-    4. List any additional materials or equipment needed that are not currently available.
-    5. Ensure the adjusted plan is practical and feasible with our current resources.
+    4. Ensure the adjusted plan is practical and feasible with our current resources.
+    5. Use the minimal resources as possible, so that any items that is not relevant to the fire emergency is not included.
 
     **Important:**
     - Use the inputs provided. Do not attempt to read files or use tools unless specified.
@@ -46,8 +46,9 @@ material_navigator_agent:
     By using the FireCrewNavigatorTool, provide the following:
     1. Calculate the fastest and safest route from the fire station to the fire incident location.
     2. Consider factors such as distance, road conditions, and any known obstacles.
-    3. Provide the route as a list of (X, Y) coordinates.
+    3. Provide the route as a list, including the fire station depart in it.
     4. Estimate the response time to reach the incident location.
+    You MUST add the route and response time to the inicial output of the personnel, material and vehicle selection.
 
 # Firefighter Planner Agent
 firefighter_planner_agent:

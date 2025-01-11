@@ -48,6 +48,7 @@ class FirefighterCrew:
         self.resources_file = 'src/project/crews/fire_crew/resources/resources1.json'
         self.resources_list_file = 'src/project/crews/fire_crew/resources/simplified_resources1.json'
 
+
     # Fire Expert Agent
     @agent
     def new_fire_expert_agent(self) -> Agent:
@@ -147,7 +148,7 @@ if __name__ == "__main__":
         with open(sys.argv[1], 'r') as file:
             fire_emergency_content = file.read().strip()
             result = (
-                    FirefighterCrew(sys.argv[1])
+                    FirefighterCrew()
                     .crew()
                     .kickoff(inputs={'FireEmergency': fire_emergency_content})
             )

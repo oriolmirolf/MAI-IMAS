@@ -9,7 +9,7 @@ new_fire_expert_task:
     The decision must be coherent. Do not include elements that are not useful for the specific case.
   expected_output: >
     You must indicate which firefighter roles, materials, and vehicles are necessary to assess the fire emergency. Only include the essential ones for the case.
-    Do NOT include items that are not relevant for the fire emergency situation.
+    Do NOT include items that are not relevant for the fire emergency situation. The less the better.
     Indicate the approximate quantity needed for each element.
     Do not include the reasoning about why you select the elements; only provide a list.
     Include the address of the fire location!
@@ -48,7 +48,7 @@ material_navigate_task:
     DO NOT HALLUCINATE. PROVIDE THE FULL ADDRESS TO THE TOOL.
   expected_output: >
     You MUST NOT delete or change anything from the previous agent's answer.
-    Your final output MUST ADD the routes obtained without deleting the previous agent's output.
+    Your final output MUST ADD the routes obtained without deleting the previou agent's output.
     Provide the route and response time to the output of the material selection.
     You MUST output, apart from the previous agent's output, a list of the streets and number included in the route to the fire and the estimated response time in minutes.
     It is very important that you output and keep intact the previous agent's answer too.

@@ -39,11 +39,6 @@
       "role": "Communications Officer",
       "count": 1,
       "description": "Manages communication between the team and dispatch."
-    },
-    {
-      "role": "Aerial Apparatus Operator",
-      "count": 1,
-      "description": "Operates vehicles equipped with aerial ladders or platforms."
     }
   ],
   "equipment_inventory": [
