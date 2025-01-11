@@ -9,8 +9,8 @@ class RouteNavigatorSchema(BaseModel):
     fire_location: str = Field(..., description='Address of the fire location.')
     ambulance_information: Dict = Field(..., description="""Dictionary containing as key the ambulance ids and as values another Dictionary with keys 'address1'
                                         and 'address2' containing the origin ambulance location address and the destination address, respectively.
-                                        E.g: {"ambulance1": {"address1": "Origin location", "address2": "Destination location"},
-                                              "ambulance2": {"address1": "Origin location", "address2": "Destination location"}, ...}""")
+                                        E.g: {"ambulance1": {"address1": "Change it for the origin address of ambulance1", "address2": "Change it for the destination address of ambulance1"},
+                                              "ambulance2": {"address1": "Change it for the origin address of ambulance2", "address2": "Change it for the destination address of ambulance2"}, ...}""")
 
 class RouteNavigatorTool(BaseTool):
     name: str = 'Route Navigator Tool'
@@ -66,6 +66,8 @@ class RouteNavigatorTool(BaseTool):
                 'route1': self.compute_route(value["address1"], fire_location),
                 'route2': self.compute_route(fire_location, value["address2"])
             }
+        
+        print(routes)
 
         return routes
 
