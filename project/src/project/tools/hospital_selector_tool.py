@@ -77,8 +77,33 @@ class HospitalSelectorTool(BaseTool):
                 "icu_rooms_available": uci_count,
                 "icu_rooms_ids": [room for room, hosp in self.uci_rooms.items() if hosp == hosp_id]
             })
+            
+            # Construct natural language descriptions for each hospital
+            descriptions = []
+            for info in hospital_info:
+                description = (
+                    f"Hospital {info['hospital_id']} is located at {info['hospital_location']} and is "
+                    f"{info['distance']} meters away from the fire location.\n"
+                    f"* It has {info['normal_rooms_available']} normal room(s) available"
+                )
+                if info['normal_rooms_ids']:
+                    normal_ids = ", ".join(map(str, info['normal_rooms_ids']))
+                    description += f" with room IDs: {normal_ids}.\n"
+                else:
+                    description += ".\n"
 
-        return hospital_info
+                description += f"* It has {info['icu_rooms_available']} ICU room(s) available"
+                if info['icu_rooms_ids']:
+                    icu_ids = ", ".join(map(str, info['icu_rooms_ids']))
+                    description += f" with room IDs: {icu_ids}."
+                else:
+                    description += "."
+
+                descriptions.append(description)
+
+            # Combine all hospital descriptions into one final string
+            final_info_string = "\n\n".join(descriptions)
+            return final_info_string
 
 
     def _find_distance(self, x_origin: float, y_origin: float, x_destination: float, y_destination: float) -> int:

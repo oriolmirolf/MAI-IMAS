@@ -9,6 +9,7 @@ emergency_doctor_task:
     Third, write the output using the expected_output guidelines. DO NOT HALLUCINATE.
   expected_output: >
     You MUST use the following output structure:
+    A Fire Emergency has been reported at {real address of the fire location}.\n
     * Person {1st_injured_id} with injury {state their injury} needs {Nurse Check/Hospitalization/ICU}.
     * Person {2nd_injured_id} with injury {state their injury} needs {Nurse Check/Hospitalization/ICU}.
     ...
@@ -23,6 +24,7 @@ ambulance_select_task:
     Third, once obtained the tool results, write the output using the expected_output guidelines. DO NOT HALLUCINATE.
   expected_output: >
     You MUST use the following output structure:
+    A Fire Emergency has been reported at {real address of the fire location}.\n
     * Injured {1st_injured_id} requiring {1st_injured_requirement} was assigned to {1st_ambulance_id}.
           Ambulance {1st_ambulance_id} starts at {1st_ambulance_location} and has a travel distance of {1st_ambulance_distance} meters.
     * Injured {2nd_injured_id} requiring {2nd_injured_requirement} was assigned to {2nd_ambulance_id}.
@@ -42,6 +44,7 @@ hospital_assign_task:
   expected_output: >
     You MUST add the second route to the previous agent's answer. You MUST NOT change anything else from the previous agent's output.
     Your final output MUST use the following output structure:
+    A Fire Emergency has been reported at {real address of the fire location}.\n
     * Ambulance {1st_ambulance_id} transporting injured {1st_injured_id} requiring {1st_injured_requirement} was assigned to hospital {hospital_id} in room {room_id}.
           Ambulance {1st_ambulance_id} starts at {1st_ambulance_location} and has a travel distance of {previous_calculated_ambulance_distance} meters.
           Ambulance {1st_ambulance_id} ends at {hospital_assigned_location} and has a travel distance of {1st_ambulance_distance} meters.
@@ -57,10 +60,11 @@ route_navigate_task:
     Use the RouteNavigatorTool only once to compute the route for each ambulance from its starting location
     to the fire emergency, and from the fire emergency to its assigned hospital. DO NOT HALLUCINATE.
   expected_output: >
+    You MUST NOT change anything else from the previous agent's output.
+    Your final output MUST ADD the following output structure to the previous agent's output:
     For each ambulance, you must provide the two routes they have to do. 
     First, the route from their starting location to the fire emergency.
     Second, the route from the fire emergency to the hospital they were assigned to.
-
   agent: route_navigator_agent
 
 
