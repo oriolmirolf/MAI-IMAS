@@ -1,6 +1,6 @@
 emergency_doctor_task:
   description: >
-    First, you will recive information about a fire emergency from a previous agent.
+    First, analyze this information about a fire emergency: {FireEmergency}.
     Second, using the information obtained, evaluate the severity of each injured person and classify their injury in one of the
     following three categories: "Nurse Check", "Hospitalization" and "ICU".
     'Nurse Check': Being attended by the ambulance nurses is sufficient.
@@ -9,9 +9,9 @@ emergency_doctor_task:
     Third, write the output using the expected_output guidelines. DO NOT HALLUCINATE.
   expected_output: >
     You MUST use the following output structure:
-    A Fire Emergency has been reported at {real address of the fire location}.\n
-    * Person {1st_injured_id} with injury {state their injury} needs {Nurse Check/Hospitalization/ICU}.
-    * Person {2nd_injured_id} with injury {state their injury} needs {Nurse Check/Hospitalization/ICU}.
+    A Fire Emergency has been reported at "real address of the fire location".\n
+    * Person "1st_injured_id" with injury "state their injury" needs "Nurse Check/Hospitalization/ICU".
+    * Person "2nd_injured_id" with injury "state their injury" needs "Nurse Check/Hospitalization/ICU".
     ...
   agent: emergency_doctor_agent
 
@@ -24,11 +24,11 @@ ambulance_select_task:
     Third, once obtained the tool results, write the output using the expected_output guidelines. DO NOT HALLUCINATE.
   expected_output: >
     You MUST use the following output structure:
-    A Fire Emergency has been reported at {real address of the fire location}.\n
-    * Injured {1st_injured_id} requiring {1st_injured_requirement} was assigned to {1st_ambulance_id}.
-          Ambulance {1st_ambulance_id} starts at their origin location {1st_ambulance_location} and has a travel distance of {1st_ambulance_distance} meters.
-    * Injured {2nd_injured_id} requiring {2nd_injured_requirement} was assigned to {2nd_ambulance_id}.
-          Ambulance {2nd_ambulance_id} starts at their origin location {2nd_ambulance_location} and has a travel distance of {2nd_ambulance_distance} meters.
+    A Fire Emergency has been reported at "real address of the fire location".\n
+    * Injured "1st_injured_id" requiring "1st_injured_requirement" was assigned to "1st_ambulance_id".
+          Ambulance "1st_ambulance_id" starts at their origin location "1st_ambulance_location" and has a travel distance of "1st_ambulance_distance" meters.
+    * Injured "2nd_injured_id" requiring "2nd_injured_requirement" was assigned to "2nd_ambulance_id".
+          Ambulance "2nd_ambulance_id" starts at their origin location "2nd_ambulance_location" and has a travel distance of "2nd_ambulance_distance" meters.
     ...
   agent: ambulance_selector_agent
 
@@ -43,10 +43,10 @@ hospital_assign_task:
   expected_output: >
     You MUST add the second route to the previous agent's answer. You MUST NOT change anything else from the previous agent's output.
     Your final output MUST use the following output structure:
-    A Fire Emergency has been reported at {real address of the fire location}.\n
-    * Ambulance {1st_ambulance_id} transporting injured {1st_injured_id} requiring {1st_injured_requirement} was assigned to hospital {hospital_id} in room {room_id}.
-          Ambulance {1st_ambulance_id} starts at their origin location {1st_ambulance_origin_location} and has a travel distance of {previous_calculated_ambulance_distance} meters.
-          Ambulance {1st_ambulance_id} ends at their assigned hospital location {1st_hospital_assigned_location} and has a travel distance of {1st_ambulance_distance} meters.
+    A Fire Emergency has been reported at "real address of the fire location".\n
+    * Ambulance "1st_ambulance_id" transporting injured "1st_injured_id" requiring "1st_injured_requirement" was assigned to hospital "hospital_id" in room "room_id".
+          Ambulance "1st_ambulance_id" starts at their origin location "1st_ambulance_origin_location" and has a travel distance of "previous_calculated_ambulance_distance" meters.
+          Ambulance "1st_ambulance_id" ends at their assigned hospital location "1st_hospital_assigned_location" and has a travel distance of "1st_ambulance_distance" meters.
     ...
   agent: hospital_assigner_agent
 
@@ -61,11 +61,11 @@ route_navigate_task:
   expected_output: >
     You MUST NOT delete or change anything from the previous agent's answer.
     Your final output MUST ADD the routes obtained following this output structure:
-    A Fire Emergency has been reported at {real address of the fire location}.\n
-    * Ambulance {1st_ambulance_id} transporting injured {1st_injured_id} requiring {1st_injured_requirement} was assigned to hospital {hospital_id} in room {room_id}.
-          - Ambulance {1st_ambulance_id} starts at their origin location {1st_ambulance_location} and has a travel distance of {previous_calculated_ambulance_distance} meters.
+    A Fire Emergency has been reported at "real address of the fire location".\n
+    * Ambulance "1st_ambulance_id" transporting injured "1st_injured_id" requiring "1st_injured_requirement" was assigned to hospital "hospital_id" in room "room_id".
+          - Ambulance "1st_ambulance_id" starts at their origin location "1st_ambulance_location" and has a travel distance of "previous_calculated_ambulance_distance" meters.
             The optimal route calculated is [here write the optimal route calculated for this ambulance for their first route].
-          - Ambulance {1st_ambulance_id} ends at their assigned hospital location {hospital_assigned_location} and has a travel distance of {1st_ambulance_distance} meters.
+          - Ambulance "1st_ambulance_id" ends at their assigned hospital location "hospital_assigned_location" and has a travel distance of "1st_ambulance_distance" meters.
             The optimal route calculated is [here write the optimal route calculated for this ambulance for their second route].
     ...
   agent: route_navigator_agent

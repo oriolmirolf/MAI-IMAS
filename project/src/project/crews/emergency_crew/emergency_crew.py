@@ -8,16 +8,12 @@ from typing import List
 
 from langchain_openai import ChatOpenAI
 
-
 agent_llm = ChatOpenAI(
     temperature=0, 
-    # model='gpt-3.5-turbo', 
     model='gpt-4o-mini'
     )
 
 CHOSEN_LLM = agent_llm
-
-
 
 class DistilledEmergencyCallSchema(BaseModel):
 	"""Output for the distill task."""

@@ -71,9 +71,11 @@ class ProjectFlow(Flow[ProjectState]):
             return "medical-not-needed"
     
     @listen("medical-needed")
-    def medical_crew(self):
+    async def medical_crew(self):
         print("EXECUTING MEDICAL CREW")
-        self.state.medical_planning = MedicalCrew().crew().kickoff()
+        print(self.state.info_medical)
+        medical_inputs = {'FireEmergency': self.state.info_medical}
+        self.state.medical_planning = await MedicalCrew().crew().kickoff_async(inputs=medical_inputs)
     
     @listen("medical-not-needed")
     def no_medical_crew(self):
@@ -84,10 +86,11 @@ class ProjectFlow(Flow[ProjectState]):
     def medical_output(self):
         return
     
-    @listen(emergency_crew)
-    def firefighter_crew(self):
+    @listen(or_(medical_crew, no_medical_crew))
+    async def firefighter_crew(self):
         print("RUNNING FIREFIGHTER CREW")
-        self.state.firefighter_planning = FirefighterCrew(sys.argv[1]).crew().kickoff(inputs={'FireEmergency': self.state.info_fire})
+        fire_inputs = {'FireEmergency': self.state.info_fire}
+        self.state.firefighter_planning = await FirefighterCrew().crew().kickoff_async(inputs=fire_inputs)
     
     @listen(and_(medical_output, firefighter_crew))
     def reporter_crew(self):

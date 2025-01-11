@@ -4,6 +4,13 @@ from crewai import Agent, Crew, Process, Task
 from crewai.project import CrewBase, agent, crew, task
 from crewai_tools import FileReadTool
 
+from langchain_openai import ChatOpenAI
+
+agent_llm = ChatOpenAI(
+    temperature=0.1, 
+    model='gpt-4o-mini'
+)
+
 @CrewBase
 class ReporterCrew():
 	"""Reporter crew"""
@@ -25,7 +32,7 @@ class ReporterCrew():
 			config=self.agents_config['writer_agent'],
 			verbose=True,
 			allow_delegation=False,
-			llm='ollama/llama3.1',
+			llm=agent_llm,
 			tools=tools,
 			max_iter=1,
 		)
@@ -36,7 +43,7 @@ class ReporterCrew():
 			config=self.agents_config['editor_agent'],
 			verbose=True,
 			allow_delegation=False,
-			llm='ollama/llama3.1',
+			llm=agent_llm,
 		)
 
 	@task

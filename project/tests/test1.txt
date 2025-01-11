@@ -1,4 +1,4 @@
-Dispatcher: Emergency services, what’s your emergency?
+Dispatcher: Emergency services, what's your emergency?
 
 Caller (Old Lady): My house is on fire! My husband is badly burned, please he needs urgent help!
 
@@ -6,31 +6,31 @@ Dispatcher: Can you tell me where you are located?
 
 Caller: I'm at Carrer de l'Oreneta, 29, at Vilanova i la Geltru! Please, I need help!
 
-Dispatcher: I'm sending help now. You mentioned your husband is badly burned—how severe are his injuries?
+Dispatcher: I'm sending help now. You mentioned your husband is badly burned-how severe are his injuries?
 
 Caller: He's in a terrible state, with severe burns on his arms and chest. I fear he needs intensive care.
 
 Dispatcher: Understood. Rest assured, help is on the way. Are you safe right now, and are there any other injured people?
 
-Caller: I can’t leave because of the fire, and the flames are spreading fast.
+Caller: I can't leave because of the fire, and the flames are spreading fast.
 
-Dispatcher: I understand. Let’s focus on what we can do. Are there any other injured people besides your husband?
+Dispatcher: I understand. Let's focus on what we can do. Are there any other injured people besides your husband?
 
 Caller: My neighbor fell from the second floor and hurt his leg, and my daughter inhaled a lot of smoke and is having trouble breathing.
 
-Dispatcher: Understood. The neighbor who fell—does he appear to be conscious? Can you describe his leg?
+Dispatcher: Understood. The neighbor who fell-does he appear to be conscious? Can you describe his leg?
 
-Caller: Yes, he’s awake but his leg is twisted at a strange angle. It looks like it might be broken.
+Caller: Yes, he's awake but his leg is twisted at a strange angle. It looks like it might be broken.
 
-Dispatcher: Thank you. About your daughter—what exactly is happening with her breathing?
+Dispatcher: Thank you. About your daughter-what exactly is happening with her breathing?
 
-Caller: She’s not breathing well, I think she might be choking. It’s urgent!
+Caller: She's not breathing well, I think she might be choking. It's urgent!
 
-Dispatcher: Alright, stay on the line. I’m sending multiple units. Are there any other injuries?
+Dispatcher: Alright, stay on the line. I'm sending multiple units. Are there any other injuries?
 
-Caller: No, just those three. I’m terrified and overwhelmed, but that's all I know right now.
+Caller: No, just those three. I'm terrified and overwhelmed, but that's all I know right now.
 
-Dispatcher: I understand. For your husband’s burns, emergency responders will need to act quickly—he likely needs ICU. For the neighbor, he seems to need hospitalization for his leg. Your daughter may require a nurse's attention for her choking until paramedics arrive.
+Dispatcher: I understand. For your husband's burns, emergency responders will need to act quickly-he likely needs ICU. For the neighbor, he seems to need hospitalization for his leg. Your daughter may require a nurse's attention for her choking until paramedics arrive.
 
 Dispatcher: Can you tell me if there are any hazardous materials in the house, or if the fire is near any exits?
 
@@ -38,6 +38,6 @@ Caller: There are some chemicals in the kitchen, and the fire is getting closer 
 
 Dispatcher: Stay calm. Our units are en route. If it becomes too dangerous, prioritize your safety and try to move away from the fire if possible. Our firefighters and medical teams will reach you soon.
 
-Caller: Please hurry! I’m so scared.
+Caller: Please hurry! I'm so scared.
 
-Dispatcher: Help is on the way. Keep safe, and I’ll stay on the line until help arrives.
+Dispatcher: Help is on the way. Keep safe, and I'll stay on the line until help arrives.

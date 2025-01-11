@@ -12,11 +12,8 @@ from dotenv import load_dotenv
 
 from langchain_openai import ChatOpenAI
 
-
-
 agent_llm = ChatOpenAI(
     temperature=0, 
-    # model='gpt-3.5-turbo', 
     model='gpt-4o-mini'
     )
 
@@ -45,12 +42,11 @@ class FirefighterCrew:
 
     agents_config = 'config/agents.yaml'
     tasks_config = 'config/tasks.yaml'
-    path_file_map = 'maps/vilanova_i_la_geltru.graphml'
+    path_file_map = 'src/project/maps/vilanova_i_la_geltru.graphml'
 
-    def __init__(self, emergency_file):
-        self._emergency_file = emergency_file
-        self.resources_file = 'crews/fire_crew/resources/resources1.json'
-        self.resources_list_file = 'crews/fire_crew/resources/simplified_resources1.json'
+    def __init__(self):
+        self.resources_file = 'src/project/crews/fire_crew/resources/resources1.json'
+        self.resources_list_file = 'src/project/crews/fire_crew/resources/simplified_resources1.json'
 
     # Fire Expert Agent
     @agent
@@ -69,7 +65,6 @@ class FirefighterCrew:
     # Material Selector Agent
     @agent
     def material_selector_agent(self) -> Agent:
-        # file_read_tool = FileReadTool(file_path=self._emergency_file)
         resources_read_tool = FileReadTool(file_path=self.resources_file)
         return Agent(
             config=self.agents_config['material_selector_agent'],

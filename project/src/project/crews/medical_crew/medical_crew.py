@@ -13,14 +13,11 @@ from src.project.tools.route_navigator_tool import RouteNavigatorTool
 
 from langchain_openai import ChatOpenAI
 
-openai_api_key = os.getenv('OPENAI_API_KEY')
+#openai_api_key = os.getenv('OPENAI_API_KEY')
 
 agent_llm = ChatOpenAI(
     temperature=0.1, 
-    model='gpt-4o-mini',
-    api_key=openai_api_key, 
-    # model='gpt-3.5-turbo-1106', 
-    # model='gpt-4o', 
+    model='gpt-4o-mini'
 )
 
 class MedicalPlannerSchema(BaseModel):
@@ -50,7 +47,6 @@ class MedicalCrew:
     
 
     def __init__(self):
-        #self._emergency_output = emergency_output
         self._ambulance_file = 'src/project/crews/medical_crew/resources/resourcesAmbulances1.json'
         self._hospital_file = 'src/project/crews/medical_crew/resources/resourcesHospitals1.json'
 
