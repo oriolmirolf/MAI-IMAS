@@ -8,7 +8,8 @@ new_fire_expert_task:
     Reason about why each element is needed. Also, provide an approximate quantity for each element.
     The decision must be coherent. Do not include elements that are not useful for the specific case.
   expected_output: >
-    You must indicate which firefighter roles, materials, and vehicles are necessary to assess the fire emergency.
+    You must indicate which firefighter roles, materials, and vehicles are necessary to assess the fire emergency. Only include the essential ones for the case.
+    Do NOT include items that are not relevant for the fire emergency situation.
     Indicate the approximate quantity needed for each element.
     Do not include the reasoning about why you select the elements; only provide a list.
     Include the address of the fire location!
@@ -45,7 +46,7 @@ material_navigate_task:
     3. Consider factors such as distance, road conditions, and any known obstacles. Ensure the route is optimized for speed and safety.
     4. Estimate the response time to reach the incident location, knowing that you are traveling with trucks.
   expected_output: >
-    Provide the route and response time.
+    Provide the route and response time to the output of the material selection.
     You MUST output a list of the streets and number included in the route to the fire and the estimated response time in minutes.
   agent: material_navigator_agent
 
