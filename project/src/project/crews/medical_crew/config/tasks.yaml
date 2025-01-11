@@ -18,8 +18,9 @@ emergency_doctor_task:
 
 ambulance_select_task:
   description: >
-    First, decide how many ambulances N are required for the fire emergency (one ambulance for each injured person needing 
-    Hospitalization or ICU). Additionally, one extra ambulance without counting Hospitalization and ICU for every 3 nurse checks.
+    First, decide how many ambulances N are required for the fire emergency. For each injured person who requires hospitalization
+    or ICU, assign one ambulance. Additionally, for every three injured persons who only require a nurse check (and do not need
+    hospitalization or ICU), assign one extra ambulance.
     Second, use the AmbulanceSelectorTool to obtain the N closest ambulances ids to the fire emergency and their distances.
     Third, once obtained the tool results, write the output using the expected_output guidelines. DO NOT HALLUCINATE.
   expected_output: >
@@ -40,6 +41,7 @@ hospital_assign_task:
     You MUST take into account the hospitals capacities (for example, if the injured needs ICU, the hospital assigned 
     must have one ICU room available). Take into account that ambulances for nurse check do not need to return to the hospital.
     Second, write the output following the guidelines of the expected_output. DO NOT HALLUCINATE. Take into account that Nurse Check injureds do not need ambulances.
+    You MUST NOT assign the same hospital room to two injured persons, only one hospital room per person.
   expected_output: >
     You MUST add the second route to the previous agent's answer. You MUST NOT change anything else from the previous agent's output.
     Your final output MUST use the following output structure:
