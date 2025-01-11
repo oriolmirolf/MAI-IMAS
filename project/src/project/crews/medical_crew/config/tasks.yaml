@@ -1,7 +1,7 @@
 emergency_doctor_task:
   description: >
-    First, use the FileReadTool only once to read a file containing information about the fire emergency.
-    Second, using the information from the file read, evaluate the severity of each injured person and classify their injury in one of the
+    First, you will recive information about a fire emergency from a previous agent.
+    Second, using the information obtained, evaluate the severity of each injured person and classify their injury in one of the
     following three categories: "Nurse Check", "Hospitalization" and "ICU".
     'Nurse Check': Being attended by the ambulance nurses is sufficient.
     'Hospital Check': The person needs to go to the hospital, but not ICU.

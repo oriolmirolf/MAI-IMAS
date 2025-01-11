@@ -4,11 +4,10 @@ import json
 
 from crewai import Agent, Crew, Process, Task
 from crewai.project import CrewBase, agent, crew, task
-from crewai_tools import FileReadTool
 from pydantic import BaseModel, Field
-from typing import List, Tuple, Dict
+from typing import List, Dict
 
-from tools.ambulance_selector_tool import AmbulanceSelectorTool
+from src.project.tools.ambulance_selector_tool import AmbulanceSelectorTool
 from tools.hospital_selector_tool import HospitalSelectorTool
 from tools.route_navigator_tool import RouteNavigatorTool
 
@@ -57,13 +56,11 @@ class MedicalCrew:
 
     @agent
     def emergency_doctor_agent(self) -> Agent:
-        file_read_tool = FileReadTool(file_path=self._medical_file)
         return Agent(
             config=self.agents_config['emergency_doctor_agent'],
             verbose=True,
             allow_delegation=False,
             llm=agent_llm,
-            tools=[file_read_tool],
             max_iter=1,
             cache=False,
         )
@@ -102,7 +99,6 @@ class MedicalCrew:
 
     @agent
     def route_navigator_agent(self) -> Agent:
-        file_read_tool = FileReadTool(self._hospital_file)
         route_navigator_tool = RouteNavigatorTool(self.path_file_map)
         return Agent(
             config=self.agents_config['route_navigator_agent'],
@@ -164,13 +160,6 @@ class MedicalCrew:
             tasks=self.tasks,  # Automatically created by the @task decorator
             process=Process.sequential,
             verbose=True,
-            # memory=True,
-            # embedder={
-            #     "provider": "ollama",
-            #     "config": {
-            #         "model": "mxbai-embed-large"
-            #     }
-            # }
         )
 
 if __name__ == '__main__':
