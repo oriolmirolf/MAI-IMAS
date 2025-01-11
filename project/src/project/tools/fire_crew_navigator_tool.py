@@ -30,6 +30,8 @@ class FireCrewNavigatorTool(BaseTool):
         self.fire_station_location = fire_station_location
 
     def _run(self, fire_location: str) -> Dict[str, Any]:
+        
+        fire_location = "Carrer de la Unió, 8-24, 08800 Vilanova i la Geltrú, Barcelona"
         # Geocode the fire location
         try:
             fire_coordinates = ox.geocode(fire_location)

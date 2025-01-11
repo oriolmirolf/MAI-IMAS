@@ -7,7 +7,20 @@ from pydantic import BaseModel, Field
 from typing import List, Tuple
 from tools.fire_crew_navigator_tool import FireCrewNavigatorTool
 
-CHOSEN_LLM = 'ollama/llama3.1'
+from langchain_community.llms import OpenAI, Ollama
+from dotenv import load_dotenv
+
+from langchain_openai import ChatOpenAI
+
+
+
+agent_llm = ChatOpenAI(
+    temperature=0, 
+    model='gpt-3.5-turbo', 
+    # openai_api_key='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'
+    )
+
+CHOSEN_LLM = agent_llm
 
 class FirefighterPlannerSchema(BaseModel):
     """Output for the firefighter plan task"""
