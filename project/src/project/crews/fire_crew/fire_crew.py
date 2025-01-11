@@ -17,7 +17,6 @@ from langchain_openai import ChatOpenAI
 agent_llm = ChatOpenAI(
     temperature=0, 
     model='gpt-3.5-turbo', 
-    # openai_api_key='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'
     )
 
 CHOSEN_LLM = agent_llm

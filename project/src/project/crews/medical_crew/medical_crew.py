@@ -12,6 +12,17 @@ from tools.hospital_selector_tool import HospitalSelectorTool
 from tools.route_navigator_tool import RouteNavigatorTool
 from tools.route_distance_tool import RouteDistanceTool
 
+from langchain_openai import ChatOpenAI
+
+
+
+agent_llm = ChatOpenAI(
+    temperature=0.1, 
+    model='gpt-4o', 
+    # model='gpt-3.5-turbo-1106', 
+    # model='gpt-4o-mini', 
+    )
+
 
 class MedicalPlannerSchema(BaseModel):
 	"""Output for the medical plan task."""
@@ -50,7 +61,8 @@ class MedicalCrew:
             config=self.agents_config['emergency_doctor_agent'],
             verbose=True,
             allow_delegation=False,
-            llm='ollama/llama3.1',
+            # llm='ollama/llama3.1',
+            llm=agent_llm,
             tools=[file_read_tool],
             max_iter=1,
             cache=False,
@@ -68,7 +80,8 @@ class MedicalCrew:
             config=self.agents_config['ambulance_selector_agent'],
             verbose=True,
             allow_delegation=False,
-            llm='ollama/llama3.1',
+            # llm='ollama/llama3.1',
+            llm=agent_llm,
             tools=[file_read_tool, ambulance_selector_tool],
             max_iter=1,
             cache=False,
@@ -84,7 +97,8 @@ class MedicalCrew:
             config=self.agents_config['hospital_assigner_agent'],
             verbose=True,
             allow_delegation=False,
-            llm='ollama/llama3.1',
+            # llm='ollama/llama3.1',
+            llm=agent_llm,
             tools=[hospital_selector_tool],
             max_iter=1,
             cache=False,
@@ -93,13 +107,14 @@ class MedicalCrew:
     @agent
     def route_navigator_agent(self) -> Agent:
         file_read_tool = FileReadTool(self._hospital_file)
-        #route_navigator_tool = RouteNavigatorTool(self.path_file_map)
+        route_navigator_tool = RouteNavigatorTool(self.path_file_map)
         return Agent(
             config=self.agents_config['route_navigator_agent'],
             verbose=True,
             allow_delegation=False,
-            llm='ollama/llama3.1',
-            tools=[file_read_tool],
+            # llm='ollama/llama3.1',
+            llm=agent_llm,
+            tools=[file_read_tool, route_navigator_tool],
             max_iter=1,
             cache=False,
         )
@@ -110,7 +125,8 @@ class MedicalCrew:
             config=self.agents_config['medical_planner_agent'],
             verbose=True,
             allow_delegation=False,
-            llm='ollama/llama3.1',
+            # llm='ollama/llama3.1',
+            llm=agent_llm,
             max_iter=1,
             cache=False,
         )
@@ -154,13 +170,13 @@ class MedicalCrew:
             tasks=self.tasks,  # Automatically created by the @task decorator
             process=Process.sequential,
             verbose=True,
-            memory=True,
-            embedder={
-                "provider": "ollama",
-                "config": {
-                    "model": "mxbai-embed-large"
-                }
-            }
+            # memory=True,
+            # embedder={
+            #     "provider": "ollama",
+            #     "config": {
+            #         "model": "mxbai-embed-large"
+            #     }
+            # }
         )
 
 if __name__ == '__main__':

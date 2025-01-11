@@ -1,55 +1,55 @@
-# emergency_doctor_task:
-#   description: >
-#     First, use the FileReadTool only once to read a file containing information about the fire emergency.
-#     Second, using the information from the file read, evaluate the severity of each injured person and classify their injury in one of the
-#     following three categories: "Nurse Check", "Hospitalization" and "ICU".
-#     'Nurse Check': Being attended by the ambulance nurses is sufficient.
-#     'Hospital Check': The person needs to go to the hospital, but not ICU.
-#     'ICU': The person needs Intensive Care Unit (ICU) because they are very injured.
-#     Third, write the output using the expected_output guidelines. DO NOT HALLUCINATE.
-#   expected_output: >
-#     You MUST use the following output structure:
-#     * Person {1st_injured_id} with injury {state their injury} needs {Nurse Check/Hospitalization/ICU}.
-#     * Person {2nd_injured_id} with injury {state their injury} needs {Nurse Check/Hospitalization/ICU}.
-#     ...
-#   agent: emergency_doctor_agent
+emergency_doctor_task:
+  description: >
+    First, use the FileReadTool only once to read a file containing information about the fire emergency.
+    Second, using the information from the file read, evaluate the severity of each injured person and classify their injury in one of the
+    following three categories: "Nurse Check", "Hospitalization" and "ICU".
+    'Nurse Check': Being attended by the ambulance nurses is sufficient.
+    'Hospital Check': The person needs to go to the hospital, but not ICU.
+    'ICU': The person needs Intensive Care Unit (ICU) because they are very injured.
+    Third, write the output using the expected_output guidelines. DO NOT HALLUCINATE.
+  expected_output: >
+    You MUST use the following output structure:
+    * Person {1st_injured_id} with injury {state their injury} needs {Nurse Check/Hospitalization/ICU}.
+    * Person {2nd_injured_id} with injury {state their injury} needs {Nurse Check/Hospitalization/ICU}.
+    ...
+  agent: emergency_doctor_agent
 
 
-# ambulance_select_task:
-#   description: >
-#     First, decide how many ambulances N are required for the fire emergency (one ambulance for each injured person needing 
-#     Hospitalization or ICU).
-#     Second, use the AmbulanceSelectorTool to obtain the N closest ambulances ids to the fire emergency and their distances.
-#     Third, once obtained the tool results, write the output using the expected_output guidelines. DO NOT HALLUCINATE.
-#   expected_output: >
-#     You MUST use the following output structure:
-#     * Injured {1st_injured_id} requiring {1st_injured_requirement} was assigned to {1st_ambulance_id}.
-#           Ambulance {1st_ambulance_id} starts at {1st_ambulance_location} and has a travel distance of {1st_ambulance_distance} meters.
-#     * Injured {2nd_injured_id} requiring {2nd_injured_requirement} was assigned to {2nd_ambulance_id}.
-#           Ambulance {2nd_ambulance_id} starts at {2nd_ambulance_location} and has a travel distance of {2nd_ambulance_distance} meters.
-#     ...
-#   agent: ambulance_selector_agent
-# # TODO: Add an ambulance for every 4 persons needing nurse check (Nº ambulances nurse check = 4 / n_persons_needing_nurse_check)
+ambulance_select_task:
+  description: >
+    First, decide how many ambulances N are required for the fire emergency (one ambulance for each injured person needing 
+    Hospitalization or ICU).
+    Second, use the AmbulanceSelectorTool to obtain the N closest ambulances ids to the fire emergency and their distances.
+    Third, once obtained the tool results, write the output using the expected_output guidelines. DO NOT HALLUCINATE.
+  expected_output: >
+    You MUST use the following output structure:
+    * Injured {1st_injured_id} requiring {1st_injured_requirement} was assigned to {1st_ambulance_id}.
+          Ambulance {1st_ambulance_id} starts at {1st_ambulance_location} and has a travel distance of {1st_ambulance_distance} meters.
+    * Injured {2nd_injured_id} requiring {2nd_injured_requirement} was assigned to {2nd_ambulance_id}.
+          Ambulance {2nd_ambulance_id} starts at {2nd_ambulance_location} and has a travel distance of {2nd_ambulance_distance} meters.
+    ...
+  agent: ambulance_selector_agent
+# TODO: Add an ambulance for every 4 persons needing nurse check (Nº ambulances nurse check = 4 / n_persons_needing_nurse_check)
 
 
-# hospital_assign_task:
-#   description: >
-#     First, use HospitalSelectorTool to obtain the information relevant for each hospital (distance from the fire location,
-#     number of normal rooms available, and number of ICU rooms available). Then, assign to each ambulance a hospital and an appropriate hospital room.
-#     You MUST take into account the hospitals capacities (for example, if the injured needs ICU, the hospital assigned 
-#     must have one ICU room available).
-#     Second, write the output following the guidelines of the expected_output. DO NOT HALLUCINATE.
-#   expected_output: >
-#     You MUST add the second route to the previous agent's answer. You MUST NOT change anything else from the previous agent's output.
-#     Your final output MUST use the following output structure:
-#     * Ambulance {1st_ambulance_id} transporting injured {1st_injured_id} requiring {1st_injured_requirement} was assigned to hospital {hospital_id} in room {room_id}.
-#           Ambulance {1st_ambulance_id} starts at {1st_ambulance_location} and has a travel distance of {previous_calculated_ambulance_distance} meters.
-#           Ambulance {1st_ambulance_id} ends at {hospital_assigned_location} and has a travel distance of {1st_ambulance_distance} meters.
-#     * Ambulance {1st_ambulance_id} transporting injured {2nd_injured_id} requiring {1st_injured_requirement} was assigned to hospital {hospital_id} in room {room_id}.
-#           Ambulance {2nd_ambulance_id} starts at {2nd_ambulance_location} and has a travel distance of {previous_calculated_ambulance_distance} meters.
-#           Ambulance {2nd_ambulance_id} ends at {hospital_assigned_location} and has a travel distance of {2nd_ambulance_distance} meters.
-#     ...
-#   agent: hospital_assigner_agent
+hospital_assign_task:
+  description: >
+    First, use HospitalSelectorTool to obtain the information relevant for each hospital (distance from the fire location,
+    number of normal rooms available, and number of ICU rooms available). Then, assign to each ambulance a hospital and an appropriate hospital room.
+    You MUST take into account the hospitals capacities (for example, if the injured needs ICU, the hospital assigned 
+    must have one ICU room available).
+    Second, write the output following the guidelines of the expected_output. DO NOT HALLUCINATE.
+  expected_output: >
+    You MUST add the second route to the previous agent's answer. You MUST NOT change anything else from the previous agent's output.
+    Your final output MUST use the following output structure:
+    * Ambulance {1st_ambulance_id} transporting injured {1st_injured_id} requiring {1st_injured_requirement} was assigned to hospital {hospital_id} in room {room_id}.
+          Ambulance {1st_ambulance_id} starts at {1st_ambulance_location} and has a travel distance of {previous_calculated_ambulance_distance} meters.
+          Ambulance {1st_ambulance_id} ends at {hospital_assigned_location} and has a travel distance of {1st_ambulance_distance} meters.
+    * Ambulance {1st_ambulance_id} transporting injured {2nd_injured_id} requiring {1st_injured_requirement} was assigned to hospital {hospital_id} in room {room_id}.
+          Ambulance {2nd_ambulance_id} starts at {2nd_ambulance_location} and has a travel distance of {previous_calculated_ambulance_distance} meters.
+          Ambulance {2nd_ambulance_id} ends at {hospital_assigned_location} and has a travel distance of {2nd_ambulance_distance} meters.
+    ...
+  agent: hospital_assigner_agent
 
 
 route_navigate_task:

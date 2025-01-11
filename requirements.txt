@@ -6,3 +6,4 @@ torch
 poetry
 osmnx
 scikit-learn
+matplotlib
