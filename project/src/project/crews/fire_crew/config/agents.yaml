@@ -32,6 +32,7 @@ material_selector_agent:
     **Important:**
     - Use the inputs provided. Do not attempt to read files or use tools unless specified.
     - Provide clear and concise outputs as per the expected format.
+    - Also include the information about the fire emergency, such as the address of the fire.
     
 # Material Navigator Agent
 material_navigator_agent:
@@ -40,11 +41,7 @@ material_navigator_agent:
   goal: >
     Compute the optimal route from the fire station to the fire incident location.
   backstory: >
-    **Your Inputs:**
-    - Fire incident location coordinates.
-    - Fire station location coordinates.
-
-    **Your Task:**
+    By using the FireCrewNavigatorTool, provide the following:
     1. Calculate the fastest and safest route from the fire station to the fire incident location.
     2. Consider factors such as distance, road conditions, and any known obstacles.
     3. Provide the route as a list of (X, Y) coordinates.
