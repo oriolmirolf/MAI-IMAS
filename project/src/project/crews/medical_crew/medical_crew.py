@@ -4,11 +4,10 @@ import json
 
 from crewai import Agent, Crew, Process, Task
 from crewai.project import CrewBase, agent, crew, task
-from crewai_tools import FileReadTool
 from pydantic import BaseModel, Field
-from typing import List, Tuple, Dict
+from typing import List, Dict
 
-from tools.ambulance_selector_tool import AmbulanceSelectorTool
+from src.project.tools.ambulance_selector_tool import AmbulanceSelectorTool
 from tools.hospital_selector_tool import HospitalSelectorTool
 from tools.route_navigator_tool import RouteNavigatorTool
 

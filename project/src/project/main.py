@@ -12,7 +12,7 @@ from .crews.fire_crew.fire_crew import FirefighterCrew
 from .crews.reporter_crew.reporter_crew import ReporterCrew
 
 class ProjectState(BaseModel):
-    emergency_file: str = "./tests/test4.txt"
+    emergency_file: str = "./tests/test1.txt"
     medical_services_needed: bool = True
     info_medical: str = ""
     info_fire: str = ""
@@ -87,8 +87,7 @@ class ProjectFlow(Flow[ProjectState]):
     @listen(emergency_crew)
     def firefighter_crew(self):
         print("RUNNING FIREFIGHTER CREW")
-        # Firefighter crew stuff goes in here
-        self.state.firefighter_planning = "bla bla bla firefighter plan"
+        self.state.firefighter_planning = FirefighterCrew(sys.argv[1]).crew().kickoff(inputs={'FireEmergency': self.state.info_fire})
     
     @listen(and_(medical_output, firefighter_crew))
     def reporter_crew(self):
