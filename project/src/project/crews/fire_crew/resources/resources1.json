@@ -21,11 +21,6 @@
       "description": "Maintains and operates specialized firefighting equipment."
     },
     {
-      "role": "Paramedic",
-      "count": 3,
-      "description": "Provides medical assistance to injured individuals on the scene."
-    },
-    {
       "role": "Driver/Operator",
       "count": 3,
       "description": "Responsible for operating firefighting vehicles and apparatus."
@@ -130,19 +125,9 @@
       "quantity": 2
     },
     {
-      "tool": "First Aid Kit",
-      "description": "Provides basic medical supplies for treating injuries.",
-      "quantity": 5
-    },
-    {
       "tool": "Hazardous Material Suit",
       "description": "Protective suits for handling hazardous materials.",
       "quantity": 4
-    },
-    {
-      "tool": "Rescue Basket",
-      "description": "Used for lifting victims during rescue operations.",
-      "quantity": 2
     },
     {
       "tool": "Communication Radio",
@@ -153,11 +138,6 @@
       "tool": "Emergency Lighting",
       "description": "Portable lighting for low-visibility conditions.",
       "quantity": 6
-    },
-    {
-      "tool": "Defibrillator",
-      "description": "Used for restoring normal heart rhythm.",
-      "quantity": 2
     },
     {
       "tool": "Gas Detector",
@@ -186,11 +166,6 @@
       "tool": "Cutting Torch",
       "description": "Used for cutting through metal structures.",
       "quantity": 2
-    },
-    {
-      "tool": "Stretchers",
-      "description": "Used for transporting injured individuals.",
-      "quantity": 4
     },
     {
       "tool": "Flare Gun",
@@ -230,13 +205,6 @@
       }
     },
     {
-      "type": "Ambulance",
-      "count": 2,
-      "details": {
-        "medical_equipment": "Advanced Life Support"
-      }
-    },
-    {
       "type": "Command Vehicle",
       "count": 1,
       "details": {
@@ -248,14 +216,6 @@
       "count": 1,
       "details": {
         "special_equipment": "Containment and Decontamination Systems"
-      }
-    },
-    {
-      "type": "Aerial Platform",
-      "count": 1,
-      "details": {
-        "platform_height": "40 meters",
-        "water_nozzle_capacity": "1000 liters/min"
       }
     },
     {

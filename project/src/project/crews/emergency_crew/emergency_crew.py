@@ -6,6 +6,17 @@ from crewai_tools import FileReadTool
 from pydantic import BaseModel, Field
 from typing import List
 
+from langchain_openai import ChatOpenAI
+
+
+agent_llm = ChatOpenAI(
+    temperature=0, 
+    # model='gpt-3.5-turbo', 
+    model='gpt-4o-mini'
+    )
+
+CHOSEN_LLM = agent_llm
+
 
 
 class DistilledEmergencyCallSchema(BaseModel):
@@ -46,7 +57,7 @@ class EmergencyCrew():
 			config=self.agents_config['distiller_agent'],
 			verbose=True,
 			allow_delegation=False,
-			llm='ollama/llama3.1',
+			llm=CHOSEN_LLM,
 			tools=[file_read_tool],
 			max_iter=1,
 		)

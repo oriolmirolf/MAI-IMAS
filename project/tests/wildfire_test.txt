@@ -8,15 +8,15 @@ Caller: It's at Carrer de les Oliveres, 08800 Vilanova i la Geltrú, Barcelona. 
 
 Operator: Got it. Can you describe the fire in more detail? Is it threatening any structures or people?
 
-Caller: Yes, it's a wildfire that's spreading very quickly because of strong winds. The smoke is extremely thick—visibility is really low in the area. There are wildlife and livestock in immediate danger, and I’m worried they’ll be trapped. I also heard that nearby communities have already been issued evacuation orders, but as far as I know, no one has been injured.
+Caller: Yes, it's a wildfire that's spreading very quickly because of strong winds. The smoke is extremely thick—visibility is really low in the area. There are wildlife and livestock in immediate danger, and I’m worried they’ll be trapped. Nearby communities have already been evacuated, and thankfully, there are no victims—no injuries or anyone in immediate danger.
 
-Operator: That’s good to hear. Are there any obstacles making it difficult to control the fire?
+Operator: That’s a relief. Are there any obstacles making it difficult to control the fire?
 
 Caller: Yes, there’s very limited water available nearby, which I imagine will make firefighting efforts more complicated.
 
-Operator: Thanks for the detailed information. Are you able to confirm that everyone has evacuated safely?
+Operator: Thanks for the detailed information. Are you sure everyone has evacuated safely?
 
-Caller: Yes, from what I’ve seen, people have been evacuating the area. There doesn’t seem to be anyone injured or in immediate danger, but the fire is spreading fast, and the smoke is intense.
+Caller: Yes, from what I’ve seen, everyone has left the area safely. There doesn’t seem to be any risk to human life at the moment, but the fire is spreading fast, and the smoke is intense.
 
 Operator: Understood. Fire crews and emergency responders are already being dispatched to the location. Please stay clear of the fire and follow any evacuation instructions from local authorities. Do you need further assistance or updates?
 
