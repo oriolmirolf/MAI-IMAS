@@ -94,7 +94,21 @@ class ProjectFlow(Flow[ProjectState]):
     @listen(and_(medical_output, firefighter_crew))
     def reporter_crew(self):
         print("RUNNING REPORTER CREW")
-        self.state.final_plan = f"final emergency plan: {self.state.medical_planning} + {self.state.firefighter_planning}"
+        def fileContents(fname):
+            with open(fname) as f:
+                contents = f.read()
+            return contents
+        inputs = {
+            "firefighter_data": self.state.firefighter_planning,
+            "medical_data": self.state.medical_planning,
+            "original_call": fileContents(self.state.emergency_file)
+        }
+        result = (
+                ReporterCrew()
+                .crew()
+                .kickoff(inputs=inputs)
+        )
+        self.state.final_plan = result.raw
 
     @listen(emergency_crew)
     def save_plan(self):
