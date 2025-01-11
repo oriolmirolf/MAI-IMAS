@@ -1,0 +1,53 @@
+{
+    "firefighter_roles": [
+      "Team Leader",
+      "Hose Operator",
+      "Search and Rescue Specialist",
+      "Equipment Technician",
+      "Paramedic",
+      "Driver/Operator",
+      "Fire Investigator",
+      "Hazardous Materials Specialist",
+      "Communications Officer",
+      "Aerial Apparatus Operator"
+    ],
+    "material": [
+      "Fire Hose",
+      "Fire Extinguisher",
+      "Ladder",
+      "Large Ladder",
+      "Hydraulic Cutter",
+      "Axe",
+      "Thermal Imaging Camera",
+      "Protective Gear",
+      "Breathing Apparatus",
+      "Chainsaw",
+      "Ventilation Fan",
+      "First Aid Kit",
+      "Hazardous Material Suit",
+      "Rescue Basket",
+      "Communication Radio",
+      "Emergency Lighting",
+      "Defibrillator",
+      "Gas Detector",
+      "Rope and Harness",
+      "Portable Pump",
+      "Spreader Tool",
+      "Cutting Torch",
+      "Stretchers",
+      "Flare Gun"
+    ],
+    "vehicles": [
+      "Fire Engine",
+      "Ladder Truck",
+      "Rescue Truck",
+      "Water Tanker",
+      "Ambulance",
+      "Command Vehicle",
+      "HazMat Truck",
+      "Aerial Platform",
+      "Brush Truck",
+      "Foam Tender"
+    ]
+  }
+  

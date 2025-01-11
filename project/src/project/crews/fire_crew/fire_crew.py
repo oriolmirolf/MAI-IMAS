@@ -50,16 +50,20 @@ class FirefighterCrew:
     def __init__(self, emergency_file):
         self._emergency_file = emergency_file
         self.resources_file = 'crews/fire_crew/resources/resources1.json'
+        self.resources_list_file = 'crews/fire_crew/resources/simplified_resources1.json'
 
     # Fire Expert Agent
     @agent
     def new_fire_expert_agent(self) -> Agent:
+        simplified_resources_read_tool = FileReadTool(file_path=self.resources_list_file)
         return Agent(
             config=self.agents_config['new_fire_expert_agent'],
             verbose=True,
             allow_delegation=False,
             llm=CHOSEN_LLM,
+            tools=[simplified_resources_read_tool],
             max_iter=1,
+            cache=False
         )
 
     # Material Selector Agent
@@ -74,6 +78,7 @@ class FirefighterCrew:
             llm=CHOSEN_LLM,
             tools=[resources_read_tool],
             max_iter=1,
+            cache=False
         )
 
     # Material Navigator Agent
@@ -90,6 +95,7 @@ class FirefighterCrew:
             llm=CHOSEN_LLM,
             tools=[fire_crew_navigator_tool],
             max_iter=1,
+            cache=False
         )
 
     # Firefighter Planner Agent
@@ -101,6 +107,7 @@ class FirefighterCrew:
             allow_delegation=False,
             llm=CHOSEN_LLM,
             max_iter=1,
+            cache=False
         )
 
     # Tasks

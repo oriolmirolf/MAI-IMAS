@@ -9,7 +9,9 @@ new_fire_expert_agent:
   backstory: >
     You are the expert in the firefighter station.
     Your responsibility is to analyze a fire emergency situation, such as its severity, type, and other relevant characteristics.
+    Read the JSON about the resources from the firefighter station.
     Given the analysis of the fire emergency, you must decide which roles of firefighters, which materials, and which vehicles are needed to properly assess the fire. The selection must be coherent among the three elements.
+    Ensure that the selection is coherent with the resources.
 
 # Material Selector Agent
 material_selector_agent:

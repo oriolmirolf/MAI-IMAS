@@ -31,7 +31,7 @@ material_select_task:
     - Personnel: roles and quantities.
     - Vehicles: types and quantities.
     - Materials: equipment and quantities.
-    - List of any additional materials or equipment required that are not available.
+    All the items selected (personnel, vehicles and materials) must be available in the resources of the fire station.
     Ensure the adjusted plan is practical and feasible.
     Include the address of the fire location!
   agent: material_selector_agent
