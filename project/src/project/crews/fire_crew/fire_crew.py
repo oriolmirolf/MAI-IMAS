@@ -4,7 +4,7 @@ from crewai import Agent, Crew, Process, Task
 from crewai.project import CrewBase, agent, crew, task
 from crewai_tools import FileReadTool
 from pydantic import BaseModel, Field
-from typing import List, Tuple
+from typing import List, Dict
 from src.project.tools.fire_crew_navigator_tool import FireCrewNavigatorTool
 
 from langchain_community.llms import OpenAI, Ollama
@@ -21,9 +21,9 @@ CHOSEN_LLM = agent_llm
 
 class FirefighterPlannerSchema(BaseModel):
     """Output for the firefighter plan task"""
-    personnel: List[Tuple[str, int]] = Field(..., description='Pairs indicating personnel roles and the number of units necessary')
-    vehicles: List[Tuple[str, int]] = Field(..., description='Pairs indicating types of vehicles and their quantities')
-    material: List[Tuple[str, int]] = Field(..., description='Pairs indicating equipment required to assess the fire and their quantities')
+    personnel: Dict[str, int] = Field(..., description='Dictionary indicating personnel roles and the number of units necessary')
+    vehicles: Dict[str, int] = Field(..., description='Pairs indicating types of vehicles and their quantities')
+    material: List[Dict[str, int]] = Field(..., description='Pairs indicating equipment required to assess the fire and their quantities')
     route_to_fire: List[str] = Field(..., description='List of streets and numbers forming the route from the fire station to the fire incident location')
     response_time: float = Field(..., description='Time taken to go from the fire station to the fire incident location')
     reasoning: str = Field(..., description='Explanations for the decisions made.')
@@ -81,7 +81,7 @@ class FirefighterCrew:
     def material_navigator_agent(self) -> Agent:
         fire_crew_navigator_tool = FireCrewNavigatorTool(
             city_map_file=self.path_file_map,
-            fire_station_location='Av. de Francesc Macià, 134, 08800 Vilanova i la Geltrú, Barcelona'
+            fire_station_location='Av. de Francesc Macia, 134, 08800 Vilanova i la Geltru, Barcelona'
         )
         return Agent(
             config=self.agents_config['material_navigator_agent'],

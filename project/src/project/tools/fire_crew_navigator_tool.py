@@ -7,7 +7,7 @@ from pydantic import BaseModel, Field
 
 class FireCrewNavigatorSchema(BaseModel):
     """Input schema for the Fire Crew Navigator Tool."""
-    fire_location: str = Field(..., description='Address of the fire emergency.')
+    fire_location: str = Field(..., description='Address of the real fire emergency.')
 
 class FireCrewNavigatorTool(BaseTool):
     name: str = 'Fire Crew Navigator Tool'

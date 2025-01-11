@@ -45,9 +45,13 @@ material_navigate_task:
     2. Use the FireCrewNavigatorTool to calculate the fastest and safest route from the fire station to the fire incident location.
     3. Consider factors such as distance, road conditions, and any known obstacles. Ensure the route is optimized for speed and safety.
     4. Estimate the response time to reach the incident location, knowing that you are traveling with trucks.
+    DO NOT HALLUCINATE. PROVIDE THE FULL ADDRESS TO THE TOOL.
   expected_output: >
+    You MUST NOT delete or change anything from the previous agent's answer.
+    Your final output MUST ADD the routes obtained without deleting the previous agent's output.
     Provide the route and response time to the output of the material selection.
-    You MUST output a list of the streets and number included in the route to the fire and the estimated response time in minutes.
+    You MUST output, apart from the previous agent's output, a list of the streets and number included in the route to the fire and the estimated response time in minutes.
+    It is very important that you output and keep intact the previous agent's answer too.
   agent: material_navigator_agent
 
 
