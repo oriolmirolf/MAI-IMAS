@@ -67,6 +67,8 @@ class RouteNavigatorTool(BaseTool):
                 'route1': self.compute_route(value["address1"], fire_location),
                 'route2': self.compute_route(fire_location, value["address2"])
             }
+        
+        print(routes)
 
         return routes
 

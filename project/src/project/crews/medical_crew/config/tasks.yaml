@@ -54,10 +54,12 @@ hospital_assign_task:
 
 route_navigate_task:
   description: >
-    First, use the RouteNavigatorTool only once to compute the route for each ambulance from its starting location
+    Use the RouteNavigatorTool only once to compute the route for each ambulance from its starting location
     to the fire emergency, and from the fire emergency to its assigned hospital. DO NOT HALLUCINATE.
   expected_output: >
-    Show each calculated route.
+    For each ambulance, you must provide the two routes they have to do. 
+    First, the route from their starting location to the fire emergency.
+    Second, the route from the fire emergency to the hospital they were assigned to.
 
   agent: route_navigator_agent
 

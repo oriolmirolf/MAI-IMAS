@@ -39,6 +39,8 @@ class RouteDistanceTool(BaseTool):
     def _find_distance(self, x_origin: float, y_origin: float, x_destination: float, y_destination: float) -> int:
         origin_node = ox.distance.nearest_nodes(self.city_map, X=x_origin, Y=y_origin)
         destination_node = ox.distance.nearest_nodes(self.city_map, X=x_destination, Y=y_destination)
+        if origin_node == destination_node:
+            return 0
         route = ox.shortest_path(self.city_map, origin_node, destination_node, weight='travel_time')
         edge_lengths = ox.routing.route_to_gdf(self.city_map, route)['length']
 
