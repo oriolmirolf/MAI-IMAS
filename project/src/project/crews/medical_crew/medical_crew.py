@@ -93,13 +93,13 @@ class MedicalCrew:
     @agent
     def route_navigator_agent(self) -> Agent:
         file_read_tool = FileReadTool(self._hospital_file)
-        #route_navigator_tool = RouteNavigatorTool(self.path_file_map)
+        route_navigator_tool = RouteNavigatorTool(self.path_file_map)
         return Agent(
             config=self.agents_config['route_navigator_agent'],
             verbose=True,
             allow_delegation=False,
             llm='ollama/llama3.1',
-            tools=[file_read_tool],
+            tools=[file_read_tool, route_navigator_tool],
             max_iter=1,
             cache=False,
         )
