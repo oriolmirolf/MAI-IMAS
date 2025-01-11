@@ -46,16 +46,19 @@ class FireCrewNavigatorTool(BaseTool):
             fig, ax = ox.plot_graph_route(self.city_map, route, node_size=0)
             plt.show()
             # fig.savefig('firefighter_route_map.png', dpi=300)
-            
-            route_df = ox.routing.route_to_gdf(self.city_map, route)
-            route_df = route_df['name'].fillna('').reset_index(drop=True)
-            route_list = []
-            route_list = [street_name for i, street_name in enumerate(route_df) 
-                        if street_name != '' and (i == 0 or street_name != route_df[i - 1])]
-            
-            route_list = [item for sublist in route_list for item in (sublist if isinstance(sublist, list) else [sublist])]
 
-            return route_list
+            
+            route_gdf = ox.routing.route_to_gdf(self.city_map, route)
+            route_gdf = route_gdf['name'].fillna('').reset_index(drop=True)
+
+            route_directions = []
+            for i, street_name in enumerate(route_gdf):
+                if street_name != '' and (i == 0 or street_name != route_gdf[i - 1]):
+                    direction = street_name
+                    route_directions.append(direction)
+
+            return route_directions
+
         
         except Exception as e:
             raise ValueError(f"Error geocoding location: {e}")

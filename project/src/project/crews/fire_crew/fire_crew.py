@@ -27,7 +27,7 @@ class FirefighterPlannerSchema(BaseModel):
     personnel: List[Tuple[str, int]] = Field(..., description='Pairs indicating personnel roles and the number of units necessary')
     vehicles: List[Tuple[str, int]] = Field(..., description='Pairs indicating types of vehicles and their quantities')
     material: List[Tuple[str, int]] = Field(..., description='Pairs indicating equipment required to assess the fire and their quantities')
-    route_to_fire: List[Tuple[float, float]] = Field(..., description='List of (X, Y) coordinates forming the route from the fire station to the fire incident location')
+    route_to_fire: List[str] = Field(..., description='List of streets and numbers forming the route from the fire station to the fire incident location')
     response_time: float = Field(..., description='Time taken to go from the fire station to the fire incident location')
 
     @classmethod
