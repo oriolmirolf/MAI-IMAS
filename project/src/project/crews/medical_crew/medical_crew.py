@@ -46,13 +46,13 @@ class MedicalCrew:
 
     agents_config = 'config/agents.yaml'
     tasks_config = 'config/tasks.yaml'
-    path_file_map = 'maps/vilanova_i_la_geltru.graphml'
+    path_file_map = 'src/project/maps/vilanova_i_la_geltru.graphml'
     
 
-    def __init__(self, medical_file):
-        self._medical_file = medical_file
-        self._ambulance_file = 'crews/medical_crew/resources/resourcesAmbulances1.json'
-        self._hospital_file = 'crews/medical_crew/resources/resourcesHospitals1.json'
+    def __init__(self):
+        #self._emergency_output = emergency_output
+        self._ambulance_file = 'src/project/crews/medical_crew/resources/resourcesAmbulances1.json'
+        self._hospital_file = 'src/project/crews/medical_crew/resources/resourcesHospitals1.json'
 
     @agent
     def emergency_doctor_agent(self) -> Agent:

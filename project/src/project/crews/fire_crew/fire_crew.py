@@ -2,7 +2,7 @@ import sys
 # from jinja2 import Template
 from crewai import Agent, Crew, Process, Task
 from crewai.project import CrewBase, agent, crew, task
-from crewai.tools import FileReadTool
+from crewai_tools import FileReadTool
 from pydantic import BaseModel, Field
 from typing import List, Tuple
 from src.project.tools.fire_crew_navigator_tool import FireCrewNavigatorTool

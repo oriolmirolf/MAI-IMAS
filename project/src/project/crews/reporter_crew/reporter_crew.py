@@ -2,9 +2,7 @@ import sys
 
 from crewai import Agent, Crew, Process, Task
 from crewai.project import CrewBase, agent, crew, task
-from crewai.tools import FileReadTool
-
-
+from crewai_tools import FileReadTool
 
 @CrewBase
 class ReporterCrew():
