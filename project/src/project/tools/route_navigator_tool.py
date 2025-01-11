@@ -8,10 +8,10 @@ class RouteNavigatorSchema(BaseModel):
     """Input schema for the Route Navigator Tool."""
     fire_location: str = Field(..., description='Address of the fire location.')
     ambulance_information: Dict = Field(..., description="""Dictionary containing as key the ambulance ids and as values another Dictionary with keys 'address1'
-                                        and 'address2' containing appropiate real origin ambulance location address and the destination address, respectively,
+                                        and 'address2' containing appropiate real origin ambulance location address and the real hospital assigned location address, respectively,
                                         which you can find in the corresponding answers and files. Your MUST follow the following structure:
-                                        E.g: {"ambulance1": {"address1": "Real Ambulance Origin location", "address2": "Real Fire Location"},
-                                              "ambulance2": {"address1": "Real Fire location", "address2": "Real Ambulance Assigned Location"}, ...}""")
+                                        E.g: {"ambulance1": {"address1": "Real Ambulance Origin location", "address2": "Real Hospital Assigned Location"},
+                                              "ambulance2": {"address1": "Real Ambulance Origin location", "address2": "Real Hospital Assigned Location"}, ...}""")
 
 class RouteNavigatorTool(BaseTool):
     name: str = 'Route Navigator Tool'
@@ -48,10 +48,12 @@ class RouteNavigatorTool(BaseTool):
             route = ox.shortest_path(self.city_map, origin, destination, weight='travel_time')
             #fig, ax = ox.plot_graph_route(self.city_map, route, node_size=0)
             #fig.savefig('route_map.png', dpi=300)
-            print(f'The route found between {origin_location} and {destination_location} is {route}')
         except Exception as e:
             raise ValueError(f"Error computing route: {e}")
-            
+        
+        if not route or len(route) < 2:
+            raise ValueError(f"Computed route '{route}' is empty or too short to process.")
+
         try:
             route_df = ox.routing.route_to_gdf(self.city_map, route)
             route_df = route_df['name'].fillna('').reset_index(drop=True)
@@ -71,11 +73,9 @@ class RouteNavigatorTool(BaseTool):
         routes = {}
         for key, value in ambulance_information.items():
             routes[key] = {
-                'route1': self.compute_route(value["address1"], fire_location),
-                'route2': self.compute_route(fire_location, value["address2"])
+                'route1': self.compute_route(value["address1"], fire_location) if value["address1"] != fire_location else [fire_location],
+                'route2': self.compute_route(fire_location, value["address2"]) if value["address2"] != fire_location else [fire_location]
             }
-        
-        print(routes)
 
         return routes
 
