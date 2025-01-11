@@ -9,18 +9,13 @@
         "hospital1_room1": "hospital1",
         "hospital1_room2": "hospital1",
         "hospital1_room3": "hospital1",
-        "hospital1_room4": "hospital1",
-        "hospital1_room5": "hospital1",
         "hospital2_room1": "hospital2",
-        "hospital2_room2": "hospital2",
-        "hospital2_room3": "hospital2",
-        "hospital3_room1": "hospital3"
+        "hospital3_room1": "hospital3",
+        "hospital4_room1": "hospital4"
         },
     "uci_rooms": {
         "hospital1_uci1": "hospital1",
         "hospital2_uci1": "hospital2",
-        "hospital3_uci1": "hospital3",
-        "hospital3_uci2": "hospital3",
-        "hospital3_uci3": "hospital3"
+        "hospital3_uci1": "hospital3"
     }
 }

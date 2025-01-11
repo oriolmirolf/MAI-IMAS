@@ -7,9 +7,9 @@ from pydantic import BaseModel
 from crewai.flow.flow import Flow, listen, start, router, or_, and_
 
 from .crews.emergency_crew.emergency_crew import EmergencyCrew
-
+from .crews.medical_crew.medical_crew import MedicalCrew
+from .crews.fire_crew.fire_crew import FirefighterCrew
 from .crews.reporter_crew.reporter_crew import ReporterCrew
-
 
 class ProjectState(BaseModel):
     emergency_file: str = "./tests/test4.txt"
@@ -73,8 +73,7 @@ class ProjectFlow(Flow[ProjectState]):
     @listen("medical-needed")
     def medical_crew(self):
         print("EXECUTING MEDICAL CREW")
-        # Medical crew stuff goes in here
-        self.state.medical_planning = "bla bla bla medical plan"
+        self.state.medical_planning = MedicalCrew(self.state.info_medical).crew().kickoff()
     
     @listen("medical-not-needed")
     def no_medical_crew(self):
