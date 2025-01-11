@@ -113,9 +113,25 @@ class ProjectFlow(Flow[ProjectState]):
 
     @listen(emergency_crew)
     def save_plan(self):
-        print("Saving plan")
+        print("   ==== OUTPUTS SUMMARY ====\n")
+
+        print("  EMERGENCY CREW")
+        print(self.state.info_fire)
+        print(self.state.info_medical)
+
+        print("\n\n  FIRE CREW")
+        print(self.state.firefighter_planning)
+
+        print("\n\n  MEDICAL CREW")
+        print(self.state.medical_planning)
+
+        print("\n\n  REPORT CREW")
+        print(self.state.final_plan)
+
+        print("\n\nSaving plan.")
         with open("plan.md", "w") as f:
             f.write(self.state.final_plan)
+        print("Plan saved.")
 
 
 def kickoff():
