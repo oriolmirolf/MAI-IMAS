@@ -1,5 +1,4 @@
 import networkx
-import json
 import osmnx as ox
 from crewai.tools import BaseTool
 from typing import List, Dict, Type, Any
