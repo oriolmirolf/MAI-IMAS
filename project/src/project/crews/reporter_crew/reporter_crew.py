@@ -81,5 +81,5 @@ if __name__ == "__main__":
 			.crew()
 			.kickoff(inputs=inputs)
 	)
-	print("-----------")
+	print("------------")
 	print(result.raw)
