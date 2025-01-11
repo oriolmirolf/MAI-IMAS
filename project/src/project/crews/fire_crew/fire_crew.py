@@ -29,6 +29,7 @@ class FirefighterPlannerSchema(BaseModel):
     material: List[Tuple[str, int]] = Field(..., description='Pairs indicating equipment required to assess the fire and their quantities')
     route_to_fire: List[str] = Field(..., description='List of streets and numbers forming the route from the fire station to the fire incident location')
     response_time: float = Field(..., description='Time taken to go from the fire station to the fire incident location')
+    resoning: str = Field(..., description='Explanations for the decisions made.')
 
     @classmethod
     def get_schema(cls) -> str:

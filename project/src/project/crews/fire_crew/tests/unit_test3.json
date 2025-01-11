@@ -1,0 +1,12 @@
+{
+    "fire_severity": "severe",
+    "fire_type": "wildfire",
+    "emergency_location": "Carrer de les Oliveres, 08800 Vilanova i la Geltrú, Barcelona",
+    "extra_information_fire": [
+        "rapidly spreading due to strong winds",
+        "low visibility from thick smoke",
+        "several wildlife and livestock in danger",
+        "limited water resources nearby",
+        "evacuation orders issued for nearby communities"
+    ]
+  }
