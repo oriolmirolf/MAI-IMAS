@@ -45,24 +45,24 @@ project/
 │   └── project/
 │       ├── crews/
 │       │   ├── emergency_crew/
-│       │   │   ├── emergency_crew.yaml
+│       │   │   ├── emergency_crew.py
 │       │   │   └── ...
 │       │   ├── fire_crew/
-│       │   │   ├── fire_crew.yaml
+│       │   │   ├── fire_crew.py
 │       │   │   └── ...
 │       │   ├── medical_crew/
-│       │   │   ├── medical_crew.yaml
+│       │   │   ├── medical_crew.py
 │       │   │   └── ...
 │       │   └── reporter_crew/
-│       │       ├── reporter_crew.yaml
+│       │       ├── reporter_crew.py
 │       │       └── ...
 │       ├── maps/
-│       │   └── vilanova_map.graphml  # Graph representation of the city map
+│       │   └── vilanova_i_la_geltru.graphml  # Graph representation of the city map
 │       └── tools/
-│           ├── FireCrewNavigatorTool.py
-│           ├── AmbulanceSelectorTool.py
-│           ├── HospitalSelectorTool.py
-│           └── RouteNavigatorTool.py
+│           ├── fire_crew_navigator_tool.py
+│           ├── ambulance_selector_tool.py
+│           ├── hospital_selector_tool.py
+│           └── route_navigator_tool.py
 ├── test/
 │   ├── test1.txt
 │   ├── test2.txt
@@ -71,6 +71,7 @@ project/
     ├── output1.txt
     ├── output2.txt
     └── output3.txt
+```
 
 - `docs/`: Contains the project’s detailed final report.
 - `requirements.txt`: Dependencies and Python libraries needed to run the MAS.
