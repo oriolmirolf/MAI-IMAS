@@ -85,7 +85,7 @@ project/
 
 ## Prerequisites and Installation
 1. Clone the repository (if applicable) or download it as a ZIP and extract it locally.
-2. Install Python 3.9+ (recommended) or a compatible version.
+2. Install Python 3.12.4 (recommended) or a compatible version.
 3. Navigate to the project root (where `requirements.txt` is located).
 4. Install dependencies:
 ```
@@ -98,7 +98,6 @@ pip install -r requirements.txt
 1. Navigate to the `project/` folder:
 ```
 cd project
-
 ```
 
 2. Execute the flow:
