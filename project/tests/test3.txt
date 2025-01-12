@@ -14,11 +14,11 @@ Dispatcher: Stay with me. We need to figure out the severity of the injuries. Lo
 
 Caller: I see several people with terrible burns, some lying motionless. Others are trying to move but are in pain. There are also a couple of kids with smaller burns.
 
-Dispatcher: Thank you. Based on what you're describing, we will treat at least five individuals as critical cases, likely needing intensive care. There seem to be others who need hospitalization, possibly three people. And the children with minor injuries—two of them—may only need nurse checks at the scene. 
+Dispatcher: Thank you. 
 
 Caller: Oh my god, so many hurt! I'm not sure how to help them now.
 
-Dispatcher: I understand this is overwhelming. We are sending multiple emergency units now. The five critical patients will be taken to the ICU. The three with serious but less severe injuries will be hospitalized. The two children with lighter injuries can receive immediate care on site from our paramedics.
+Dispatcher: I understand this is overwhelming. We are sending multiple emergency units now.
 
 Caller: Please hurry! The flames are getting closer and I'm so scared!
 

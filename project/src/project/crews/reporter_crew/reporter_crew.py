@@ -18,22 +18,13 @@ class ReporterCrew():
 	agents_config = 'config/agents.yaml'
 	tasks_config = 'config/tasks.yaml'
 
-	def __init__(self, input_file=""):
-		self._emergency_file = input_file
-
 	@agent
 	def writer_agent(self) -> Agent:
-		tools = []
-		if self._emergency_file:
-			tools = [FileReadTool(self._emergency_file)]
-		else:
-			tools = []
 		return Agent(
 			config=self.agents_config['writer_agent'],
 			verbose=True,
 			allow_delegation=False,
 			llm=agent_llm,
-			tools=tools,
 			max_iter=1,
 		)
 	
