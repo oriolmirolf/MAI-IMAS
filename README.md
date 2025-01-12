@@ -106,9 +106,12 @@ cd project
 crewai flow kickoff
 ```
 
-3. View Output:
-- After execution, results are saved as `.txt` files in `outputs/`.
-- For example, `output1.txt` is generated after running `test1.txt`.
+3. Save Output:
+- To save the results, you can redirect the output to a file:
+  ```
+  crewai flow kickoff > output.txt
+  ```
+- This will save the results in `output.txt`.
 
 You can review these text files to see the entire plan the system has produced, along with the justifications provided by each agent.
 
