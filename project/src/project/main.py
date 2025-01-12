@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 import sys
 import json
 
@@ -12,7 +11,7 @@ from src.project.crews.fire_crew.fire_crew import FirefighterCrew
 from src.project.crews.reporter_crew.reporter_crew import ReporterCrew
 
 class ProjectState(BaseModel):
-    emergency_file: str = "./tests/test1.txt"
+    emergency_file: str = "./tests/test3.txt"
     medical_services_needed: bool = True
     info_medical: str = ""
     info_fire: str = ""

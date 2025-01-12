@@ -1,0 +1,33 @@
+Dispatcher: Emergency services, what’s your emergency?
+
+Caller (Panicked Adult): Our summer cabin in the woods is on fire! People are hurt, please send help urgently!
+
+Dispatcher: I understand. Can you tell me exactly where you are located?
+
+Caller: We're at Carrer de la Talaia, 30, Vilanova i la Geltru, Barcelona. The fire started in the forest by our cabins!
+
+Dispatcher: Help is on the way. I need to know about the injuries so I can dispatch the right medical units. Can you tell me how many people are seriously hurt?
+
+Caller: There are many injured! I can't see clearly through the smoke...
+
+Dispatcher: Stay with me. We need to figure out the severity of the injuries. Look around—are there people with severe burns or who are not breathing properly?
+
+Caller: I see several people with terrible burns, some lying motionless. Others are trying to move but are in pain. There are also a couple of kids with smaller burns.
+
+Dispatcher: Thank you. Based on what you're describing, we will treat at least five individuals as critical cases, likely needing intensive care. There seem to be others who need hospitalization, possibly three people. And the children with minor injuries—two of them—may only need nurse checks at the scene. 
+
+Caller: Oh my god, so many hurt! I'm not sure how to help them now.
+
+Dispatcher: I understand this is overwhelming. We are sending multiple emergency units now. The five critical patients will be taken to the ICU. The three with serious but less severe injuries will be hospitalized. The two children with lighter injuries can receive immediate care on site from our paramedics.
+
+Caller: Please hurry! The flames are getting closer and I'm so scared!
+
+Dispatcher: Stay calm. Our firefighters and medical teams are en route. For your safety, find a safe spot away from the fire if you can, but do not put yourself in danger. Continue to guide others to safety if possible.
+
+Caller: The smoke is thick, and paths are blocked. I can barely breathe!
+
+Dispatcher: Focus on your safety first. Our teams will reach you soon. Avoid dangerous areas, and if you can, move to a safer location away from the fire. 
+
+Caller: Okay, I'll try. Please hurry!
+
+Dispatcher: Help is on the way. Stay on the line, and I'll continue to guide you until emergency services arrive.

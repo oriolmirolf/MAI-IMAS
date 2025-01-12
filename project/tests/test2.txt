@@ -4,27 +4,27 @@ Caller: Hi, I need to report a severe wildfire. It's spreading rapidly, and the 
 
 Operator: Okay, stay calm. Can you tell me the exact location of the fire?
 
-Caller: It's at Carrer de les Oliveres, 08800 Vilanova i la Geltrú, Barcelona. The fire seems to be growing out of control.
+Caller: It's at Carrer de les Oliveres, 08800 Vilanova i la Geltru, Barcelona. The fire seems to be growing out of control.
 
 Operator: Got it. Can you describe the fire in more detail? Is it threatening any structures or people?
 
-Caller: Yes, it's a wildfire that's spreading very quickly because of strong winds. The smoke is extremely thick—visibility is really low in the area. There are wildlife and livestock in immediate danger, and I’m worried they’ll be trapped. Nearby communities have already been evacuated, and thankfully, there are no victims—no injuries or anyone in immediate danger.
+Caller: Yes, it's a wildfire that's spreading very quickly because of strong winds. The smoke is extremely thick—visibility is really low in the area. There are wildlife and livestock in immediate danger, and I'm worried they'll be trapped. Nearby communities have already been evacuated, and thankfully, there are no victims—no injuries or anyone in immediate danger.
 
-Operator: That’s a relief. Are there any obstacles making it difficult to control the fire?
+Operator: That's a relief. Are there any obstacles making it difficult to control the fire?
 
-Caller: Yes, there’s very limited water available nearby, which I imagine will make firefighting efforts more complicated.
+Caller: Yes, there's very limited water available nearby, which I imagine will make firefighting efforts more complicated.
 
 Operator: Thanks for the detailed information. Are you sure everyone has evacuated safely?
 
-Caller: Yes, from what I’ve seen, everyone has left the area safely. There doesn’t seem to be any risk to human life at the moment, but the fire is spreading fast, and the smoke is intense.
+Caller: Yes, from what I've seen, everyone has left the area safely. There doesn't seem to be any risk to human life at the moment, but the fire is spreading fast, and the smoke is intense.
 
 Operator: Understood. Fire crews and emergency responders are already being dispatched to the location. Please stay clear of the fire and follow any evacuation instructions from local authorities. Do you need further assistance or updates?
 
 Caller: No, just please make sure they act quickly—this fire is getting worse by the minute.
 
-Operator: We’ll handle it. Stay safe, and don’t hesitate to call back if you notice any changes or immediate dangers. Thank you for alerting us.
+Operator: We'll handle it. Stay safe, and don't hesitate to call back if you notice any changes or immediate dangers. Thank you for alerting us.
 
-Caller: Thank you. I’ll stay safe and keep others away from the area.
+Caller: Thank you. I'll stay safe and keep others away from the area.
 
 Operator: Goodbye.
 

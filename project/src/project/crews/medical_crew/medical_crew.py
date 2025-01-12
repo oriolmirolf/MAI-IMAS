@@ -17,7 +17,7 @@ from langchain_openai import ChatOpenAI
 
 agent_llm = ChatOpenAI(
     temperature=0.1, 
-    model='gpt-4o-mini'
+    model='gpt-4o'#-mini'
 )
 
 class MedicalPlannerSchema(BaseModel):

@@ -1,9 +1,10 @@
-crewai[tools]
-ollama
+crewai==0.95.0
+crewai_tools==0.25.8
+ollama==0.4.5
 duckduckgo-search
 transformers
 torch
 poetry
-osmnx
+osmnx==2.0.1
 scikit-learn
 matplotlib
