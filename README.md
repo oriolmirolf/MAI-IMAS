@@ -98,7 +98,6 @@ pip install -r requirements.txt
 1. Navigate to the `project/` folder:
 ```
 cd project
-
 ```
 
 2. Execute the flow:
