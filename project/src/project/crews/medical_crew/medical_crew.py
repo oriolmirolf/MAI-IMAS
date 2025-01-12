@@ -1,4 +1,3 @@
-import os
 import sys
 import json
 
@@ -13,11 +12,9 @@ from src.project.tools.route_navigator_tool import RouteNavigatorTool
 
 from langchain_openai import ChatOpenAI
 
-#openai_api_key = os.getenv('OPENAI_API_KEY')
-
 agent_llm = ChatOpenAI(
     temperature=0.1, 
-    model='gpt-4o'#-mini'
+    model='gpt-4o-mini'
 )
 
 class MedicalPlannerSchema(BaseModel):

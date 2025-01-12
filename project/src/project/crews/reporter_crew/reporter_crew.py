@@ -2,13 +2,12 @@ import sys
 
 from crewai import Agent, Crew, Process, Task
 from crewai.project import CrewBase, agent, crew, task
-from crewai_tools import FileReadTool
 
 from langchain_openai import ChatOpenAI
 
 agent_llm = ChatOpenAI(
     temperature=0.1, 
-    model='gpt-4o'#-mini'
+    model='gpt-4o-mini'
 )
 
 @CrewBase
