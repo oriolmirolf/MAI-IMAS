@@ -170,6 +170,27 @@ Using these tools offloads computational logic from the language-model agents, r
 
 ---
 
+## Environment Setup
+
+To execute the program with the current model (gpt-4o-mini), you need to set the `OPENAI_API_KEY` environment variable.
+
+### Setting the API Key
+
+**On Linux/Ubuntu:**
+```bash
+export OPENAI_API_KEY="your_openai_api_key_here"
+```
+**On Windows (Command Prompt):**
+```bash
+set OPENAI_API_KEY="your_openai_api_key_here"
+```
+
+### Using a Different Model
+
+To use another model, change the `llm` parameter in each agent function call within the code to the desired model (for example, `ollama/llama3.1`).
+
+---
+
 ## Authors
 - **Joan Caballero Castro** (GitHub: [@JoanK11](https://github.com/JoanK11))
 - **Oriol Miró López-Feliu** (GitHub: [@oriolmirolf](https://github.com/oriolmirolf))
