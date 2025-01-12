@@ -113,6 +113,8 @@ crewai flow kickoff
   ```
 - This will save the results in `output.txt`.
 
+If there is an error with any library after step 2, go to `.env/pyenv.cfg` and set `include-system-site-packages = true`, then repeat step 2.
+
 You can review these text files to see the entire plan the system has produced, along with the justifications provided by each agent.
 Additionally, note that the test used in the executions can be changed at the top of the `main.py` code.
 
