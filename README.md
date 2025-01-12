@@ -107,6 +107,7 @@ crewai flow kickoff
 ```
 
 3. Save Output:
+- After executing the command, the output will appear in the terminal.
 - To save the results, you can redirect the output to a file:
   ```
   crewai flow kickoff > output.txt
@@ -114,6 +115,7 @@ crewai flow kickoff
 - This will save the results in `output.txt`.
 
 You can review these text files to see the entire plan the system has produced, along with the justifications provided by each agent.
+Additionally, note that the test used in the executions can be changed at the top of the `main.py` code.
 
 ---
 
