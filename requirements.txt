@@ -1,5 +1,5 @@
 crewai==0.95.0
-crewai_tools==0.25.8
+crewai_tools
 ollama==0.4.5
 duckduckgo-search
 transformers
